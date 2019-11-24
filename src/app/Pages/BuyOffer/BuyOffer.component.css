@@ -1,0 +1,77 @@
+h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.Price, .User, .Terms {
+    margin-bottom: 10px;
+}
+
+.Price span {
+    color: green;
+}
+
+p, span {
+    font-size: 20px;
+}
+
+svg {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.Terms {
+    align-self: center;
+}
+
+.Terms h3 {
+    text-align: center;
+}
+
+.Terms .block {
+    text-align: center;
+    margin: auto;
+    margin-top: 15px;
+    padding-top: 5px;
+    width: 80%;
+    padding-bottom: 5px;
+    background-color: whitesmoke;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.Terms .block p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 40%;
+    background-color: darkorange;
+    color: white;
+    align-self: center;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}

@@ -1,0 +1,35 @@
+<app-Empty></app-Empty>
+<div class="fullsite">
+  <div class="desc">
+    <h1>Create an new account</h1>
+    <p>
+      When you create an account then you will be able to post offers and talk to other customers
+    </p>
+  </div>
+  <br />
+  <form [formGroup]="Register" (ngSubmit)="OnRegister(Register.value)">
+    <div class="property">
+        <label for="Username">Username</label>
+        <input type="text" placeholder="Username" id="Username" formControlName="Username" />
+    </div>
+    <div class="property">
+        <label for="Email">Email</label>
+        <input type="email" placeholder="Email" id="Email" formControlName="Email" />
+    </div>
+    <div class="property">
+        <label for="Password">Password</label>
+        <input type="password" placeholder="Password" id="Password" formControlName="Password" />
+    </div>
+    <div class="property">
+        <label for="RPassword">Repeat password</label>
+        <input type="password" placeholder="Password" id="RPassword" />
+    </div>
+
+    <button type="submit">Sign up</button>
+  </form>
+
+  <div class="switch">
+    <span>Already have an account? <a href="login">Sign in</a></span>
+    <span>Forgot your password? <a href="reset_password">Reset password</a></span>
+  </div>
+</div>

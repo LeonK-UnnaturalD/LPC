@@ -1,0 +1,19 @@
+<app-Empty></app-Empty>
+<div class="heading">
+  <h2>Buy Pi coins in {{State}}</h2>
+</div>
+<div>
+  <div class="table">
+    <span class="Name">Buyer</span>
+    <span class="Payment">Payment method</span>
+    <span class="Price">Price</span>
+  </div>
+</div>
+<div class="container">
+  <div class="buyer" *ngFor="let buyer of Buyers">
+    <span class="Name">{{buyer.Name}}</span>
+    <span class="Payment">{{buyer.PaymentMethod}}:<br />{{buyer.Description}}</span>
+    <span class="Price">{{buyer.Price}}$</span>
+    <a href="buy/{{buyer.OfferId}}"><button>Buy</button></a>
+  </div>
+</div>

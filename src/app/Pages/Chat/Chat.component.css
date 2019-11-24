@@ -1,0 +1,85 @@
+.grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mine {
+    align-self: flex-end;
+    background-color: lightgray;
+}
+
+.other {
+    align-self: flex-start;
+    background-color: whitesmoke;
+}
+
+.msg {
+    display: grid;
+    grid-template-areas: 
+    "name date date"
+    "content content content";
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 45%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+}
+
+.msg > h3 {
+    grid-area: name;
+}
+
+.msg > span {
+    grid-area: date;
+    justify-self: end;
+}
+
+.msg > div {
+    grid-area: content;
+}
+
+.Send {
+    border-top: 1px solid lightgray;
+    padding-top: 15px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 0;
+}
+
+.Send > form {
+    display: grid;
+    grid-template-areas: "msg msg msg msg send";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+#message {
+    grid-area: msg;
+    width: 90%;
+}
+
+.Send > form > button {
+    grid-area: send;
+    height: 35px;
+    width: 35px;
+}
+
+svg {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+h1 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,36 @@
+<app-Empty></app-Empty>
+<div class="container fullsite">
+  <h1>{{User.Username}}</h1>
+  <div class="confirmed">
+    <h3>Number of confirmed purchases</h3>
+    <p>{{User.ConfirmedTrades.length}}</p>
+  </div>
+  <div class="feedbackscore">
+    <h3>Feedback score</h3>
+    <p>{{User.FeedbackScore}}%</p>
+  </div>
+  <div class="created">
+    <h3>Account created</h3>
+    <p>{{User.CreatedAt}}</p>
+  </div>
+  <div class="languages">
+    <h3>Languages</h3>
+    <p>{{User.Languages.join(', ')}}</p>
+  </div>
+  <div class="trusted">
+    <h3>Trustworthy</h3>
+    <p>Trusted by {{User.Trust.length}} people</p>
+  </div>
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <div class="comment" *ngFor="let c of User.Comments">
+      <a href="user/{{c.UserId}}"><h4>{{c.Username}}</h4></a>
+      <div class="text">
+        <p>{{c.Text}}</p>
+      </div>
+      <span *ngIf="c.Rating === 'good'"><i data-feather="thumbs-up"></i></span>
+      <span *ngIf="c.Rating !== 'good'"><i data-feather="thumbs-down"></i></span>
+    </div>
+  </div>
+</div>
+<app-Empty></app-Empty>

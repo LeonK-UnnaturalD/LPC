@@ -1,0 +1,11 @@
+<app-Empty></app-Empty>
+<h1>Chats</h1>
+<div class="flex fullsite">
+  <a *ngFor="let chat of Chats" href="chats/{{chat.UserId}}" class="chat">
+    <div>
+      <span><i data-feather="user"></i>&nbsp;{{chat.Username}}</span>
+      <p><a href="user/{{chat.UserId}}">See profile</a></p>
+    </div>
+  </a>
+</div>
+<app-Empty></app-Empty>

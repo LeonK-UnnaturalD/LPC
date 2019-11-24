@@ -1,0 +1,79 @@
+:root {
+    --bettergray: rgba(220, 224, 230, 1);
+}
+
+* {
+    display: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Dosis', sans-serif;
+}
+
+html {
+    min-height: 97vh;
+}
+
+body {
+    min-height: 97vh;
+}
+
+.NavButton {
+    width: 50px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--bettergray);
+    border-radius: 10px;
+}
+
+.NavButton svg, .NavButton line {
+    width: 80%;
+    color: rgba(199, 204, 212, 1)
+}
+
+.NavButton:hover {
+    background-color: darkgray;
+}
+
+.selected {
+    background-color: whitesmoke;
+}
+
+.fullsite {
+    min-height: 89vh;
+}
+
+button {
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    width: 75px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid darkgray;
+    width: 75px;
+    height: 30px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+select {
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 10px;
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

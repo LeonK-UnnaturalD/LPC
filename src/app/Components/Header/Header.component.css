@@ -1,0 +1,82 @@
+.header {
+    height: 50px;
+    background-color: whitesmoke;
+    border-bottom: 1px solid darkgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+svg {
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+}
+
+.header img {
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+.header h2 {
+    margin-left: 15px;
+    display: inline-block;
+}
+
+.header span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.NavButton {
+    margin-right: 10px;
+}
+
+.nav {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    background-color: whitesmoke;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navAnim {
+    animation-name: ScaleMenu;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    display: flex;
+}
+
+.NavContainer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 100%;
+}
+
+.NavContainer > span {
+    margin-left: 20px;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+@keyframes ScaleMenu {
+    from {
+        transform: translateX(-1000px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}

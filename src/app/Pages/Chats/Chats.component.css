@@ -1,0 +1,40 @@
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.chat a {
+    color: blue;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.chat {
+    width: 100%;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.chat > div {
+    height: 35px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+svg {
+    vertical-align: middle;
+    height: 15px;
+    width: 15px;
+}

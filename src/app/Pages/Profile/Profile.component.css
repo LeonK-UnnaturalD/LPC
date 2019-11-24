@@ -1,0 +1,37 @@
+.grid, form, form, .username, .email, .password {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 15px;
+}
+
+form {
+    width: 100%;
+}
+
+input {
+    width: 80%;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 80%;
+}
+
+button {
+    width: 35%;
+}
+
+.delete {
+    background-color: red;
+}

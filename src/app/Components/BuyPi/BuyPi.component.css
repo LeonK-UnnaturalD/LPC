@@ -1,0 +1,57 @@
+h2 {
+    text-align: center;
+}
+
+.buyer {
+    display: grid;
+    grid-template-areas: "Name Payment Payment Price Button";
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid whitesmoke;
+}
+
+.buyer > .Name {
+    grid-area: Name;
+}
+
+.buyer > .Payment {
+    grid-area: Payment;
+}
+
+.buyer > .Price {
+    grid-area: Price;
+    color: green;
+}
+
+.buyer button {
+    grid-area: Button;
+    height: 30px;
+    width: 45px;
+}
+
+.table {
+    height: 30px;
+    display: grid;
+    grid-template-areas: "TName TPayment TPayment TPrice None";
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color: whitesmoke;
+}
+
+.table > .Name {
+    grid-area: TName;
+}
+
+.table > .Payment {
+    grid-area: TPayment;
+}
+
+.table > .Price {
+    grid-area: TPrice;
+}
+
+.heading {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,52 @@
+.none {
+    display: none;
+}
+
+.Searchblock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 15px;
+}
+
+.amount {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.amount > input {
+    width: 40%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.buttons > button {
+    width: 45%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+button {
+    width: 85%;
+}
+
+input, select {
+    width: 85%;
+}

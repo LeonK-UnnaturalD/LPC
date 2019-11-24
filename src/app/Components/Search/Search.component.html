@@ -1,0 +1,34 @@
+<div class="Searchblock">
+  <div class="buttons">
+    <button class="BuyPi" [ngClass]="IsBuying ? 'selected' : ''" (click)="SetToBuy()">Buy Pi</button>
+    <button class="SellPi" [ngClass]="!IsBuying ? 'selected' : ''" (click)="SetToSell()">Sell Pi</button>
+  </div>
+    <form [ngClass]="IsBuying ? 'buySelected' : 'none'">  
+      <div class="amount">
+          <input type="number" placeholder="from" required />
+          <span>-</span>
+          <input type="number" placeholder="to" required />
+      </div>
+      <select value="Select currency">
+        <option>USD</option>
+      </select>
+      <select value="Select country">
+        <option>New York</option>
+      </select>
+      <button>Find all</button>
+    </form>
+    <form [ngClass]="!IsBuying ? 'sellSelected' : 'none'">  
+      <div class="amount">
+          <input type="number" placeholder="from" required />
+          <span>-</span>
+          <input type="number" placeholder="to" required />
+      </div>
+      <select value="Select currency">
+        <option>USD</option>
+      </select>
+      <select value="Select country">
+        <option>New York</option>
+      </select>
+      <button>Find all</button>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<app-Empty></app-Empty>
+<div class="fullsite">
+  <div class="desc">
+    <h1>Login to your account</h1>
+    <p>
+      Sign in to be able to contact your customers
+    </p>
+  </div>
+  <br />
+  <form [formGroup]="Login" (ngSubmit)="OnLogin(Login.value)">
+    <div class="property">
+        <label for="Username">Username</label>
+        <input type="text" placeholder="Username" id="Username" formControlName="Username" />
+    </div>
+    <div class="property">
+        <label for="Password">Password</label>
+        <input type="password" placeholder="Password" id="Password" formControlName="Password" />
+    </div>
+
+    <button type="submit">Sign in</button>
+  </form>
+
+  <div class="switch">
+    <span>No account yet? <a href="register">Sign up</a></span>
+    <span>Forgot your password? <a href="reset_password">Reset password</a></span>
+  </div>
+</div>

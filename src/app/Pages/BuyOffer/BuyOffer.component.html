@@ -1,0 +1,36 @@
+<app-Empty></app-Empty>
+<div class="fullsite">
+  <h1>
+    Buy Pi with {{Offer.PaymentMethod}}
+  </h1>
+  <p class="intro">
+    LocalPicoins.com user {{Offer.Username}} wishes to sell Pi to you.
+  </p>
+  <div class="Price">
+    <p>Price:
+    <br />
+    <span>{{Offer.Price}}$ / Pi</span></p>
+    <br />
+    <p>Payment:
+    <br />
+    {{Offer.PaymentMethod}}</p>
+  </div>
+  <div class="User">
+    <p>User:
+    <br />
+    <i data-feather="user"></i><span><a href="user/{{Offer.User.Id}}">{{Offer.Username}}</a></span>
+    </p>
+    <br />
+    <p>Location:
+    <br />
+    {{Offer.Location}}</p>
+  </div>
+  <button>Contact me</button>
+  <div class="Terms">
+    <h3>Terms</h3>
+    <div class="block">
+        <p>{{Offer.User.Terms}}</p>
+    </div>
+  </div>
+</div>
+<app-Empty></app-Empty>

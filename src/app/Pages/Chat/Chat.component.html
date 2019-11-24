@@ -1,0 +1,19 @@
+<app-Empty></app-Empty>
+<div class="grid fullsite">
+  <h1>Chat with Steve</h1>
+  <div [ngClass]="Me !== msg.Owner ? 'msg other' : 'msg mine'" *ngFor="let msg of Chat.Messages">
+    <h3>{{msg.Owner}}</h3>
+    <span>{{msg.Date}}</span>
+    <div>
+      <p>{{msg.Content}}</p>
+    </div>
+  </div>
+  <app-Empty></app-Empty>
+  <div class="Send">
+    <form [formGroup]="Group" (ngSubmit)="OnSubmit(Group.value)">  
+      <input type="text" placeholder="Enter message" id="message" formControlName="message" required/>
+      <button type="submit"><i data-feather="send"></i></button>
+    </form>
+  </div>
+</div>
+<app-Empty></app-Empty>
