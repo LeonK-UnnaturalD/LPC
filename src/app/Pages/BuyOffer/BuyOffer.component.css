@@ -75,3 +75,28 @@ a {
     text-decoration: none;
     color: blue;
 }
+
+.infobox {
+    position: fixed;
+    top:50%;
+    left:50%;
+    width:250px;  /* adjust as per your needs */
+    height:300px;   /* adjust as per your needs */
+    margin-left:-125px;   /* negative half of width above */
+    margin-top:-150px;   /* negative half of height above */
+    background-color: whitesmoke;
+    border-radius: 15px;
+    border: 2px solid lightgray;
+}
+
+.infobox h2, .infobox h5 {
+    text-align: center;
+}
+
+.infobox > form {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

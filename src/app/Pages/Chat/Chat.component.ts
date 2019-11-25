@@ -16,7 +16,6 @@ export class ChatComponent implements OnInit {
   public Group: FormGroup;
 
   constructor(private ChatService: ChatService, private Route: ActivatedRoute, private Form: FormBuilder) {
-    this.Chat = this.ChatService.GetChats().find(c => c.UserId === this.Route.snapshot.paramMap.get('id'));
     this.Group = this.Form.group({
       message: ""
     });

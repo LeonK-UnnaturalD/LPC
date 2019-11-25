@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './Pages/Login/Login.component';
 import { ProfileComponent } from './Pages/Profile/Profile.component';
 import { LoadingComponent } from './Pages/Loading/Loading.component';
+import { CreateOfferComponent } from './Pages/CreateOffer/CreateOffer.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { LoadingComponent } from './Pages/Loading/Loading.component';
     UserComponent,
     LoginComponent,
     ProfileComponent,
-    LoadingComponent
+    LoadingComponent,
+    CreateOfferComponent
   ],
   imports: [
     BrowserModule,

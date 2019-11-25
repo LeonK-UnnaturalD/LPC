@@ -12,7 +12,7 @@ export class SellersComponent implements OnInit {
   public State: string = "United states";
 
   constructor(private SellerService: SellersService) {
-    this.Sellers = this.SellerService.GetSellers();
+    //this.SellerService.GetSellers();
   }
 
   ngOnInit() {

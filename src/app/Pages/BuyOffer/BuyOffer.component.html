@@ -1,5 +1,5 @@
 <app-Empty></app-Empty>
-<div class="fullsite">
+<div class="container fullsite">
   <h1>
     Buy Pi with {{Offer.PaymentMethod}}
   </h1>
@@ -25,12 +25,25 @@
     <br />
     {{Offer.Location}}</p>
   </div>
-  <button>Contact me</button>
+  <button (click)="OpenForm()">Contact me</button>
   <div class="Terms">
     <h3>Terms</h3>
     <div class="block">
         <p>{{Offer.User.Terms}}</p>
     </div>
   </div>
+</div>
+<div [ngClass]="Opened ? 'infobox' : 'none infobox'">
+  <h2>Send request</h2>
+  <h5>User set his limit to {{Offer.Limit}} Pi</h5>
+  <form [formGroup]="Group" (ngSubmit)="CreateContact(Group.value)">
+    <div class="amount">
+      <input type="number" value="1" step="any" min="0.001" max="{{Offer.Limit}}" placeholder="1" (change)="MoneyToPi($event)" formControlName="Amount" required />
+      &nbsp;
+      <input type="text" value="{{AmountOfPi}} Pi" step="any" readonly />
+    </div>
+
+    <button type="submit">Create chat</button>
+  </form>
 </div>
 <app-Empty></app-Empty>

@@ -10,6 +10,7 @@ import { ChatComponent } from './Pages/Chat/Chat.component';
 import { UserComponent } from './Pages/User/User.component';
 import { LoginComponent } from './Pages/Login/Login.component';
 import { ProfileComponent } from './Pages/Profile/Profile.component';
+import { CreateOfferComponent } from './Pages/CreateOffer/CreateOffer.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: "chats/:id", component: ChatComponent },
   { path: "user/:id", component: UserComponent },
   { path: "login", component: LoginComponent },
-  { path: "profile", component: ProfileComponent }
+  { path: "profile", component: ProfileComponent },
+  { path: "create_offer", component: CreateOfferComponent }
 ];
 
 @NgModule({

@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
 import Seller from '../Classes/Seller';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SellersService {
-  public Sellers: Array<Seller> = new Array<Seller>();
+  private url: string = "https://findpinearyou.herokuapp.com/api/";
 
-  constructor() {
-    this.Sellers = 
-    [
-      { Name: "Steve", OfferId: "0", PaymentMethod: "Cash deposit", Price: 10},
-      { Name: "Leon", OfferId: "1", PaymentMethod: "Cash deposit", Price: 15},
-      { Name: "Kris", OfferId: "2", PaymentMethod: "Cash deposit", Price: 12},
-      { Name: "Stephen", OfferId: "3", PaymentMethod: "Cash deposit", Price: 15},
-      { Name: "Jason", OfferId: "4", PaymentMethod: "Cash deposit", Price: 8}
-    ]
+  constructor(private http: HttpClient) {
+    
   }
 
-  public GetSellers():Array<Seller> {
-    return this.Sellers;
+  public GetSellers():Observable<Array<Seller>> {
+    return this.http.get<Array<Seller>>(this.url + "sellers");
   }
 
 }

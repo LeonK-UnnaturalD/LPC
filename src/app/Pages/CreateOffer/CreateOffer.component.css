@@ -1,0 +1,44 @@
+h1, p {
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.buttons {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.selected {
+    background-color: whitesmoke;
+}
+
+input {
+    width: 60%;
+}
+
+form > button {
+    margin-top: 20px;
+    background-color: rgb(50,205,50);
+}
+
+a {
+    text-decoration: none;
+    color: darkgray;
+}
+
+.fullsite {
+    width: 90%;
+    margin: auto;
+}

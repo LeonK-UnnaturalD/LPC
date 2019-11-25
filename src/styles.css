@@ -75,5 +75,8 @@ select {
     margin-bottom: 5px;
 }
 
-html, body { height: 100%; }
+.none {
+    display: none;
+}
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

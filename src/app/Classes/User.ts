@@ -11,6 +11,7 @@ export default class User {
     public ConfirmedTrades: Array<string>;
     public FeedbackScore: number;
     public Trust: Array<string>;
-    public SellOffers: Array<string>;
+    public Offers: Array<string>;
     public Terms: string;
+    public Chats: Array<{ Id: string, UserId: string }>;
 }

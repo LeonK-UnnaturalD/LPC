@@ -1,0 +1,27 @@
+<app-Empty></app-Empty>
+<div class="fullsite">
+  <h1>Create an offer</h1>
+  <div>
+    <p>If you create an offer, be it selling or buying Pi, your offer will be posted on our home site, so people can get in toch with you</p>
+  </div>
+  <div class="buttons">
+    <button [ngClass]="!Buying ? 'selected' : ''" (click)="Sell()">Sell</button>
+    <button [ngClass]="Buying ? 'selected' : ''" (click)="Buy()">Buy</button>
+  </div>
+  <form [formGroup]="Group" (ngSubmit)="CreateOffer(Group.value)">
+    <label for="limit">Limit amount of Pi</label>
+    <input type="number" step="any" min="0.5" max="1000" placeholder="1" id="limit" formControlName="Limit" required />
+
+    <label for="payment">Cost of each Pi</label>
+    <input type="number" step="any" min="0.5" max="1000" placeholder="10$" id="payment" formControlName="Price" required />
+
+    <label for="deposit">deposit</label>
+    <input type="text" placeholder="Cash deposit" id="deposit" formControlName="Deposit" required />
+
+    <button type="submit">Create Offer</button>
+  </form>
+  <div>
+    <p>*If you want to change any values, checkout your <a href="dashboard">dashboard</a></p>
+  </div>
+</div>
+<app-Empty></app-Empty>
