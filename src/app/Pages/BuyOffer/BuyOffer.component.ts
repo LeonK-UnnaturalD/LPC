@@ -19,6 +19,7 @@ export class BuyOfferComponent implements OnInit {
   public Group: FormGroup = null;
   public Opened: boolean = false;
   public AmountOfPi: number = 1;
+  public Id: string;
 
   public Me: User = null;
 
@@ -31,8 +32,8 @@ export class BuyOfferComponent implements OnInit {
       Amount: 1
     });
 
-    const offerId = this.Site.snapshot.paramMap.get("id");
-    this.Offer = this.OfferService.GetOffer(offerId);
+    this.Id = this.Site.snapshot.paramMap.get("id");
+    this.Offer = this.OfferService.GetOffer(this.Id);
 
     feather.replace();
   }
@@ -46,22 +47,24 @@ export class BuyOfferComponent implements OnInit {
   }
 
   public CreateContact(data: any):void {
-    const option = { 
-      UserId: this.Me.Id, 
-      Messages: [
-        new Message(
-          this.Me.Id,
-          this.Me.Username,
-          `${this.Me.Username} is requesting ${data.Amount} Pi from you`,
-          new Date().toISOString(),
-          true
-        )
-      ]
-    };
-
-    this.OfferService.CreateContact(option).subscribe(c => {
-      console.log(c);
-    });
+    this.OfferService.GetOffer(this.Id).subscribe(res => {
+      const option = { 
+        UserId: res.UserId, 
+        Messages: [
+          new Message(
+            this.Me.Id,
+            this.Me.Username,
+            `${this.Me.Username} is requesting ${data.Amount} Pi from you`,
+            new Date().toISOString(),
+            true
+          )
+        ]
+      };
+  
+      this.OfferService.CreateContact(option).subscribe(c => {
+        console.log(c);
+      });
+    })
   }
 
 }
