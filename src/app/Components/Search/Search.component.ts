@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/Services/User.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-Search',
@@ -7,17 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
   public IsBuying: boolean = true;
+  public Group: FormGroup;
 
-  constructor() { }
+  constructor(private Router: Router, private Form: FormBuilder) { }
 
   ngOnInit() {
+    this.Group = this.Form.group({
+      From: 0,
+      To: 0,
+      Currency: "USD",
+      Country: "United Kingdom"
+    });
   }
 
-  SetToBuy():void {
+  public SetToBuy():void {
     this.IsBuying = true;
   }
 
-  SetToSell():void {
+  public Find(data: any):void {
+    this.Router.navigate(["/offer_results"], { queryParams: { isbuying: this.IsBuying, from: data.From, to: data.To, country: data.Country, currency: data.Currency } });
+  }
+
+  public SetToSell():void {
     this.IsBuying = false;
   }
 

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import User from 'src/app/Classes/User';
 import { BuyersService } from 'src/app/Services/Buyers.service';
 import feather from 'feather-icons';
+import { UserService } from 'src/app/Services/User.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-User',
@@ -10,16 +12,15 @@ import feather from 'feather-icons';
   styleUrls: ['./User.component.css']
 })
 export class UserComponent implements OnInit {
-  public Id: string = null;
-  public User: User = null;
+  public User: Observable<User>;
 
-  constructor(private Route: ActivatedRoute, private Buyers: BuyersService) {
-    this.Id = this.Route.snapshot.paramMap.get('id');
-    this.User = this.Buyers.GetBuyerUserViaOfferId(this.Id);
+  constructor(private Route: ActivatedRoute, private UserService: UserService) {
+    
   }
 
   ngOnInit() {
-    setTimeout(() => feather.replace(), 100);
+    const id = this.Route.snapshot.paramMap.get('id');
+    this.User = this.UserService.GetUser(id);
   }
 
 }

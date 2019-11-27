@@ -11,6 +11,7 @@ import { UserComponent } from './Pages/User/User.component';
 import { LoginComponent } from './Pages/Login/Login.component';
 import { ProfileComponent } from './Pages/Profile/Profile.component';
 import { CreateOfferComponent } from './Pages/CreateOffer/CreateOffer.component';
+import { OfferResultsComponent } from './Pages/OfferResults/OfferResults.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: "user/:id", component: UserComponent },
   { path: "login", component: LoginComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "create_offer", component: CreateOfferComponent }
+  { path: "create_offer", component: CreateOfferComponent },
+  { path: "offer_results", component: OfferResultsComponent }
 ];
 
 @NgModule({

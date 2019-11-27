@@ -1,24 +1,26 @@
-<app-Empty *ngIf="!Loading"></app-Empty>
-<app-Loading *ngIf="Loading"></app-Loading>
-<div *ngIf="!Loading" class="grid fullsite">
-  <h1>{{User.Username}}</h1>
-  <form [formGroup]="Group" (ngSubmit)="OnChange(Group.value)">
-    <div class="username">
-      <h3>Change username</h3>
-      <input type="text" placeholder="{{User.Username}}" formControlName="Username" />
-    </div>
-    <div class="password">
-      <h3>Change password</h3>
-      <input type="password" placeholder="Enter new password..." formControlName="Password" />
-    </div>
-    <div class="email">
-      <h3>Change Email</h3>
-      <input type="text" placeholder="{{User.Email}}" formControlName="Email" />
-    </div>
-    <div class="buttons">
-      <button class="submit">Change details</button>
-      <button (click)="DeleteAccount()" class="delete">Delete Account</button>
-    </div>
-  </form>
+<div *ngIf="User | async as User">
+  <app-Empty></app-Empty>
+  <div class="grid fullsite">
+    <h1>{{User.Username}}</h1>
+    <form [formGroup]="Group" (ngSubmit)="OnChange(Group.value)">
+      <div class="username">
+        <h3>Change username</h3>
+        <input type="text" placeholder="{{User.Username}}" formControlName="Username" />
+      </div>
+      <div class="password">
+        <h3>Change password</h3>
+        <input type="password" placeholder="Enter new password..." formControlName="Password" />
+      </div>
+      <div class="email">
+        <h3>Change Email</h3>
+        <input type="text" placeholder="{{User.Email}}" formControlName="Email" />
+      </div>
+      <div class="buttons">
+        <button class="submit">Change details</button>
+        <button (click)="DeleteAccount()" class="delete">Delete Account</button>
+      </div>
+    </form>
+  </div>
+  <app-Empty></app-Empty>
 </div>
-<app-Empty *ngIf="!Loading"></app-Empty>
+<app-Loading *ngIf="!(User | async)"></app-Loading>

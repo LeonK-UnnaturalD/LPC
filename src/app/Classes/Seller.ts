@@ -1,7 +1,6 @@
 export default class Seller {
-    public Name: string;
-    public OfferId: string;
+    public Username: string;
+    public Id: string;
     public Price: number;
-    public PaymentMethod: string;
-    public Description?: string = "";
+    public Deposit: string;
 }

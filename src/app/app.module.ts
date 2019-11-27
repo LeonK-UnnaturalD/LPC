@@ -28,6 +28,10 @@ import { LoginComponent } from './Pages/Login/Login.component';
 import { ProfileComponent } from './Pages/Profile/Profile.component';
 import { LoadingComponent } from './Pages/Loading/Loading.component';
 import { CreateOfferComponent } from './Pages/CreateOffer/CreateOffer.component';
+import { MessagesComponent } from './Components/Messages/Messages.component';
+import { OfferResultsComponent } from './Pages/OfferResults/OfferResults.component';
+import { SelectComponent } from './Components/Select/Select.component';
+import { SelectCurrencyComponent } from './Components/SelectCurrency/SelectCurrency.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { CreateOfferComponent } from './Pages/CreateOffer/CreateOffer.component'
     LoginComponent,
     ProfileComponent,
     LoadingComponent,
-    CreateOfferComponent
+    CreateOfferComponent,
+    MessagesComponent,
+    OfferResultsComponent,
+    SelectComponent,
+    SelectCurrencyComponent
   ],
   imports: [
     BrowserModule,

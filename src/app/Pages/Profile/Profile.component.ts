@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/User.service';
 import User from 'src/app/Classes/User';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, Subject, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-Profile',
@@ -9,23 +11,27 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./Profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public User: User = null;
-  public Loading: boolean = true;
+  public User: Observable<User>;
   public Group: FormGroup;
+  public LoadingError = new Subject<boolean>();
 
   constructor(private UserService: UserService, private Form: FormBuilder) {
+  }
+
+  ngOnInit() {
     this.Group = this.Form.group({
       Username: "",
       Password: "",
       Email: ""
     });
-  }
 
-  ngOnInit() {
-    this.UserService.GetProfile().subscribe(res => {
-      this.User = res;
-      this.Loading = false;
-    });
+    this.User = this.UserService.GetProfile().pipe(
+      catchError((err) => {
+        console.log(err);
+        this.LoadingError.next(true);
+        return of<User>();
+      })
+    )
   }
 
   public DeleteAccount():void {

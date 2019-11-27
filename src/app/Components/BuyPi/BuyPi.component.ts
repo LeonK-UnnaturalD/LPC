@@ -16,6 +16,9 @@ export class BuyPiComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.BuyService.GetBuyers().subscribe(b => {
+      this.Buyers = b;
+    });
   }
 
 }

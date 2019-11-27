@@ -1,4 +1,4 @@
-div {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,6 +14,11 @@ div {
 
 .confirmed p, .feedbackscore p {
     color: green;
+}
+
+.confirmed, .feedbackscore, .created, .languages, .trusted, .feedback {
+    width: 100%;
+    padding-left: 30px;
 }
 
 p {

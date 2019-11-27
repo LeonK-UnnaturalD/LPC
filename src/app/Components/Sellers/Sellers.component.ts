@@ -12,10 +12,13 @@ export class SellersComponent implements OnInit {
   public State: string = "United states";
 
   constructor(private SellerService: SellersService) {
-    //this.SellerService.GetSellers();
+    
   }
 
   ngOnInit() {
+    this.SellerService.GetSellers().subscribe(s => {
+      this.Sellers = s;
+    });
   }
 
 }

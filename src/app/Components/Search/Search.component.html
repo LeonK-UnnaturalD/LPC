@@ -3,32 +3,24 @@
     <button class="BuyPi" [ngClass]="IsBuying ? 'selected' : ''" (click)="SetToBuy()">Buy Pi</button>
     <button class="SellPi" [ngClass]="!IsBuying ? 'selected' : ''" (click)="SetToSell()">Sell Pi</button>
   </div>
-    <form [ngClass]="IsBuying ? 'buySelected' : 'none'">  
+    <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="IsBuying ? 'buySelected' : 'none'">  
       <div class="amount">
-          <input type="number" placeholder="from" required />
+          <input type="number" placeholder="from" formControlName="From" required />
           <span>-</span>
-          <input type="number" placeholder="to" required />
+          <input type="number" placeholder="to" formControlName="To" required />
       </div>
-      <select value="Select currency">
-        <option>USD</option>
-      </select>
-      <select value="Select country">
-        <option>New York</option>
-      </select>
+      <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
+      <app-Select [Group]="Group" class="flex"></app-Select>
       <button>Find all</button>
     </form>
-    <form [ngClass]="!IsBuying ? 'sellSelected' : 'none'">  
+    <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="!IsBuying ? 'sellSelected' : 'none'">  
       <div class="amount">
-          <input type="number" placeholder="from" required />
+          <input type="number" placeholder="from" formControlName="From" required />
           <span>-</span>
-          <input type="number" placeholder="to" required />
+          <input type="number" placeholder="to" formControlName="To" required />
       </div>
-      <select value="Select currency">
-        <option>USD</option>
-      </select>
-      <select value="Select country">
-        <option>New York</option>
-      </select>
+      <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
+      <app-Select [Group]="Group" class="flex"></app-Select>
       <button>Find all</button>
     </form>
 </div>

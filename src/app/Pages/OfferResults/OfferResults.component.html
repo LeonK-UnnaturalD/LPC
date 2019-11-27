@@ -1,0 +1,24 @@
+<div *ngIf="Offers | async as Offers">
+  <app-Empty></app-Empty>
+  <div class="heading">
+    <h2 *ngIf="Buy">Results of sellers ({{From}} - {{To}}) in {{Country}}</h2>
+    <h2 *ngIf="!Buy">Results of buyers ({{From}} - {{To}}) in {{Country}}</h2>
+  </div>
+  <div>
+    <div class="table">
+      <span class="Name">Buyer</span>
+      <span class="Payment">Payment method</span>
+      <span class="Price">Price</span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="buyer" *ngFor="let offer of Offers">
+      <span class="Name">{{offer.Username}}</span>
+      <span class="Payment">{{offer.Deposit}}</span>
+      <span class="Price">{{offer.Price}}$</span>
+      <a *ngIf="Buy" href="buy/{{offer.Id}}"><button>Buy</button></a>
+      <a *ngIf="!Buy" href="sell/{{offer.Id}}"><button>Sell</button></a>
+    </div>
+  </div>
+</div>
+<app-Loading *ngIf="!(Offers | async)"></app-Loading>

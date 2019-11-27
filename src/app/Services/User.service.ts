@@ -28,4 +28,12 @@ export class UserService {
     return this.http.post<Offer>(this.url + `offer`, data, { headers: headers });
   }
 
+  public GetUser(Id: string):Observable<User> {
+    return this.http.get<User>(this.url + `users/${Id}`);
+  }
+
+  public FindOffers(buy: boolean, from: string, to: string, country: string, currency: string):Observable<Array<Offer>> {
+    return this.http.get<Array<Offer>>(this.url + `offers/?buy=${buy}&from=${from}&to=${to}&country=${country}&currency=${currency}`);
+  }
+
 }

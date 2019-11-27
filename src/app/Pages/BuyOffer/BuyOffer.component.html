@@ -1,49 +1,43 @@
-<app-Empty></app-Empty>
-<div class="container fullsite">
-  <h1>
-    Buy Pi with {{Offer.PaymentMethod}}
-  </h1>
-  <p class="intro">
-    LocalPicoins.com user {{Offer.Username}} wishes to sell Pi to you.
-  </p>
-  <div class="Price">
-    <p>Price:
-    <br />
-    <span>{{Offer.Price}}$ / Pi</span></p>
-    <br />
-    <p>Payment:
-    <br />
-    {{Offer.PaymentMethod}}</p>
-  </div>
-  <div class="User">
-    <p>User:
-    <br />
-    <i data-feather="user"></i><span><a href="user/{{Offer.User.Id}}">{{Offer.Username}}</a></span>
+<div *ngIf="Offer | async as Offer">
+  <app-Empty></app-Empty>
+  <div class="container fullsite">
+    <h1>
+      Buy Pi with {{Offer.Deposit}}
+    </h1>
+    <p class="intro">
+      LocalPicoins.com user {{Offer.Username}} wishes to sell Pi to you.
     </p>
-    <br />
-    <p>Location:
-    <br />
-    {{Offer.Location}}</p>
-  </div>
-  <button (click)="OpenForm()">Contact me</button>
-  <div class="Terms">
-    <h3>Terms</h3>
-    <div class="block">
-        <p>{{Offer.User.Terms}}</p>
+    <div class="Price">
+      <p>Price:
+      <br />
+      <span>{{Offer.Price}}$ / Pi</span></p>
+      <br />
+      <p>Payment:
+      <br />
+      {{Offer.Deposit}}</p>
     </div>
-  </div>
-</div>
-<div [ngClass]="Opened ? 'infobox' : 'none infobox'">
-  <h2>Send request</h2>
-  <h5>User set his limit to {{Offer.Limit}} Pi</h5>
-  <form [formGroup]="Group" (ngSubmit)="CreateContact(Group.value)">
-    <div class="amount">
-      <input type="number" value="1" step="any" min="0.001" max="{{Offer.Limit}}" placeholder="1" (change)="MoneyToPi($event)" formControlName="Amount" required />
-      &nbsp;
-      <input type="text" value="{{AmountOfPi}} Pi" step="any" readonly />
+    <div class="User">
+      <p>User:
+      <br />
+      <i data-feather="user"></i><span><a href="user/{{Offer.UserId}}">{{Offer.Username}}</a></span>
+      </p>
+      <br />
     </div>
+    <button (click)="OpenForm()">Contact me</button>
+  </div>
+  <div [ngClass]="Opened ? 'infobox' : 'none infobox'">
+    <h2>Send request</h2>
+    <h5>User set his limit to {{Offer.Limit}} Pi</h5>
+    <form [formGroup]="Group" (ngSubmit)="CreateContact(Group.value)">
+      <div class="amount">
+        <input type="number" value="1" step="any" min="0.001" max="{{Offer.Limit}}" placeholder="1" (change)="MoneyToPi($event)" formControlName="Amount" required />
+        &nbsp;
+        <input type="text" value="{{AmountOfPi}} Pi" step="any" readonly />
+      </div>
 
-    <button type="submit">Create chat</button>
-  </form>
+      <button type="submit">Create chat</button>
+    </form>
+  </div>
+  <app-Empty></app-Empty>
 </div>
-<app-Empty></app-Empty>
+<app-Loading *ngIf="!(Offer | async)"></app-Loading>

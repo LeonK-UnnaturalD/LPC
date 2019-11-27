@@ -17,7 +17,9 @@ export class CreateOfferComponent implements OnInit {
     this.Group = this.Form.group({
       Limit: "",
       Price: "",
-      Deposit: ""
+      Deposit: "",
+      Currency: "USD",
+      Country: "United Kingdom"
     })
   }
 

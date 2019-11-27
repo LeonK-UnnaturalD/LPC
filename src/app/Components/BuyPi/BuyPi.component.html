@@ -11,9 +11,9 @@
 </div>
 <div class="container">
   <div class="buyer" *ngFor="let buyer of Buyers">
-    <span class="Name">{{buyer.Name}}</span>
-    <span class="Payment">{{buyer.PaymentMethod}}:<br />{{buyer.Description}}</span>
+    <span class="Name">{{buyer.Username}}</span>
+    <span class="Payment">{{buyer.Deposit}}</span>
     <span class="Price">{{buyer.Price}}$</span>
-    <a href="buy/{{buyer.OfferId}}"><button>Buy</button></a>
+    <a href="buy/{{buyer.Id}}"><button>Buy</button></a>
   </div>
 </div>

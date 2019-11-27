@@ -11,9 +11,6 @@ import AuthResponse from '../Classes/AuthResponse';
   providedIn: 'root'
 })
 export class BuyersService {
-  public Buyers: Array<Buyer> = new Array<Buyer>();
-  public Users: Array<User> = new Array<User>();
-  public BuyOffers: Array<Offer> = new Array<Offer>();
   private url: string = "https://findpinearyou.herokuapp.com/api/";
   private Res: AuthResponse = null;
 
@@ -24,19 +21,15 @@ export class BuyersService {
   public GetBuyers():Observable<Array<Buyer>> {
     return this.http.get<Array<Buyer>>(this.url + "buyers");
   }
-
-  public GetBuyerUserViaOfferId(OfferId: string):User {
-    return this.Users.find(u => u.Offers.includes(OfferId));
-  }
-
-  public GetOffer(OfferId: string):Offer {
-    return this.BuyOffers.find(o => o.Id === OfferId);
+  
+  public GetOffer(Id: string):Observable<Offer> {
+    return this.http.get<Offer>(this.url + `offers/${Id}`);
   }
 
   public CreateContact(data: any):Observable<Chat> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
 
     return this.http.post<Chat>(this.url + "createcontact", data, { headers: headers });
-  } 
+  }
 
 }

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import Chat from 'src/app/Classes/Chats';
 import { ChatService } from 'src/app/Services/Chat.service';
 import { ActivatedRoute } from '@angular/router';
 import feather from 'feather-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import Message from 'src/app/Classes/Messages';
+import AuthResponse from 'src/app/Classes/AuthResponse';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-Chat',
@@ -11,14 +14,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./Chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  public Chat: Chat = null;
-  public Me: string = "Leon";
+  public Messages: Observable<Array<Message>>;
+  public Owner: string = "";
   public Group: FormGroup;
 
   constructor(private ChatService: ChatService, private Route: ActivatedRoute, private Form: FormBuilder) {
-    this.Group = this.Form.group({
-      message: ""
-    });
   }
 
   public OnSubmit(data: any):void {
@@ -26,9 +26,23 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    feather.replace();
+    this.Group = this.Form.group({
+      message: ""
+    });
 
-    this.ChatService.ReceivedMessage().subscribe(msg => console.log(msg));
+    this.Owner = (<AuthResponse>JSON.parse(localStorage.getItem("User"))).User.Id;
+
+    const id = this.Route.snapshot.paramMap.get('id');
+    this.Messages = this.ChatService.GetChatContent(id);
+
+    this.ChatService.JoinChat(id);
+
+    this.ChatService.ReceivedMessage().subscribe(chatId =>
+    {
+      if(chatId !== id) return;
+
+      this.Messages = this.ChatService.GetChatContent(id);
+    });
   }
 
 }

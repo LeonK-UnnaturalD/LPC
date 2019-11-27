@@ -13,7 +13,11 @@
     <input type="number" step="any" min="0.5" max="1000" placeholder="1" id="limit" formControlName="Limit" required />
 
     <label for="payment">Cost of each Pi</label>
-    <input type="number" step="any" min="0.5" max="1000" placeholder="10$" id="payment" formControlName="Price" required />
+    <input type="number" step="any" min="0.5" max="1000" placeholder="10" id="payment" formControlName="Price" required />
+
+    <label for="currency">Currency</label>
+    <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
+    <app-Select [Group]="Group" class="flex"></app-Select>
 
     <label for="deposit">deposit</label>
     <input type="text" placeholder="Cash deposit" id="deposit" formControlName="Deposit" required />
