@@ -1,7 +1,7 @@
 <div *ngIf="Messages | async as Messages">
   <app-Empty></app-Empty>
   <div class="grid fullsite">
-    <h1>Chat with Steve</h1>
+    <h1>Chat</h1>
     <app-Messages class="full" *ngFor="let msg of Messages" Username="{{msg.Username}}" Date="{{msg.Date}}" Content="{{msg.Content}}" Owner="{{msg.Owner}}" MyId="{{Owner}}"></app-Messages>
     <app-Empty></app-Empty>
     <div class="Send">
