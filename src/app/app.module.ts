@@ -32,6 +32,10 @@ import { MessagesComponent } from './Components/Messages/Messages.component';
 import { OfferResultsComponent } from './Pages/OfferResults/OfferResults.component';
 import { SelectComponent } from './Components/Select/Select.component';
 import { SelectCurrencyComponent } from './Components/SelectCurrency/SelectCurrency.component';
+import { ErrorComponent } from './Components/Error/Error.component';
+import { TokenExpiredComponent } from './Pages/TokenExpired/TokenExpired.component';
+import { UnavailableComponent } from './Pages/Unavailable/Unavailable.component';
+import { SuccessComponent } from './Components/Success/Success.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,11 @@ import { SelectCurrencyComponent } from './Components/SelectCurrency/SelectCurre
     MessagesComponent,
     OfferResultsComponent,
     SelectComponent,
-    SelectCurrencyComponent
+    SelectCurrencyComponent,
+    ErrorComponent,
+    TokenExpiredComponent,
+    UnavailableComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,

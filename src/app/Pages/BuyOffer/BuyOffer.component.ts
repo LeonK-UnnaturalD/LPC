@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import Message from 'src/app/Classes/Messages';
 import User from 'src/app/Classes/User';
 import AuthResponse from 'src/app/Classes/AuthResponse';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-BuyOffer',
@@ -15,11 +15,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./BuyOffer.component.css']
 })
 export class BuyOfferComponent implements OnInit {
-  public Offer: Observable<Offer>;
+  public Offer: Offer;
   public Group: FormGroup = null;
   public Opened: boolean = false;
   public AmountOfPi: number = 1;
   public Id: string;
+  public Error: { Code: number, Msg: string } = null;
+  public Loading: boolean = true;
 
   public Me: User = null;
 
@@ -33,9 +35,14 @@ export class BuyOfferComponent implements OnInit {
     });
 
     this.Id = this.Site.snapshot.paramMap.get("id");
-    this.Offer = this.OfferService.GetOffer(this.Id);
+    this.OfferService.GetOffer(this.Id).subscribe(offer => {
+      this.Offer = offer;
+      this.Loading = false;
+    }, err => {
+      this.Error = this.OfferService.Error.HandleError(err);
+    });
 
-    feather.replace();
+    setTimeout(() => feather.replace(), 200);
   }
 
   public OpenForm():void {
@@ -44,6 +51,11 @@ export class BuyOfferComponent implements OnInit {
 
   public MoneyToPi(data: any):void {
     this.AmountOfPi = parseFloat(data.target.value);
+    this.Group.value.Amount = this.AmountOfPi;
+  }
+
+  public Close():void {
+    this.Opened = false;
   }
 
   public CreateContact(data: any):void {
@@ -62,9 +74,12 @@ export class BuyOfferComponent implements OnInit {
       };
   
       this.OfferService.CreateContact(option).subscribe(c => {
-        console.log(c);
+        window.location.assign(`/chats/${c.Id}`);
+      }, err => {
+        this.Error = this.OfferService.Error.HandleError(err);
       });
-    })
+    }, err => {
+      this.Error = this.OfferService.Error.HandleError(err);
+    });
   }
-
 }

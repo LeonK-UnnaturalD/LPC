@@ -10,6 +10,8 @@ import { UserService } from 'src/app/Services/User.service';
 export class CreateOfferComponent implements OnInit {
   public Buying: boolean = false;
   public Group: FormGroup = null;
+  public Error: { Code: number, Msg: string } = null;
+  public Success: boolean = false;
 
   constructor(private Form: FormBuilder, private User: UserService) { }
 
@@ -20,7 +22,7 @@ export class CreateOfferComponent implements OnInit {
       Deposit: "",
       Currency: "USD",
       Country: "United Kingdom"
-    })
+    });
   }
 
   public Sell():void {
@@ -35,10 +37,16 @@ export class CreateOfferComponent implements OnInit {
     data["IsBuying"] = this.Buying;
 
     this.User.CreateOffer(data).subscribe(offer => {
-      console.log(offer);
+      this.Success = true;
 
       this.Group.reset();
+    }, err => {
+      this.Error = this.User.Error.HandleError(err);
     });
+  }
+
+  public Close():void {
+    this.Error = null;
   }
 
 }

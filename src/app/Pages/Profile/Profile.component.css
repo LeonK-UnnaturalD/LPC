@@ -1,10 +1,14 @@
-.grid, form, form, .username, .email, .password {
+.grid, form, form, .username, .email, .password, .languages, .oldpassword {
     display: flex;
     flex-direction: column;
     width: 90%;
     margin: auto;
     justify-content: center;
     align-items: center;
+}
+
+select {
+    width: 80%;
 }
 
 h1 {

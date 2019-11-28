@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BuyersService } from 'src/app/Services/Buyers.service';
 import Buyer from 'src/app/Classes/Buyer';
+import { ActivatedRoute } from '@angular/router';
+import Offer from 'src/app/Classes/Offer';
 
 @Component({
   selector: 'app-BuyPi',
@@ -9,9 +11,9 @@ import Buyer from 'src/app/Classes/Buyer';
 })
 export class BuyPiComponent implements OnInit {
   public State: string = "United states";
-  public Buyers: Array<Buyer> = new Array<Buyer>();
+  public Buyers: Array<Offer> = new Array<Offer>();
 
-  constructor(private BuyService: BuyersService) {
+  constructor(private BuyService: BuyersService, private Route: ActivatedRoute) {
     
   }
 

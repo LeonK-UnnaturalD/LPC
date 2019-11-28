@@ -5,6 +5,7 @@ import Message from '../Classes/Messages';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import AuthResponse from '../Classes/AuthResponse';
 import { Socket } from 'ngx-socket-io';
+import { ErrorService } from './Error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,9 @@ import { Socket } from 'ngx-socket-io';
 export class ChatService {
   private url: string = "https://findpinearyou.herokuapp.com/api/";
   private Res: AuthResponse = null;
-  private Messages:Array<Message> = new Array<Message>();
+  private Id: string;
 
-  constructor(private http: HttpClient, private Socket: Socket) {
+  constructor(private http: HttpClient, private Socket: Socket, public Error: ErrorService) {
     this.Res = <AuthResponse>JSON.parse(localStorage.getItem("User"));
   }
 
@@ -27,6 +28,7 @@ export class ChatService {
   public GetChatContent(Id: string):Observable<Array<Message>> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
 
+    this.Id = Id;
     return this.http.get<Array<Message>>(this.url + `chats/${Id}`, { headers: headers });
   }
 
@@ -40,16 +42,8 @@ export class ChatService {
     this.Socket.emit("join", Id);
   }
 
-  public ReceivedMessage():Observable<string> {
-      return this.Socket.fromEvent<string>("receivedmsg");
-  }
-
-  public UpdateMessages(msg: Message):void {
-    this.Messages.push(msg);
-  }
-
-  public GetMessages():Array<Message> {
-    return this.Messages;
+  public ReceivedMessage():Observable<any> {
+      return this.Socket.fromEvent<any>("receivedmsg");
   }
 
 }

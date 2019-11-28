@@ -1,0 +1,16 @@
+.success {
+    background-color: rgb(56, 209, 64);
+    border-radius: 12px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+p {
+    text-align: center;
+}

@@ -4,6 +4,7 @@
   <div>
     <p>If you create an offer, be it selling or buying Pi, your offer will be posted on our home site, so people can get in toch with you</p>
   </div>
+  <app-Success class="Error" *ngIf="Success"></app-Success>
   <div class="buttons">
     <button [ngClass]="!Buying ? 'selected' : ''" (click)="Sell()">Sell</button>
     <button [ngClass]="Buying ? 'selected' : ''" (click)="Buy()">Buy</button>
@@ -23,6 +24,8 @@
     <input type="text" placeholder="Cash deposit" id="deposit" formControlName="Deposit" required />
 
     <button type="submit">Create Offer</button>
+
+    <app-Error *ngIf="Error" class="Error" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg" (CloseError)="Close($event)"></app-Error>
   </form>
   <div>
     <p>*If you want to change any values, checkout your <a href="dashboard">dashboard</a></p>

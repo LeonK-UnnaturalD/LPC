@@ -1,4 +1,4 @@
-<div *ngIf="Chats | async as Chats">
+<div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <h1>Chats</h1>
   <div class="flex fullsite">
@@ -11,4 +11,4 @@
   </div>
   <app-Empty></app-Empty>
 </div>
-<app-Loading *ngIf="!(Chats | async)"></app-Loading>
+<app-Loading *ngIf="Loading"></app-Loading>

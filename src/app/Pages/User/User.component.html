@@ -1,4 +1,4 @@
-<div style="width: 100%;" *ngIf="User | async as User">
+<div style="width: 100%;" *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="container fullsite">
     <h1>{{User.Username}}</h1>
@@ -36,4 +36,4 @@
   </div>
   <app-Empty></app-Empty>
 </div>
-<app-Loading *ngIf="!(User | async)"></app-Loading>
+<app-Loading *ngIf="Loading"></app-Loading>

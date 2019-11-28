@@ -1,16 +1,22 @@
-<div *ngIf="Offer | async as Offer">
+<div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="container fullsite">
-    <h1>
+    <h1 *ngIf="Offer.Type.Buy">
       Buy Pi with {{Offer.Deposit}}
     </h1>
-    <p class="intro">
+    <h1 *ngIf="Offer.Type.Sell">
+        Sell Pi with {{Offer.Deposit}}
+      </h1>
+    <p *ngIf="Offer.Type.Buy" class="intro">
       LocalPicoins.com user {{Offer.Username}} wishes to sell Pi to you.
     </p>
+    <p *ngIf="Offer.Type.Sell" class="intro">
+        LocalPicoins.com user {{Offer.Username}} wishes to buy Pi from you.
+      </p>
     <div class="Price">
       <p>Price:
       <br />
-      <span>{{Offer.Price}}$ / Pi</span></p>
+      <span>{{Offer.Price}}{{Offer.Currency}} / Pi</span></p>
       <br />
       <p>Payment:
       <br />
@@ -23,21 +29,25 @@
       </p>
       <br />
     </div>
-    <button (click)="OpenForm()">Contact me</button>
+    <button *ngIf="Me && Offer.UserId !== Me.Id" (click)="OpenForm()">Contact me</button>
   </div>
-  <div [ngClass]="Opened ? 'infobox' : 'none infobox'">
+  <div [ngClass]="Opened ? 'infobox infoAnim' : 'none'">
+    <div class="top">
+      <span (click)="Close()"><i data-feather="x-circle"></i></span>
+    </div>
     <h2>Send request</h2>
     <h5>User set his limit to {{Offer.Limit}} Pi</h5>
+    <div class="form">
+        <div class="amount">
+            <input type="number" value="1" step="any" min="0.001" max="{{Offer.Limit}}" placeholder="1" (change)="MoneyToPi($event)" required />
+            &nbsp;
+            <input type="text" value="{{AmountOfPi}} Pi" step="any" readonly />
+        </div>
+    </div>
     <form [formGroup]="Group" (ngSubmit)="CreateContact(Group.value)">
-      <div class="amount">
-        <input type="number" value="1" step="any" min="0.001" max="{{Offer.Limit}}" placeholder="1" (change)="MoneyToPi($event)" formControlName="Amount" required />
-        &nbsp;
-        <input type="text" value="{{AmountOfPi}} Pi" step="any" readonly />
-      </div>
-
       <button type="submit">Create chat</button>
     </form>
   </div>
   <app-Empty></app-Empty>
 </div>
-<app-Loading *ngIf="!(Offer | async)"></app-Loading>
+<app-Loading *ngIf="Loading"></app-Loading>

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/Services/Chat.service';
 import Chat from 'src/app/Classes/Chats';
 import feather from 'feather-icons';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-Chats',
@@ -11,14 +9,23 @@ import { Observable } from 'rxjs';
   styleUrls: ['./Chats.component.css']
 })
 export class ChatsComponent implements OnInit {
-  public Chats: Observable<Array<Chat>>;
+  public Chats: Array<Chat>;
+  public Loading: boolean = true;
+  public Error: { Code: number, Msg: string } = null;
 
   constructor(private ChatService: ChatService) {
-    this.Chats = this.ChatService.GetChats();
+    
   }
 
   ngOnInit() {
-    feather.replace();
+    this.ChatService.GetChats().subscribe(chats => {
+      this.Chats = chats;
+      this.Loading = false;
+
+      setTimeout(() => feather.replace(), 250);
+    }, err => {
+      this.Error = this.ChatService.Error.HandleError(err);
+    });
   }
 
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import AuthResponse from '../Classes/AuthResponse';
 import User from '../Classes/User';
 import Offer from '../Classes/Offer';
+import { ErrorService } from './Error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   private url: string = "https://findpinearyou.herokuapp.com/api/";
   private Res: AuthResponse = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public Error: ErrorService) {
     this.Res = <AuthResponse>JSON.parse(localStorage.getItem("User"));
   }
 
@@ -34,6 +35,12 @@ export class UserService {
 
   public FindOffers(buy: boolean, from: string, to: string, country: string, currency: string):Observable<Array<Offer>> {
     return this.http.get<Array<Offer>>(this.url + `offers/?buy=${buy}&from=${from}&to=${to}&country=${country}&currency=${currency}`);
+  }
+
+  public ChangeProfile(data: any):Observable<User> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.post<User>(this.url + "profile", data, { headers: headers });
   }
 
 }

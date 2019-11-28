@@ -4,7 +4,7 @@
 </div>
 <div>
   <div class="table">
-    <span class="Name">Seller</span>
+    <span class="Name">Buyer</span>
     <span class="Payment">Payment method</span>
     <span class="Price">Price / Pi</span>
   </div>
@@ -13,7 +13,7 @@
   <div class="seller" *ngFor="let seller of Sellers">
     <span class="Name">{{seller.Username}}</span>
     <span class="Payment">{{seller.Deposit}}</span>
-    <span class="Price">{{seller.Price}}$</span>
-    <button>Sell</button>
+    <span class="Price">{{seller.Price}}{{seller.Currency}}</span>
+    <a href="sell/{{seller.Id}}"><button>Sell</button></a>
   </div>
 </div>

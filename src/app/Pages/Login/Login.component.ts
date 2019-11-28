@@ -9,15 +9,17 @@ import { AuthService } from 'src/app/Services/Auth.service';
 })
 export class LoginComponent implements OnInit {
   public Login: FormGroup;
+  public Error: { Code: number, Msg: string } = null;
 
   constructor(private Form: FormBuilder, private Auth: AuthService) {
+
+  }
+
+  ngOnInit() {
     this.Login = this.Form.group({
       Username: "",
       Password: ""
     })
-  }
-
-  ngOnInit() {
   }
 
   public OnLogin(data: any):void {
@@ -25,7 +27,13 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("User", JSON.stringify(res));
       window.location.reload(true);
       window.location.assign("/");
+    }, (err) => {
+      this.Error = this.Auth.Error.HandleError(err);
     });
+  }
+
+  public Close(data: any):void {
+    this.Error = null;
   }
 
 }

@@ -22,8 +22,10 @@
     </div>
     <div class="property">
         <label for="RPassword">Repeat password</label>
-        <input type="password" placeholder="Password" id="RPassword" />
+        <input type="password" placeholder="Password" id="RPassword" formControlName="Repeat" />
     </div>
+
+    <app-Error *ngIf="Error" class="Error" (CloseError)="Close($event)" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg"></app-Error>
 
     <button type="submit">Sign up</button>
   </form>

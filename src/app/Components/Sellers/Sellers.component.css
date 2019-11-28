@@ -24,10 +24,15 @@ h2 {
     color: green;
 }
 
-.seller > button {
+.seller button {
     grid-area: Button;
     height: 30px;
     width: 45px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .table {

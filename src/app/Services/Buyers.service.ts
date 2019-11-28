@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import Chat from '../Classes/Chats';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import AuthResponse from '../Classes/AuthResponse';
+import { ErrorService } from './Error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,12 @@ export class BuyersService {
   private url: string = "https://findpinearyou.herokuapp.com/api/";
   private Res: AuthResponse = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public Error: ErrorService) {
     this.Res = <AuthResponse>JSON.parse(localStorage.getItem("User"));
   }
 
-  public GetBuyers():Observable<Array<Buyer>> {
-    return this.http.get<Array<Buyer>>(this.url + "buyers");
+  public GetBuyers():Observable<Array<Offer>> {
+    return this.http.get<Array<Offer>>(this.url + "buyers");
   }
   
   public GetOffer(Id: string):Observable<Offer> {

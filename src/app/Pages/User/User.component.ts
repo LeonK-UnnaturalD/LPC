@@ -12,7 +12,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./User.component.css']
 })
 export class UserComponent implements OnInit {
-  public User: Observable<User>;
+  public User: User;
+  public Loading: boolean = true;
+  public Error: { Code: number, Msg: string } = null;
 
   constructor(private Route: ActivatedRoute, private UserService: UserService) {
     
@@ -20,7 +22,13 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     const id = this.Route.snapshot.paramMap.get('id');
-    this.User = this.UserService.GetUser(id);
+    this.UserService.GetUser(id).subscribe(u => {
+      this.User = u;
+      this.User.CreatedAt = new Date(this.User.CreatedAt).toDateString();
+      this.Loading = false;
+    }, err => { 
+      this.Error = this.UserService.Error.HandleError(err);
+    });
   }
 
 }

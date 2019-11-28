@@ -6,4 +6,6 @@ export default class Offer {
     public Limit: number;
     public UserId: string;
     public Type: { Sell: boolean, Buy: boolean }
+    public Currency: string;
+    public Country: string;
 }

@@ -18,6 +18,8 @@
     </div>
 
     <button type="submit">Sign in</button>
+
+    <app-Error class="Error" (CloseError)="Close($event)" *ngIf="Error" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg"></app-Error>
   </form>
 
   <div class="switch">

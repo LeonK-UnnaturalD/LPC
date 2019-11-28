@@ -3,10 +3,8 @@ import { ChatService } from 'src/app/Services/Chat.service';
 import { ActivatedRoute } from '@angular/router';
 import feather from 'feather-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 import Message from 'src/app/Classes/Messages';
 import AuthResponse from 'src/app/Classes/AuthResponse';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-Chat',
@@ -14,9 +12,11 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./Chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  public Messages: Observable<Array<Message>>;
+  public Messages: Array<Message>;
   public Owner: string = "";
   public Group: FormGroup;
+  public Loading: boolean = true;
+  public Error: { Code: number, Msg: string } = null;
 
   constructor(private ChatService: ChatService, private Route: ActivatedRoute, private Form: FormBuilder) {
   }
@@ -33,16 +33,34 @@ export class ChatComponent implements OnInit {
     this.Owner = (<AuthResponse>JSON.parse(localStorage.getItem("User"))).User.Id;
 
     const id = this.Route.snapshot.paramMap.get('id');
-    this.Messages = this.ChatService.GetChatContent(id);
+    this.ChatService.GetChatContent(id).subscribe(msgs => {
+      this.Messages = msgs;
+      this.Loading = false;
+
+      this.CreateSvg();
+    }, err => {
+      this.Error = this.ChatService.Error.HandleError(err);
+    });
 
     this.ChatService.JoinChat(id);
 
-    this.ChatService.ReceivedMessage().subscribe(chatId =>
+    this.ChatService.ReceivedMessage().subscribe(data =>
     {
-      if(chatId !== id) return;
+      const message: Message = data.message;
+      const Id: string = data.Id;
 
-      this.Messages = this.ChatService.GetChatContent(id);
+      if(Id !== id) return;
+
+      this.Messages.push(message);
+
+      this.CreateSvg();
+    }, err => {
+      this.Error = this.ChatService.Error.HandleError(err);
     });
+  }
+
+  private CreateSvg():void {
+    setTimeout(() => feather.replace(), 1000);
   }
 
 }
