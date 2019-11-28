@@ -45,7 +45,7 @@ export class CreateOfferComponent implements OnInit {
     });
   }
 
-  public Close():void {
+  public Close(data: any):void {
     this.Error = null;
   }
 
