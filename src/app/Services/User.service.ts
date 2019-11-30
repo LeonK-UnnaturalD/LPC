@@ -5,6 +5,8 @@ import AuthResponse from '../Classes/AuthResponse';
 import User from '../Classes/User';
 import Offer from '../Classes/Offer';
 import { ErrorService } from './Error.service';
+import DashboardResult from '../Classes/DashboardResponse';
+import Comment from '../Classes/Comment';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +43,46 @@ export class UserService {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
 
     return this.http.post<User>(this.url + "profile", data, { headers: headers });
+  }
+
+  public VerifyEmail(Id: string):Observable<string> {
+    return this.http.get<string>(this.url + "verify_email/" + Id);
+  }
+
+  public GetDashboard():Observable<DashboardResult> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.get<DashboardResult>(this.url + "dashboard", { headers: headers });
+  }
+
+  public EditOffer(data: any):Observable<Offer> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.post<Offer>(this.url + "edit_offer", data, { headers: headers });
+  }
+
+  public DeleteOffer(data: any):Observable<void> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.post<void>(this.url + "delete_offer", data, { headers: headers });
+  }
+
+  public Accept(data: any):Observable<void> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.post<void>(this.url + "accept_review", data, { headers: headers });
+  }
+
+  public Deny(data: any):Observable<void> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.post<void>(this.url + "deny_review", data, { headers: headers });
+  }
+
+  public CreateReview(data: any):Observable<Comment> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
+
+    return this.http.post<Comment>(this.url + "create_review", data, { headers: headers });
   }
 
 }

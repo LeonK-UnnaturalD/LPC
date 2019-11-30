@@ -1,0 +1,54 @@
+<div *ngIf="!Loading" class="fullsite">
+  <h2>Welcome <a href="user/{{Dashboard.User.Id}}">{{Dashboard.User.Username}}</a></h2>
+  <app-Warning *ngIf="!Dashboard.User.VerifiedEmail"></app-Warning>
+  <div class="offers">
+    <h3>Offers</h3>
+    <div class="offerHeader">
+      <span>Id</span>
+      <span>Deposit</span>
+      <span>Type</span>
+      <span>Settings</span>
+    </div>
+    <div class="offer" *ngFor="let offer of Dashboard.Offers">
+      <span class="offerId">{{offer.Id}}</span>
+      <span class="Deposit">{{offer.Deposit}}</span>
+      <span class="Type" *ngIf="offer.Type.Buy">Buy</span>
+      <span class="Type" *ngIf="offer.Type.Sell">Sell</span>
+      <div class="settings">
+        <span (click)="Update(offer.Id)"><i data-feather="edit"></i></span>
+        <span (click)="Delete(offer.Id)"><i data-feather="delete"></i></span>
+      </div>
+    </div>
+    <app-Error class="Error" *ngIf="Error" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg" (CloseError)="CloseError($event)"></app-Error>
+  </div>
+  <div class="feedbacks" *ngIf="Dashboard.Reviews.length > 0">
+    <div class="feedbackHeader">
+      <span>Id</span>
+      <span>From</span>
+      <span>Settings</span>
+    </div>
+    <div class="feedback" *ngFor="let review of Dashboard.Reviews">
+        <span class="reviewId">{{review.Id}}</span>
+        <span class="reviewUser">{{review.Username}}</span>
+        <div class="settings">
+            <span (click)="Accept(review.Id)"><i data-feather="check"></i></span>
+            <span (click)="Deny(review.Id)"><i data-feather="x"></i></span>
+        </div>
+    </div>
+  </div>
+  <div [ngClass]="Opened ? 'infobox infoAnim' : 'none'">
+    <div class="top">
+      <span (click)="Close()"><i data-feather="x-circle"></i></span>
+    </div>
+    <h2>Edit offer</h2>
+    <form [formGroup]="Group" (ngSubmit)="SubmitEdit(Group.value)">
+      <input type="number" value="{{Offer.Limit}}" formControlName="Limit" required />
+      <input type="text" value="{{Offer.Deposit}}" formControlName="Deposit" required />
+      <input type="number" value="{{Offer.Price}}" formControlName="Price" required />
+      <app-Select [Group]="Group"></app-Select>
+      <app-SelectCurrency [Group]="Group"></app-SelectCurrency>
+      <button type="submit">Edit</button>
+    </form>
+  </div>
+</div>
+<app-Loading *ngIf="Loading"></app-Loading>

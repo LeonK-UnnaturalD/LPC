@@ -46,8 +46,9 @@ export class ChatComponent implements OnInit {
 
     this.ChatService.ReceivedMessage().subscribe(data =>
     {
-      const message: Message = data.message;
-      const Id: string = data.Id;
+      console.log(data);
+
+      const { message, Id } = data;
 
       if(Id !== id) return;
 
@@ -60,7 +61,7 @@ export class ChatComponent implements OnInit {
   }
 
   private CreateSvg():void {
-    setTimeout(() => feather.replace(), 1000);
+    setTimeout(() => feather.replace(), 200);
   }
 
 }

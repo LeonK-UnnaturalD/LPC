@@ -22,6 +22,11 @@
       <h3>Trustworthy</h3>
       <p>Trusted by {{User.Trust.length}} people</p>
     </div>
+    <div class="verified">
+      <h3>Verified</h3>
+      <i data-feather="x" *ngIf="!User.VerifiedEmail"></i>
+      <i data-feather="check" *ngIf="User.VerifiedEmail"></i>
+    </div>
     <div class="feedback">
       <h3>Feedback</h3>
       <div class="comment" *ngFor="let c of User.Comments">
@@ -33,6 +38,15 @@
         <span *ngIf="c.Rating !== 'good'"><i data-feather="thumbs-down"></i></span>
       </div>
     </div>
+    <form *ngIf="Me && Me.Id !== User.Id" class="form" [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
+      <h3>Create review</h3>
+      <select value="positiv" formControlName="Rating">
+        <option value="positiv">positiv</option>
+        <option value="negative">negative</option>
+      </select>
+      <input type="text" placeholder="Enter text..." formControlName="Text" />
+      <button type="submit">Create review</button>
+    </form>
   </div>
   <app-Empty></app-Empty>
 </div>

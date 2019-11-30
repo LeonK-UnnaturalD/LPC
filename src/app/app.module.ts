@@ -36,6 +36,9 @@ import { ErrorComponent } from './Components/Error/Error.component';
 import { TokenExpiredComponent } from './Pages/TokenExpired/TokenExpired.component';
 import { UnavailableComponent } from './Pages/Unavailable/Unavailable.component';
 import { SuccessComponent } from './Components/Success/Success.component';
+import { DashboardComponent } from './Pages/Dashboard/Dashboard.component';
+import { VerifiedEmailComponent } from './Pages/VerifiedEmail/VerifiedEmail.component';
+import { WarningComponent } from './Components/Warning/Warning.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,10 @@ import { SuccessComponent } from './Components/Success/Success.component';
     ErrorComponent,
     TokenExpiredComponent,
     UnavailableComponent,
-    SuccessComponent
+    SuccessComponent,
+    DashboardComponent,
+    VerifiedEmailComponent,
+    WarningComponent
   ],
   imports: [
     BrowserModule,

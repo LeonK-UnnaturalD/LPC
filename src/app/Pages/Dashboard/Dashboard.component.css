@@ -1,0 +1,104 @@
+h2 {
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.offers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.offers > .offer {
+    display: grid;
+    grid-template-areas: "id deposit type options";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 5px;
+}
+
+.offer > .offerId {
+    grid-area: id;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.offer > .Deposit {
+    grid-area: deposit;
+}
+
+.offer > .Type {
+    grid-area: type;
+}
+
+.offer > .settings {
+    grid-area: options;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.offerHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+.feedbackHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+}
+
+.feedbacks {
+    margin-top: 25px;
+}
+
+.feedback {
+    display: grid;
+    grid-template-areas: "reviewId from settings";
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    grid-gap: 5px;
+}
+
+.feedback .reviewId {
+    grid-area: reviewId;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.feedback .reviewUser {
+    grid-area: from;
+}
+
+.feedback .settings {
+    grid-area: settings;
+}
+
+.fullsite {
+    width: 95%;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input, select {
+    width: 75%;
+}

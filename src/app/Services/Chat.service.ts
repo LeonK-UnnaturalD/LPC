@@ -42,8 +42,8 @@ export class ChatService {
     this.Socket.emit("join", Id);
   }
 
-  public ReceivedMessage():Observable<any> {
-      return this.Socket.fromEvent<any>("receivedmsg");
+  public ReceivedMessage():Observable<{ message: Message, Id: string }> {
+      return this.Socket.fromEvent<{ message: Message, Id: string }>("receivedmsg");
   }
 
 }

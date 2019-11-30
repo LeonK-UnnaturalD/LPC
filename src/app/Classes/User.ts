@@ -14,4 +14,6 @@ export default class User {
     public Offers: Array<string>;
     public Terms: string;
     public Chats: Array<{ Id: string, UserId: string }>;
+    public VerifiedEmail: boolean;
+    public VerifiedPhone: boolean;
 }

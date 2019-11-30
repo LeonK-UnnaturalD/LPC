@@ -14,6 +14,8 @@ import { CreateOfferComponent } from './Pages/CreateOffer/CreateOffer.component'
 import { OfferResultsComponent } from './Pages/OfferResults/OfferResults.component';
 import { TokenExpiredComponent } from './Pages/TokenExpired/TokenExpired.component';
 import { UnavailableComponent } from './Pages/Unavailable/Unavailable.component';
+import { DashboardComponent } from './Pages/Dashboard/Dashboard.component';
+import { VerifiedEmailComponent } from './Pages/VerifiedEmail/VerifiedEmail.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -30,7 +32,9 @@ const routes: Routes = [
   { path: "offer_results", component: OfferResultsComponent },
   { path: "sell/:id", component: BuyOfferComponent },
   { path: "token_expired", component: TokenExpiredComponent },
-  { path: "not_available", component: UnavailableComponent }
+  { path: "not_available", component: UnavailableComponent },
+  { path: "dashboard", component: DashboardComponent },
+  { path: "verify_email/:id", component: VerifiedEmailComponent }
 ];
 
 @NgModule({

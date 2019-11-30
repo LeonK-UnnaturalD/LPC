@@ -1,5 +1,5 @@
 <div [formGroup]="Group">
-  <select formControlName="Currency">
+  <select value="{{Group.value.Currency}}" formControlName="Currency">
     <option value="USD" selected="selected">United States Dollars</option>
     <option value="EUR">Euro</option>
     <option value="GBP">United Kingdom Pounds</option>
