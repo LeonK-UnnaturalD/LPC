@@ -19,9 +19,10 @@
         <span (click)="Delete(offer.Id)"><i data-feather="delete"></i></span>
       </div>
     </div>
+    <span class="noneElements" *ngIf="Dashboard.Offers.length <= 0">No offers found</span>
     <app-Error class="Error" *ngIf="Error" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg" (CloseError)="CloseError($event)"></app-Error>
   </div>
-  <div class="feedbacks" *ngIf="Dashboard.Reviews.length > 0">
+  <div class="feedbacks">
     <div class="feedbackHeader">
       <span>Id</span>
       <span>From</span>
@@ -35,6 +36,7 @@
             <span (click)="Deny(review.Id)"><i data-feather="x"></i></span>
         </div>
     </div>
+    <span class="noneElements" *ngIf="Dashboard.Reviews.length <= 0">No feedbacks found</span>
   </div>
   <div [ngClass]="Opened ? 'infobox infoAnim' : 'none'">
     <div class="top">

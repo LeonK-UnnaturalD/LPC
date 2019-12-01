@@ -23,6 +23,8 @@ export class ChatComponent implements OnInit {
 
   public OnSubmit(data: any):void {
     this.ChatService.SendMessage(data.message);
+
+    this.Group.reset();
   }
 
   ngOnInit() {

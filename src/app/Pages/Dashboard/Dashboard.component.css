@@ -23,6 +23,10 @@ h3 {
     justify-items: center;
     align-items: center;
     grid-gap: 5px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .offer > .offerId {
@@ -52,6 +56,8 @@ h3 {
     width: 100%;
     justify-items: center;
     align-items: center;
+    background-color: whitesmoke;
+    border-bottom: 1px solid black;
 }
 
 .feedbackHeader {
@@ -60,6 +66,8 @@ h3 {
     width: 100%;
     justify-items: center;
     align-items: center;
+    background-color: whitesmoke;
+    border-bottom: 1px solid black;
 }
 
 .feedbacks {
@@ -73,6 +81,10 @@ h3 {
     align-items: center;
     justify-items: center;
     grid-gap: 5px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .feedback .reviewId {
@@ -101,4 +113,14 @@ a {
 
 input, select {
     width: 75%;
+}
+
+.noneElements {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
