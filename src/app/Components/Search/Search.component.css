@@ -11,6 +11,7 @@
     margin: auto;
     border: 1px solid #e5e5e5;
     border-radius: 15px;
+    height: 33vh;
 }
 
 .flex {
@@ -45,9 +46,10 @@
 form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 80%;
+    height: 75%;
 }
 
 button {
@@ -56,4 +58,10 @@ button {
 
 input, select {
     width: 85%;
+}
+
+@media (min-width: 920px) {
+    .Searchblock {
+        width: 50%;
+    }
 }

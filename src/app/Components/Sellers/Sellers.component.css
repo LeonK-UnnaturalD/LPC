@@ -3,6 +3,7 @@ h2 {
 }
 
 .seller {
+    height: 5vh;
     display: grid;
     grid-template-areas: "Name Payment Payment Price Button";
     justify-items: center;
@@ -26,8 +27,8 @@ h2 {
 
 .seller button {
     grid-area: Button;
-    height: 30px;
-    width: 45px;
+    height: 3vh;
+    width: 12vw;
 }
 
 a {
@@ -36,7 +37,7 @@ a {
 }
 
 .table {
-    height: 30px;
+    height: 5vh;
     display: grid;
     grid-template-areas: "TName TPayment TPayment TPrice None";
     justify-items: center;

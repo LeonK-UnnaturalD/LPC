@@ -147,4 +147,12 @@ select {
     }
 }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+@media (min-width: 1320px) {
+    * {
+        font-size: 25px;
+    }
+}

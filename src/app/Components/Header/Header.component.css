@@ -1,5 +1,5 @@
 .header {
-    height: 50px;
+    height: 6vh;
     background-color: whitesmoke;
     border-bottom: 1px solid darkgray;
     display: flex;
@@ -71,6 +71,10 @@ a {
     color: black;
 }
 
+.pc_nav {
+    display: none;
+}
+
 @keyframes ScaleMenu {
     from {
         transform: translateX(-1000px);
@@ -78,5 +82,26 @@ a {
 
     to {
         transform: translateX(0);
+    }
+}
+
+@media (min-width: 920px) {
+    .NavButton {
+        display: none;
+    }
+
+    .pc_nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        vertical-align: middle;
+        width: 75%;
+    }
+
+    .NavContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
