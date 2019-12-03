@@ -50,10 +50,57 @@ svg {
     vertical-align: middle;
 }
 
-h1 {
+.customer {
+    margin-top: 10px;
     padding-bottom: 15px;
     border-bottom: 1px solid lightgray;
     width: 100%;
     text-align: center;
     margin-bottom: 15px;
+    display: grid;
+    grid-template-areas: 
+    "header header header header"
+    "block report close star";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.block {
+    grid-area: block;
+}
+
+.report {
+    grid-area: report;
+}
+
+.close {
+    grid-area: close;
+}
+
+.star {
+    grid-area: star;
+}
+
+.accept {
+    grid-area: confirm;
+}
+
+h1 {
+    grid-area: header;
+}
+
+.offerer {
+    margin-top: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-areas: 
+    "header header header"
+    "block report confirm";
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    vertical-align: middle;
 }

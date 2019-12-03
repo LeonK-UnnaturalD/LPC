@@ -25,11 +25,11 @@ export class ChatService {
     return this.http.get<Array<Chat>>(this.url + "chats", { headers: headers });
   }
 
-  public GetChatContent(Id: string):Observable<Array<Message>> {
+  public GetChat(Id: string):Observable<Chat> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
 
     this.Id = Id;
-    return this.http.get<Array<Message>>(this.url + `chats/${Id}`, { headers: headers });
+    return this.http.get<Chat>(this.url + `chats/${Id}`, { headers: headers });
   }
 
   public SendMessage(msg: string):void {

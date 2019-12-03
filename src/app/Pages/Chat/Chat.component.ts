@@ -3,8 +3,8 @@ import { ChatService } from 'src/app/Services/Chat.service';
 import { ActivatedRoute } from '@angular/router';
 import feather from 'feather-icons';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import Message from 'src/app/Classes/Messages';
 import AuthResponse from 'src/app/Classes/AuthResponse';
+import Chat from 'src/app/Classes/Chats';
 
 @Component({
   selector: 'app-Chat',
@@ -12,7 +12,7 @@ import AuthResponse from 'src/app/Classes/AuthResponse';
   styleUrls: ['./Chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  public Messages: Array<Message>;
+  public Chat: Chat;
   public Owner: string = "";
   public Group: FormGroup;
   public Loading: boolean = true;
@@ -35,8 +35,8 @@ export class ChatComponent implements OnInit {
     this.Owner = (<AuthResponse>JSON.parse(localStorage.getItem("User"))).User.Id;
 
     const id = this.Route.snapshot.paramMap.get('id');
-    this.ChatService.GetChatContent(id).subscribe(msgs => {
-      this.Messages = msgs;
+    this.ChatService.GetChat(id).subscribe(chat => {
+      this.Chat = chat;
       this.Loading = false;
 
       this.CreateSvg();
@@ -54,7 +54,7 @@ export class ChatComponent implements OnInit {
 
       if(Id !== id) return;
 
-      this.Messages.push(message);
+      this.Chat.Messages.push(message);
 
       this.CreateSvg();
     }, err => {
