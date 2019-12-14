@@ -39,6 +39,8 @@ export class ChatComponent implements OnInit {
       this.Chat = chat;
       this.Loading = false;
 
+      console.log(chat);
+
       this.CreateSvg();
     }, err => {
       this.Error = this.ChatService.Error.HandleError(err);
@@ -48,8 +50,6 @@ export class ChatComponent implements OnInit {
 
     this.ChatService.ReceivedMessage().subscribe(data =>
     {
-      console.log(data);
-
       const { message, Id } = data;
 
       if(Id !== id) return;
@@ -63,7 +63,7 @@ export class ChatComponent implements OnInit {
   }
 
   private CreateSvg():void {
-    setTimeout(() => feather.replace(), 200);
+    setTimeout(() => feather.replace(), 100);
   }
 
 }

@@ -34,7 +34,7 @@
       <button type="submit">Reset Password</button>
     </form>
   
-    <app-Error *ngIf="ErrorReset" class="Error" (CloseError)="Close()" [ErrorMessage]="ErrorReset.Msg" [ErrorCode]="ErrorReset.Code"></app-Error>
+    <app-Error *ngIf="ErrorReset" class="Error" (CloseError)="Close($event)" [ErrorMessage]="ErrorReset.Msg" [ErrorCode]="ErrorReset.Code"></app-Error>
     <app-Success *ngIf="Success"></app-Success>
   </div>
 </div>

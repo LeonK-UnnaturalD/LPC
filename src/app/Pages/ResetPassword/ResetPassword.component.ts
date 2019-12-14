@@ -38,4 +38,8 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
+  public Close(data: any):void {
+    this.Error = null;
+  }
+
 }
