@@ -5,4 +5,5 @@ export default class Chat {
     public Id: string;
     public Username: string;
     public UserId: string;
+    public OffererId: string;
 }

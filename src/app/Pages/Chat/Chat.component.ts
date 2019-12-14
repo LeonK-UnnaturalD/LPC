@@ -39,8 +39,6 @@ export class ChatComponent implements OnInit {
       this.Chat = chat;
       this.Loading = false;
 
-      console.log(chat);
-
       this.CreateSvg();
     }, err => {
       this.Error = this.ChatService.Error.HandleError(err);
