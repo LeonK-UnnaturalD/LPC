@@ -29,7 +29,8 @@ export class AuthService {
   }
 
   public Check(Id: string):Observable<void> {
-    return this.http.post<void>(this.url + "reset_password_check", Id);
+    const data = { Id };
+    return this.http.post<void>(this.url + "reset_password_check", data);
   }
 
 }
