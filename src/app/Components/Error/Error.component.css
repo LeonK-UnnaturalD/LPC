@@ -1,5 +1,7 @@
 .popup {
+    margin: auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     background-color: whitesmoke;
     display: grid;
     grid-template-areas: 
@@ -8,8 +10,7 @@
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     align-items: center;
-    width: 65%;
-    margin: auto;
+    width: 50%;
     background-color: rgb(219, 18, 18);
     border: 1px solid black;
     border-radius: 12px;

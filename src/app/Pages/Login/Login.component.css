@@ -55,7 +55,7 @@ form > button {
     margin-bottom: 0px;
 }
 
-a {
+.link {
     color: blue;
     text-decoration: none;
 }

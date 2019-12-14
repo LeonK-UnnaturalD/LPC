@@ -39,6 +39,7 @@ import { SuccessComponent } from './Components/Success/Success.component';
 import { DashboardComponent } from './Pages/Dashboard/Dashboard.component';
 import { VerifiedEmailComponent } from './Pages/VerifiedEmail/VerifiedEmail.component';
 import { WarningComponent } from './Components/Warning/Warning.component';
+import { ResetPasswordComponent } from './Pages/ResetPassword/ResetPassword.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { WarningComponent } from './Components/Warning/Warning.component';
     SuccessComponent,
     DashboardComponent,
     VerifiedEmailComponent,
-    WarningComponent
+    WarningComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

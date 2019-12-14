@@ -20,4 +20,16 @@ export class AuthService {
     return this.http.post<AuthResponse>(this.url + "login", data);
   }
 
+  public ResetPasswordRequest(data: any):Observable<void> {
+    return this.http.post<void>(this.url + "reset_password", data);
+  }
+
+  public ResetPasswordResponse(data: any):Observable<void> {
+    return this.http.post<void>(this.url + "reset_password_final", data);
+  }
+
+  public Check(Id: string):Observable<void> {
+    return this.http.post<void>(this.url + "reset_password_check", Id);
+  }
+
 }

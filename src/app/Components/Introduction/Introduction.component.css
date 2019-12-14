@@ -52,6 +52,11 @@
     border: 1px solid #e5e5e5;
 }
 
+.button p {
+    margin: 0 0 0 0;
+    text-align: center;
+}
+
 @media (min-width: 920px) {
     .Ad {
         width: 40%;

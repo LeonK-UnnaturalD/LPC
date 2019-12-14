@@ -10,10 +10,10 @@
   </div>
 </div>
 <div class="container">
-  <div class="buyer" *ngFor="let buyer of Buyers">
-    <span class="Name">{{buyer.Username}}</span>
-    <span class="Payment">{{buyer.Deposit}}</span>
-    <span class="Price">{{buyer.Price}}{{buyer.Currency}}</span>
-    <a href="buy/{{buyer.Id}}"><button>Buy</button></a>
-  </div>
+    <div class="buyer" *ngFor="let buyer of Buyers">
+      <span class="Name">{{buyer.Username}}</span>
+      <span class="Payment">{{buyer.Deposit}}</span>
+      <span class="Price">{{buyer.Price}}{{buyer.Currency}}</span>
+      <a href="buy/{{buyer.Id}}"><button>Buy</button></a>
+    </div>
 </div>

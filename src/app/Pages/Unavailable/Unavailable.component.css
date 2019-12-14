@@ -8,9 +8,10 @@
 .grid {
     display: grid;
     grid-template-areas: 
-    "emoji empty"
-    "text text";
-    grid-template-columns: 1fr 1fr;
+    "emoji"
+    "text";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     align-items: center;
     justify-items: center;
     width: 75%;
@@ -18,7 +19,6 @@
 
 h1 {
     grid-area: emoji;
-    justify-self: flex-start;
 }
 
 p {

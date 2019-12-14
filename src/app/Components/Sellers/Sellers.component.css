@@ -2,14 +2,19 @@ h2 {
     text-align: center;
 }
 
+.container {
+    width: 100%;
+}
+
 .seller {
-    height: 5vh;
+    height: 40px;
     display: grid;
     grid-template-areas: "Name Payment Payment Price Button";
     justify-items: center;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid whitesmoke;
+    width: 100%;
 }
 
 .seller > .Name {
@@ -27,8 +32,8 @@ h2 {
 
 .seller button {
     grid-area: Button;
-    height: 3vh;
-    width: 12vw;
+    height: 25px;
+    width: 50px;
 }
 
 a {

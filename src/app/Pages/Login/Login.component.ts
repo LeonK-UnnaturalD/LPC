@@ -9,7 +9,11 @@ import { AuthService } from 'src/app/Services/Auth.service';
 })
 export class LoginComponent implements OnInit {
   public Login: FormGroup;
-  public Error: { Code: number, Msg: string } = null;
+  public ResetGroup: FormGroup;
+  public ErrorLogin: { Code: number, Msg: string } = null;
+  public ErrorReset: { Code: number, Msg: string } = null;
+  public Reset: boolean = false;
+  public Success: boolean = false;
 
   constructor(private Form: FormBuilder, private Auth: AuthService) {
 
@@ -19,7 +23,11 @@ export class LoginComponent implements OnInit {
     this.Login = this.Form.group({
       Username: "",
       Password: ""
-    })
+    });
+
+    this.ResetGroup = this.Form.group({
+      Email: ""
+    });
   }
 
   public OnLogin(data: any):void {
@@ -28,12 +36,27 @@ export class LoginComponent implements OnInit {
       window.location.reload(true);
       window.location.assign("/");
     }, (err) => {
-      this.Error = this.Auth.Error.HandleError(err);
+      this.ErrorLogin = this.Auth.Error.HandleError(err);
     });
   }
 
+  public ResetPassword():void {
+    this.Reset = !this.Reset;
+  }
+
   public Close(data: any):void {
-    this.Error = null;
+    this.ErrorLogin = null;
+    this.ErrorReset = null;
+  }
+
+  public OnReset(data: any):void {
+    this.Auth.ResetPasswordRequest(data).subscribe(() => {
+      this.Success = true;
+    }, (err) => {
+      this.ErrorReset = this.Auth.Error.HandleError(err);
+    });
+
+    this.ResetGroup.reset();
   }
 
 }

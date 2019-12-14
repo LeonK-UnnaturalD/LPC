@@ -16,6 +16,7 @@ import { TokenExpiredComponent } from './Pages/TokenExpired/TokenExpired.compone
 import { UnavailableComponent } from './Pages/Unavailable/Unavailable.component';
 import { DashboardComponent } from './Pages/Dashboard/Dashboard.component';
 import { VerifiedEmailComponent } from './Pages/VerifiedEmail/VerifiedEmail.component';
+import { ResetPasswordComponent } from './Pages/ResetPassword/ResetPassword.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: "token_expired", component: TokenExpiredComponent },
   { path: "not_available", component: UnavailableComponent },
   { path: "dashboard", component: DashboardComponent },
-  { path: "verify_email/:id", component: VerifiedEmailComponent }
+  { path: "verify_email/:id", component: VerifiedEmailComponent },
+  { path: "reset_password/:id", component: ResetPasswordComponent }
 ];
 
 @NgModule({

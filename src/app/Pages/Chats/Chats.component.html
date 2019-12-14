@@ -2,10 +2,14 @@
   <app-Empty></app-Empty>
   <h1>Chats</h1>
   <div class="flex fullsite">
+    <div class="chat noChats" *ngIf="Chats.length <= 0">
+        <span><i data-feather="user"></i>&nbsp;No chats found</span>
+        <p><a class="link" href="/">Find users to chat with by trading</a></p>
+    </div>  
     <a *ngFor="let chat of Chats" href="chats/{{chat.Id}}" class="chat">
       <div>
         <span><i data-feather="user"></i>&nbsp;{{chat.Username}}</span>
-        <p><a href="user/{{chat.UserId}}">See profile</a></p>
+        <p><a class="link" href="user/{{chat.UserId}}">See profile</a></p>
       </div>
     </a>
   </div>

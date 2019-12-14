@@ -27,7 +27,7 @@
       <i data-feather="x" *ngIf="!User.VerifiedEmail"></i>
       <i data-feather="check" *ngIf="User.VerifiedEmail"></i>
     </div>
-    <div *ngIf="User.Comments > 0" class="feedback">
+    <div *ngIf="User.Comments.length > 0" class="feedback">
       <h3>Feedback</h3>
       <div class="comment" *ngFor="let c of User.Comments">
         <a href="user/{{c.UserId}}"><h4>{{c.Username}}</h4></a>

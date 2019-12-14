@@ -19,11 +19,22 @@
 
     <button type="submit">Sign in</button>
 
-    <app-Error class="Error" (CloseError)="Close($event)" *ngIf="Error" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg"></app-Error>
+    <app-Error class="Error" (CloseError)="Close($event)" *ngIf="ErrorLogin" [ErrorCode]="ErrorLogin.Code" [ErrorMessage]="ErrorLogin.Msg"></app-Error>
   </form>
 
   <div class="switch">
     <span>No account yet? <a href="register">Sign up</a></span>
-    <span>Forgot your password? <a href="reset_password">Reset password</a></span>
+    <span>Forgot your password? <span class="link" (click)="ResetPassword()">Reset Password</span></span>
+  </div>
+
+  <div *ngIf="Reset">
+    <form [formGroup]="ResetGroup" (ngSubmit)="OnReset(ResetGroup.value)">
+      <label for="resetEmail">Email</label>
+      <input type="email" id="resetEmail" placeholder="Enter E-Mail..." formControlName="Email" required />
+      <button type="submit">Reset Password</button>
+    </form>
+  
+    <app-Error *ngIf="ErrorReset" class="Error" (CloseError)="Close()" [ErrorMessage]="ErrorReset.Msg" [ErrorCode]="ErrorReset.Code"></app-Error>
+    <app-Success *ngIf="Success"></app-Success>
   </div>
 </div>
