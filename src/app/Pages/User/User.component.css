@@ -17,7 +17,10 @@
 
 .confirmed, .feedbackscore, .created, .languages, .trusted, .feedback, .verified {
     width: 100%;
-    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 p {
