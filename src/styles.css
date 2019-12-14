@@ -146,6 +146,7 @@ body {
 
 body {
     font-size: 16px;
+    overflow: hidden;
 }
 
 @media (min-width: 1320px) {
