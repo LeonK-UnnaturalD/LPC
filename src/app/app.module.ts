@@ -40,6 +40,8 @@ import { DashboardComponent } from './Pages/Dashboard/Dashboard.component';
 import { VerifiedEmailComponent } from './Pages/VerifiedEmail/VerifiedEmail.component';
 import { WarningComponent } from './Components/Warning/Warning.component';
 import { ResetPasswordComponent } from './Pages/ResetPassword/ResetPassword.component';
+import { GoogleAuthComponent } from './Components/GoogleAuth/GoogleAuth.component';
+import { FacebookAuthComponent } from './Components/FacebookAuth/FacebookAuth.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { ResetPasswordComponent } from './Pages/ResetPassword/ResetPassword.comp
     DashboardComponent,
     VerifiedEmailComponent,
     WarningComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    GoogleAuthComponent,
+    FacebookAuthComponent
   ],
   imports: [
     BrowserModule,

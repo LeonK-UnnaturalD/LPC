@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: "not_available", component: UnavailableComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "verify_email/:id", component: VerifiedEmailComponent },
-  { path: "reset_password/:id", component: ResetPasswordComponent }
+  { path: "reset_password/:id", component: ResetPasswordComponent },
 ];
 
 @NgModule({

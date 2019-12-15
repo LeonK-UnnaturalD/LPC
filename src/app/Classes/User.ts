@@ -16,4 +16,5 @@ export default class User {
     public Chats: Array<{ Id: string, UserId: string }>;
     public VerifiedEmail: boolean;
     public VerifiedPhone: boolean;
+    public IsThirdParty: boolean;
 }

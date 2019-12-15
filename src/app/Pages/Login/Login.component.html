@@ -27,6 +27,9 @@
     <span>Forgot your password? <span class="link" (click)="ResetPassword()">Reset Password</span></span>
   </div>
 
+  <app-GoogleAuth></app-GoogleAuth>
+  <app-FacebookAuth></app-FacebookAuth>
+
   <div *ngIf="Reset">
     <form [formGroup]="ResetGroup" (ngSubmit)="OnReset(ResetGroup.value)">
       <label for="resetEmail">Email</label>
