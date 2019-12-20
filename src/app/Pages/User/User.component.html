@@ -38,7 +38,7 @@
         <span *ngIf="c.Rating !== 'good'"><i data-feather="thumbs-down"></i></span>
       </div>
     </div>
-    <form *ngIf="Me && Me.Id !== User.Id" class="form" [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
+    <form *ngIf="Profile && Profile.Id !== User.Id" class="form" [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
       <h3>Create review</h3>
       <select value="positiv" formControlName="Rating">
         <option value="positiv">positiv</option>

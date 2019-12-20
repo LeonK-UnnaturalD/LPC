@@ -1,4 +1,4 @@
-<div [ngClass]="IsEmbed === 'true' ? 'embed' : Owner !== MyId ? 'msg other' : 'msg mine'">
+<div [ngClass]="IsEmbed === true ? 'embed' : Owner !== MyId ? 'msg other' : 'msg mine'">
   <h3>{{Username}}</h3>
   <span>{{Date}}</span>
   <div>

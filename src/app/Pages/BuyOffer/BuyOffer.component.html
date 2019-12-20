@@ -29,7 +29,7 @@
       </p>
       <br />
     </div>
-    <button *ngIf="Me && Offer.UserId !== Me.Id" (click)="OpenForm()">Contact me</button>
+    <button *ngIf="Profile && Offer.UserId !== Profile.Id" (click)="OpenForm()">Contact me</button>
   </div>
   <div [ngClass]="Opened ? 'infobox infoAnim' : 'none'">
     <div class="top">
