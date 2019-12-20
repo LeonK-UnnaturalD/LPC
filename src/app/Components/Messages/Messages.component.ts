@@ -12,7 +12,7 @@ export class MessagesComponent implements OnInit {
   @Input() public Date: string;
   @Input() public Content: string;
   @Input() public MyId: string;
-  @Input() public IsEmbed: boolean;
+  @Input() public IsEmbed: string = "false";
 
   constructor() { }
 

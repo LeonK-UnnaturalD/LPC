@@ -15,7 +15,7 @@
       <span class="accept"><i data-feather="user-check"></i></span>
     </div>
     <div class="grid scroll">
-      <app-Messages class="full" *ngFor="let msg of Chat.Messages" Username="{{msg.Username}}" Date="{{msg.Date}}" Content="{{msg.Content}}" Owner="{{msg.Owner}}" MyId="{{Owner}}" IsEmbed="{{msg.IsEmbed}}"></app-Messages>
+      <app-Messages class="full" *ngFor="let msg of Chat.Messages" Username="{{msg.Username}}" Date="{{msg.Date}}" Content="{{msg.Content}}" Owner="{{msg.Owner}}" MyId="{{Owner}}" IsEmbed="{{msg.IsEmbed.toString()}}"></app-Messages>
       <app-Empty></app-Empty>
     </div>
     <div class="Send">
