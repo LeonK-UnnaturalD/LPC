@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,10 +8,15 @@ import { FormGroup } from '@angular/forms';
 })
 export class SelectComponent implements OnInit {
   @Input() Group: FormGroup;
+  @Output() OnChange = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public OnChangeValue(data: any):void {
+    this.OnChange.emit(data.target.value);
   }
 
 }

@@ -7,30 +7,35 @@ import Chat from '../Classes/Chats';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import AuthResponse from '../Classes/AuthResponse';
 import { ErrorService } from './Error.service';
+import { StorageService } from './Storage.service';
+import { async } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BuyersService {
   private url: string = "https://findpinearyou.herokuapp.com/api/";
-  private Res: AuthResponse = null;
+  private token: string;
 
-  constructor(private http: HttpClient, public Error: ErrorService) {
-    this.Res = <AuthResponse>JSON.parse(localStorage.getItem("User"));
+  constructor(private http: HttpClient, public Error: ErrorService, private Storage: StorageService) {
+    const props = this.Storage.GetCustomer();
+
+    if(!props) return;
+
+    this.token = props.Token;
   }
 
-  public GetBuyers():Observable<Array<Offer>> {
-    return this.http.get<Array<Offer>>(this.url + "buyers");
+  public GetBuyers():Promise<any> {
+    return this.http.get<Array<Offer>>(this.url + "buyers").toPromise();
   }
   
-  public GetOffer(Id: string):Observable<Offer> {
-    return this.http.get<Offer>(this.url + `offers/${Id}`);
+  public GetOffer(Id: string):Promise<any> {
+    return this.http.get<Offer>(this.url + `offers/${Id}`).toPromise();
   }
 
-  public CreateContact(data: any):Observable<Chat> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<Chat>(this.url + "createcontact", data, { headers: headers });
+  public async CreateContact(data: any):Promise<any> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<Chat>(this.url + "createcontact", data, { headers: headers }).toPromise();
   }
 
 }

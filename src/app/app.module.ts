@@ -42,6 +42,8 @@ import { WarningComponent } from './Components/Warning/Warning.component';
 import { ResetPasswordComponent } from './Pages/ResetPassword/ResetPassword.component';
 import { GoogleAuthComponent } from './Components/GoogleAuth/GoogleAuth.component';
 import { FacebookAuthComponent } from './Components/FacebookAuth/FacebookAuth.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,8 @@ import { FacebookAuthComponent } from './Components/FacebookAuth/FacebookAuth.co
     SocketIoModule.forRoot(config),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

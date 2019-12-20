@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/Services/Auth.service';
 import { UserService } from 'src/app/Services/User.service';
 import AuthResponse from 'src/app/Classes/AuthResponse';
+import { StorageService } from 'src/app/Services/Storage.service';
 
 @Component({
   selector: 'app-Login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   public Reset: boolean = false;
   public Success: boolean = false;
 
-  constructor(private Form: FormBuilder, private Auth: AuthService, private User: UserService) {
+  constructor(private Form: FormBuilder, private Auth: AuthService, private User: UserService, private Storage: StorageService) {
 
   }
 
@@ -33,27 +34,34 @@ export class LoginComponent implements OnInit {
 
     const isAuth = this.Auth.GetThirdPartyUser();
 
-    if(!isAuth) return;
+    if(isAuth)
+      this.UsedThirdPartyAuth(isAuth.Id);
+  }
 
-    this.User.GetUser(isAuth.Id).subscribe(user => {
+  private async UsedThirdPartyAuth(Auth: { Id: string, Token: string }):Promise<void> {
+    const userReq = this.User.GetUser(Auth.Id);
+    
+    await this.Auth.Error.HandleResult(userReq, (user) => {
       const auth: AuthResponse = {
-        Token: isAuth.Token,
-        User: user
+        Token: Auth.Token,
+        User: { Id: user.User.Id, Username: user.User.Username }
       };
 
-      localStorage.setItem('User', JSON.stringify(auth));
+      this.Storage.SetCustomer(auth);
       window.location.assign('/');
     }, (err) => {
-      this.ErrorLogin = this.Auth.Error.HandleError(err);
+      this.ErrorLogin = err;
     });
   }
 
-  public OnLogin(data: any):void {
-    this.Auth.Login(data).subscribe(res => {
-      localStorage.setItem("User", JSON.stringify(res));
+  public async OnLogin(data: any):Promise<void> {
+    const loginReq = this.Auth.Login(data);
+
+    await this.Auth.Error.HandleResult(loginReq, (user) => {
+      this.Storage.SetCustomer({ User: { Id: user.User.Id, Username: user.User.Username }, Token: user.Token });
       window.location.assign("/");
     }, (err) => {
-      this.ErrorLogin = this.Auth.Error.HandleError(err);
+      this.ErrorLogin = err;
     });
   }
 
@@ -66,11 +74,13 @@ export class LoginComponent implements OnInit {
     this.ErrorReset = null;
   }
 
-  public OnReset(data: any):void {
-    this.Auth.ResetPasswordRequest(data).subscribe(() => {
+  public async OnReset(data: any):Promise<void> {
+    const resetReq = this.Auth.ResetPasswordRequest(data);
+
+    await this.Auth.Error.HandleResult(resetReq, (reset) => {
       this.Success = true;
     }, (err) => {
-      this.ErrorReset = this.Auth.Error.HandleError(err);
+      this.ErrorReset = err;
     });
 
     this.ResetGroup.reset();

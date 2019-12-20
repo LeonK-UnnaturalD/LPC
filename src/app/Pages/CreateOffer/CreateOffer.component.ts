@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/Services/User.service';
+import { GetCitiesService } from 'src/app/Services/GetCities.service';
 
 @Component({
   selector: 'app-CreateOffer',
@@ -12,16 +13,18 @@ export class CreateOfferComponent implements OnInit {
   public Group: FormGroup = null;
   public Error: { Code: number, Msg: string } = null;
   public Success: boolean = false;
+  public Cities: Array<string> = new Array<string>();
 
-  constructor(private Form: FormBuilder, private User: UserService) { }
+  constructor(private CityService: GetCitiesService, private Form: FormBuilder, private User: UserService) { }
 
   ngOnInit() {
     this.Group = this.Form.group({
       Limit: "",
       Price: "",
-      Deposit: "",
+      Deposit: "Deposit",
       Currency: "USD",
-      Country: "United Kingdom"
+      Country: "GB",
+      City: "",
     });
   }
 
@@ -33,20 +36,34 @@ export class CreateOfferComponent implements OnInit {
     this.Buying = true;
   }
 
-  public CreateOffer(data: any):void {
+  public async CreateOffer(data: any):Promise<void> {
     data["IsBuying"] = this.Buying;
 
-    this.User.CreateOffer(data).subscribe(offer => {
-      this.Success = true;
+    const res = await this.User.CreateOffer(data);
 
-      this.Group.reset();
-    }, err => {
-      this.Error = this.User.Error.HandleError(err);
-    });
+    this.Success = true;
+    this.Group.reset();
   }
 
   public Close(data: any):void {
     this.Error = null;
+  }
+
+  public OnChange(value: string):void {
+    this.CityService.GetCities(value, (cities) => {
+      this.Cities = cities;
+
+      this.Group.setValue({
+        Limit: this.Group.value.Limit,
+        Price: this.Group.value.Price,
+        Deposit: this.Group.value.Deposit,
+        Currency: this.Group.value.Currency,
+        Country: this.Group.value.Country,
+        City: cities[0]
+      });
+    }, (err) => {
+      console.error(err);
+    });
   }
 
 }

@@ -10,6 +10,7 @@
       <div>
         <span><i data-feather="user"></i>&nbsp;{{chat.Username}}</span>
         <p><a class="link" href="user/{{chat.UserId}}">See profile</a></p>
+        <div [ngClass]="chat.IsAvailable ? 'circle online' : 'circle offline'"></div>
       </div>
     </a>
   </div>

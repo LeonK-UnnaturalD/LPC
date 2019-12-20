@@ -3,6 +3,7 @@ import Seller from '../Classes/Seller';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import Offer from '../Classes/Offer';
+import { ErrorService } from './Error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ import Offer from '../Classes/Offer';
 export class SellersService {
   private url: string = "https://findpinearyou.herokuapp.com/api/";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public Error: ErrorService) {
     
   }
 
-  public GetSellers():Observable<Array<Offer>> {
-    return this.http.get<Array<Offer>>(this.url + "sellers");
+  public GetSellers():Promise<Array<Offer>> {
+    return this.http.get<Array<Offer>>(this.url + "sellers").toPromise();
   }
 
 }

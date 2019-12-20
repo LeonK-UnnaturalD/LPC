@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import AuthResponse from '../Classes/AuthResponse';
 import { Socket } from 'ngx-socket-io';
 import { ErrorService } from './Error.service';
+import { StorageService } from './Storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,40 @@ export class ChatService {
   private Res: AuthResponse = null;
   private Id: string;
 
-  constructor(private http: HttpClient, private Socket: Socket, public Error: ErrorService) {
-    this.Res = <AuthResponse>JSON.parse(localStorage.getItem("User"));
+  constructor(private http: HttpClient, private Socket: Socket, public Error: ErrorService, private Storage: StorageService) {
+    const profile = this.Storage.GetCustomer();
+
+    if(profile)
+      this.Res = profile;
   }
 
-  public GetChats():Observable<Array<Chat>> {
+  public ReceivedMessage():Observable<{ message: Message, Id: string }> {
+      return this.Socket.fromEvent<{ message: Message, Id: string }>("OnReceivedMessage");
+  }
+
+  public ReceivedOnlineList():Observable<Array<string>> {
+    return this.Socket.fromEvent<Array<string>>("OnGetOnlineMembers");
+  }
+
+  public RemoveMember():Observable<string> {
+    return this.Socket.fromEvent<string>("OnUserLeftApp");
+  }
+
+  public AddMember():Observable<string> {
+    return this.Socket.fromEvent<string>("OnUserJoinedApp");
+  }
+
+  public async GetChats():Promise<Array<Chat>> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
 
-    return this.http.get<Array<Chat>>(this.url + "chats", { headers: headers });
+    return this.http.get<Array<Chat>>(this.url + "chats", { headers: headers }).toPromise();
   }
 
-  public GetChat(Id: string):Observable<Chat> {
+  public async GetChat(Id: string):Promise<Chat> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
 
     this.Id = Id;
-    return this.http.get<Chat>(this.url + `chats/${Id}`, { headers: headers });
+    return this.http.get<Chat>(this.url + `chats/${Id}`, { headers: headers }).toPromise();
   }
 
   public SendMessage(msg: string):void {
@@ -39,11 +59,14 @@ export class ChatService {
   }
 
   public JoinChat(Id: string):void {
-    this.Socket.emit("join", Id);
+    this.Socket.emit("joinChat", Id);
   }
 
-  public ReceivedMessage():Observable<{ message: Message, Id: string }> {
-      return this.Socket.fromEvent<{ message: Message, Id: string }>("receivedmsg");
+  public JoinApp():void {
+    const profile = this.Storage.GetCustomer();
+
+    if(profile)
+      this.Socket.emit("joinApp", profile.User.Id);
   }
 
 }

@@ -6,4 +6,5 @@ export default class Chat {
     public Username: string;
     public UserId: string;
     public OffererId: string;
+    public IsAvailable?: boolean = false;
 }

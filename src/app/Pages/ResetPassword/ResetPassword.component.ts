@@ -23,18 +23,26 @@ export class ResetPasswordComponent implements OnInit {
       Id: id
     });
 
-    this.Auth.Check(id).subscribe(() => {
+    this.Check(id);
+  }
 
+  private async Check(Id: string):Promise<void> {
+    const authReq = this.Auth.Check(Id);
+
+    await this.Auth.Error.HandleResult(authReq, (auth) => {
+      console.log('Excisting password reset request');
     }, (err) => {
-      this.Error = this.Auth.Error.HandleError(err);
+      this.Error = err;
     });
   }
 
   public OnSubmit(data: any):void {
-    this.Auth.ResetPasswordResponse(data).subscribe(() => {
+    const resetReq = this.Auth.ResetPasswordResponse(data);
+
+    this.Auth.Error.HandleResult(resetReq, (reset) => {
       window.location.assign('/');
     }, (err) => {
-      this.Error = this.Auth.Error.HandleError(err);
+      this.Error = err;
     });
   }
 

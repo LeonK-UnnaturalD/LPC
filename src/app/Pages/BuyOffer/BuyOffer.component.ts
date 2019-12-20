@@ -8,6 +8,7 @@ import Message from 'src/app/Classes/Messages';
 import User from 'src/app/Classes/User';
 import AuthResponse from 'src/app/Classes/AuthResponse';
 import { Observable, of } from 'rxjs';
+import { StorageService } from 'src/app/Services/Storage.service';
 
 @Component({
   selector: 'app-BuyOffer',
@@ -22,27 +23,36 @@ export class BuyOfferComponent implements OnInit {
   public Id: string;
   public Error: { Code: number, Msg: string } = null;
   public Loading: boolean = true;
+  public Profile: { Id: string, Username: string };
 
-  public Me: User = null;
-
-  constructor(private OfferService: BuyersService, private Site: ActivatedRoute, private Form: FormBuilder) { }
+  constructor(private OfferService: BuyersService, private Storage: StorageService, private Site: ActivatedRoute, private Form: FormBuilder) { }
 
   ngOnInit() {
-    this.Me = localStorage.getItem("User") ? (<AuthResponse>JSON.parse(localStorage.getItem("User"))).User : null;
-
     this.Group = this.Form.group({
       Amount: 1
     });
 
     this.Id = this.Site.snapshot.paramMap.get("id");
-    this.OfferService.GetOffer(this.Id).subscribe(offer => {
+    const profile = this.Storage.GetCustomer();
+
+    if(profile)
+      this.Profile = profile.User;
+
+    this.InitOffer();
+
+    setTimeout(() => feather.replace(), 200);
+  }
+
+  private async InitOffer():Promise<void> {
+    const offerReq = this.OfferService.GetOffer(this.Id);
+
+    await this.OfferService.Error.HandleResult(offerReq, (offer) => {
+      console.log(offer);
       this.Offer = offer;
       this.Loading = false;
     }, err => {
-      this.Error = this.OfferService.Error.HandleError(err);
+      this.Error = err;
     });
-
-    setTimeout(() => feather.replace(), 200);
   }
 
   public OpenForm():void {
@@ -59,27 +69,31 @@ export class BuyOfferComponent implements OnInit {
   }
 
   public CreateContact(data: any):void {
-    this.OfferService.GetOffer(this.Id).subscribe(res => {
+    const offerReq = this.OfferService.GetOffer(this.Id);
+
+    this.OfferService.Error.HandleResult(offerReq, (offer) => {
       const option = { 
-        UserId: res.UserId, 
+        UserId: offer.UserId, 
         Messages: [
           new Message(
-            this.Me.Id,
-            this.Me.Username,
-            `${this.Me.Username} is requesting ${data.Amount} Pi from you`,
+            this.Profile.Id,
+            this.Profile.Username,
+            `${this.Profile.Username} is requesting ${data.Amount} Pi from you`,
             new Date().toISOString(),
             true
           )
         ]
       };
-  
-      this.OfferService.CreateContact(option).subscribe(c => {
-        window.location.assign(`/chats/${c.Id}`);
-      }, err => {
-        this.Error = this.OfferService.Error.HandleError(err);
-      });
-    }, err => {
-      this.Error = this.OfferService.Error.HandleError(err);
+
+      const reqContact = this.OfferService.CreateContact(option);
+        
+      this.OfferService.Error.HandleResult(reqContact, (contact) => {
+        window.location.assign(`/chats/${contact.Id}`);
+      }, (err) => {
+        this.Error = err;
+      })
+    }, (err) => {
+      this.Error = err;
     });
   }
 }

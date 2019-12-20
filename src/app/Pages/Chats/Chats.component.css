@@ -43,7 +43,7 @@ p {
 .chat > div {
     height: 35px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
 }
@@ -52,4 +52,18 @@ svg {
     vertical-align: middle;
     height: 15px;
     width: 15px;
+}
+
+.circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+}
+
+.online {
+    background-color: green;
+}
+
+.offline {
+    background-color: gray;
 }

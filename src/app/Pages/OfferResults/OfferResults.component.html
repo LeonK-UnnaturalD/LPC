@@ -1,4 +1,4 @@
-<div *ngIf="Offers | async as Offers">
+<div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="heading">
     <h2 *ngIf="Buy">Results of sellers ({{From}} - {{To}}) in {{Country}}</h2>
@@ -21,4 +21,4 @@
     </div>
   </div>
 </div>
-<app-Loading *ngIf="!(Offers | async)"></app-Loading>
+<app-Loading *ngIf="Loading"></app-Loading>

@@ -7,6 +7,7 @@ import { UserService } from 'src/app/Services/User.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import AuthResponse from 'src/app/Classes/AuthResponse';
+import { StorageService } from 'src/app/Services/Storage.service';
 
 @Component({
   selector: 'app-User',
@@ -18,9 +19,9 @@ export class UserComponent implements OnInit {
   public Loading: boolean = true;
   public Error: { Code: number, Msg: string } = null;
   public Group: FormGroup;
-  public Me: User;
+  public Profile: { Id: string, Username: string };
 
-  constructor(private Route: ActivatedRoute, private UserService: UserService, private Form: FormBuilder) {
+  constructor(private Route: ActivatedRoute, private Storage: StorageService, private UserService: UserService, private Form: FormBuilder) {
     
   }
 
@@ -30,27 +31,38 @@ export class UserComponent implements OnInit {
       Text: ""
     });
 
-    this.Me = localStorage.getItem("User") ? (<AuthResponse>JSON.parse(localStorage.getItem("User"))).User : null;
-
     const id = this.Route.snapshot.paramMap.get('id');
-    this.UserService.GetUser(id).subscribe(u => {
-      this.User = u;
+
+    const profile = this.Storage.GetCustomer();
+    if(profile)
+      this.Profile = profile.User;
+
+    this.InitUser(id);
+  }
+
+  private async InitUser(Id: string):Promise<void> {
+    const userReq = this.UserService.GetUser(Id);
+
+    await this.UserService.Error.HandleResult(userReq, (user) => {
+      this.User = user;
       this.User.CreatedAt = new Date(this.User.CreatedAt).toDateString();
       this.Loading = false;
 
       setTimeout(() => feather.replace(), 100);
     }, err => { 
-      this.Error = this.UserService.Error.HandleError(err);
+      this.Error = err;
     });
   }
 
-  public Submit(data: any):void {
+  public async Submit(data: any):Promise<void> {
     data["UserId"] = this.User.Id;
 
-    this.UserService.CreateReview(data).subscribe(r => {
+    const reviewReq = this.UserService.CreateReview(data);
+
+    await this.UserService.Error.HandleResult(reviewReq, (review) => {
       window.location.reload(true);
     }, err => {
-      this.Error = this.UserService.Error.HandleError(err);
+      this.Error = err;
     });
 
     this.Group.reset();

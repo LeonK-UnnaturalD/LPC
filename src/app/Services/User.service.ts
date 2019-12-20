@@ -7,82 +7,82 @@ import Offer from '../Classes/Offer';
 import { ErrorService } from './Error.service';
 import DashboardResult from '../Classes/DashboardResponse';
 import Comment from '../Classes/Comment';
+import { StorageService } from './Storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private url: string = "https://findpinearyou.herokuapp.com/api/";
-  private Res: AuthResponse = null;
+  private token: string;
+  private user: { Id: string, Username: string };
 
-  constructor(private http: HttpClient, public Error: ErrorService) {
-    this.Res = <AuthResponse>JSON.parse(localStorage.getItem("User"));
+  constructor(private http: HttpClient, public Error: ErrorService, private Storage: StorageService) {
+    const props = this.Storage.GetCustomer();
+
+    if(!props) return;
+
+    const { Token, User } = props;
+
+    this.token = Token;
+    this.user = User;
   }
 
-  public GetProfile():Observable<User> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.get<User>(this.url + `profile/${this.Res.User.Id}`, { headers: headers });
+  public async GetProfile():Promise<User> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.get<User>(this.url + `profile/${this.user.Id}`, { headers: headers }).toPromise();
   }
 
-  public CreateOffer(data: any):Observable<Offer> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<Offer>(this.url + `offer`, data, { headers: headers });
+  public async CreateOffer(data: any):Promise<Offer> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<Offer>(this.url + `offer`, data, { headers: headers }).toPromise();
   }
 
-  public GetUser(Id: string):Observable<User> {
-    return this.http.get<User>(this.url + `users/${Id}`);
+  public GetUser(Id: string):Promise<User> {
+    return this.http.get<User>(this.url + `users/${Id}`).toPromise();
   }
 
-  public FindOffers(buy: boolean, from: string, to: string, country: string, currency: string):Observable<Array<Offer>> {
-    return this.http.get<Array<Offer>>(this.url + `offers/?buy=${buy}&from=${from}&to=${to}&country=${country}&currency=${currency}`);
+  public FindOffers(buy: boolean, from: string, to: string, country: string, city: string, currency: string):Promise<Array<Offer>> {
+    return this.http.get<Array<Offer>>(this.url + `offers/?buy=${buy}&from=${from}&to=${to}&country=${country}&currency=${currency}&city=${city}`).toPromise();
   }
 
-  public ChangeProfile(data: any):Observable<User> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<User>(this.url + "profile", data, { headers: headers });
+  public async ChangeProfile(data: any):Promise<User> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<User>(this.url + "profile", data, { headers: headers }).toPromise();
   }
 
-  public VerifyEmail(Id: string):Observable<string> {
-    return this.http.get<string>(this.url + "verify_email/" + Id);
+  public VerifyEmail(Id: string):Promise<string> {
+    return this.http.get<string>(this.url + "verify_email/" + Id).toPromise();
   }
 
-  public GetDashboard():Observable<DashboardResult> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.get<DashboardResult>(this.url + "dashboard", { headers: headers });
+  public async GetDashboard():Promise<DashboardResult> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.get<DashboardResult>(this.url + "dashboard", { headers: headers }).toPromise();
   }
 
-  public EditOffer(data: any):Observable<Offer> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<Offer>(this.url + "edit_offer", data, { headers: headers });
+  public async EditOffer(data: any):Promise<Offer> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<Offer>(this.url + "edit_offer", data, { headers: headers }).toPromise();
   }
 
-  public DeleteOffer(data: any):Observable<void> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<void>(this.url + "delete_offer", data, { headers: headers });
+  public async DeleteOffer(data: any):Promise<void> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<void>(this.url + "delete_offer", data, { headers: headers }).toPromise();
   }
 
-  public Accept(data: any):Observable<void> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<void>(this.url + "accept_review", data, { headers: headers });
+  public async Accept(data: any):Promise<void> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<void>(this.url + "accept_review", data, { headers: headers }).toPromise();
   }
 
-  public Deny(data: any):Observable<void> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<void>(this.url + "deny_review", data, { headers: headers });
+  public async Deny(data: any):Promise<void> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<void>(this.url + "deny_review", data, { headers: headers }).toPromise();
   }
 
-  public CreateReview(data: any):Observable<Comment> {
-    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.Res.Token}`);
-
-    return this.http.post<Comment>(this.url + "create_review", data, { headers: headers });
+  public async CreateReview(data: any):Promise<Comment> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<Comment>(this.url + "create_review", data, { headers: headers }).toPromise();
   }
 
 }

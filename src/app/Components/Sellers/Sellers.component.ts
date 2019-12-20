@@ -17,8 +17,16 @@ export class SellersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.SellerService.GetSellers().subscribe(s => {
-      this.Sellers = s;
+    this.InitSellers();
+  }
+
+  public async InitSellers():Promise<void> {
+    const sellersReq = this.SellerService.GetSellers();
+
+    await this.SellerService.Error.HandleResult(sellersReq, (sellers) => {
+      this.Sellers = sellers;
+    }, (err) => {
+      console.log(err);
     });
   }
 

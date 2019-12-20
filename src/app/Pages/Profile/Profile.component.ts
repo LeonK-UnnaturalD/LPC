@@ -28,13 +28,21 @@ export class ProfileComponent implements OnInit {
       OldPassword: ""
     });
 
-    this.UserService.GetProfile().subscribe(prof => {
-      this.User = prof;
+    this.InitProfile();
+  }
+
+  public async InitProfile():Promise<void> {
+    const profileReq = this.UserService.GetProfile();
+
+    await this.UserService.Error.HandleResult(profileReq, (profile) => {
+      this.User = <User>profile;
       this.Loading = false;
+
+      console.log(profile);
 
       setTimeout(() => feather.replace(), 200);
     }, (err) => {
-      this.Error = this.UserService.Error.HandleError(err);
+      this.Error = err;
     });
   }
 
@@ -42,14 +50,16 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  public OnChange(data: any):void {
+  public async OnChange(data: any):Promise<void> {
     data["Languages"] = this.User.Languages;
 
-    this.UserService.ChangeProfile(data).subscribe(res => {
-      this.User = res;
+    const changeReq = this.UserService.ChangeProfile(data);
+
+    await this.UserService.Error.HandleResult(changeReq, (change) => {
+      this.User = change;
       window.location.reload(true);
     }, err => {
-      this.Error = this.UserService.Error.HandleError(err);
+      this.Error = err;
     });
 
     this.Group.reset();

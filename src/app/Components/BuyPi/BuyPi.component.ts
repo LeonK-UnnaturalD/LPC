@@ -18,9 +18,13 @@ export class BuyPiComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.BuyService.GetBuyers().subscribe(b => {
-      this.Buyers = b;
-    });
+    this.InitBuyers();
   }
+
+  public async InitBuyers():Promise<void> {
+    const res = this.BuyService.GetBuyers();
+    
+    this.BuyService.Error.HandleResult(res, (data) => this.Buyers = data, (err) => console.log(err));
+  } 
 
 }

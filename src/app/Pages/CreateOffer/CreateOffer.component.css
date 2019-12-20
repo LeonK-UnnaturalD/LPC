@@ -20,7 +20,8 @@ form {
 }
 
 select {
-    width: 50%;
+    width: 85%;
+    text-align: center;
 }
 
 .buttons {

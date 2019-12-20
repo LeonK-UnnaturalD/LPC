@@ -17,11 +17,22 @@
     <input type="number" step="any" min="0.5" max="1000" placeholder="10" id="payment" formControlName="Price" required />
 
     <label for="currency">Currency</label>
-    <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
-    <app-Select [Group]="Group" class="flex"></app-Select>
+    <app-SelectCurrency [Group]="Group" class="flex" id="currency"></app-SelectCurrency>
 
-    <label for="deposit">deposit</label>
-    <input type="text" placeholder="Cash deposit" id="deposit" formControlName="Deposit" required />
+    <label for="state">State</label>
+    <app-Select (OnChange)="OnChange($event)" [Group]="Group" class="flex" id="state"></app-Select>
+
+    <div *ngIf="Cities.length > 0" class="flex">
+      <label for="cities">Cities</label>
+      <select value="{{Group.value.City}}" id="cities" formControlName="City">
+        <option *ngFor="let city of Cities" value="{{city}}">{{city}}</option>
+      </select>
+    </div>
+
+    <label for="deposit">Deposit</label>
+    <select id="deposit" formControlName="Deposit">
+      <option selected>Deposit</option>
+    </select>
 
     <button type="submit">Create Offer</button>
 

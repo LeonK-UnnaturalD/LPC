@@ -29,14 +29,20 @@ export class DashboardComponent implements OnInit {
       Price: ""
     });
 
-    this.UserService.GetDashboard().subscribe(d => {
-      this.Dashboard = d;
-      this.Loading = false;
+    this.InitDashboard();
+  }
 
-      setTimeout(() => feather.replace(), 100);
-    }, err => { 
-      this.UserService.Error.HandleError(err);
+  public async InitDashboard():Promise<void> {
+    const dashboard = this.UserService.GetDashboard();
+
+    await this.UserService.Error.HandleResult(dashboard, (data) => {
+      this.Dashboard = data;
+      this.Loading = false;
+    }, (err) => { 
+      console.log(err);
     });
+
+    setTimeout(() => feather.replace(), 100);
   }
 
   public Update(Id: string):void {
@@ -59,48 +65,54 @@ export class DashboardComponent implements OnInit {
     this.Opened = false;
   }
 
-  public SubmitEdit(data: any):void {
+  public async SubmitEdit(data: any):Promise<void> {
     data["Id"] = this.Offer.Id;
 
-    console.log(data);
+    const editReq = this.UserService.EditOffer(data);
 
-    this.UserService.EditOffer(data).subscribe(offer => {
+    this.UserService.Error.HandleResult(editReq, (offer) => {
       const index = this.Dashboard.Offers.findIndex(d => d.Id === this.Offer.Id);
       this.Dashboard.Offers[index] = offer;
 
       setTimeout(() => feather.replace(), 100);
-    }, err => {
-      this.Error = this.UserService.Error.HandleError(err);
+    }, (err) => {
+      this.Error = err;
     });
 
     this.Group.reset();
     this.Opened = false;
   }
 
-  public Delete(Id: string):void {
-    this.UserService.DeleteOffer({ Id }).subscribe(() => {
+  public async Delete(Id: string):Promise<void> {
+    const deleteReq = this.UserService.DeleteOffer({ Id });
+
+    this.UserService.Error.HandleResult(deleteReq, (deleteDate) => {
       const index = this.Dashboard.Offers.findIndex(o => o.Id === Id);
       this.Dashboard.Offers.splice(index, 1);
-    }, err => {
-      this.UserService.Error.HandleError(err);
+    }, (err) => {
+      console.log(err);
     });
   }
 
-  public Accept(Id: string):void {
-    this.UserService.Accept({ Id }).subscribe(() => {
+  public async Accept(Id: string):Promise<void> {
+    const acceptReq = this.UserService.Accept({ Id });
+
+    this.UserService.Error.HandleResult(acceptReq, (accept) => {
       const index = this.Dashboard.Reviews.findIndex(r => r.Id === Id);
       this.Dashboard.Reviews[index].Accepted = true;
-    }, err => {
-      this.UserService.Error.HandleError(err);
+    }, (err) => {
+      console.log(err);
     });
   }
 
-  public Deny(Id: string):void {
-    this.UserService.Deny({ Id }).subscribe(() => {
+  public async Deny(Id: string):Promise<void> {
+    const denyReq = this.UserService.Deny({ Id });
+
+    this.UserService.Error.HandleResult(denyReq, (deny) => {
       const index = this.Dashboard.Reviews.findIndex(r => r.Id === Id);
       this.Dashboard.Reviews.splice(index, 1);
-    }, err => {
-      this.UserService.Error.HandleError(err);
+    }, (err) => {
+      console.log(err);
     });
   }
 

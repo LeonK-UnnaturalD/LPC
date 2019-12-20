@@ -15,11 +15,17 @@ export class VerifiedEmailComponent implements OnInit {
   ngOnInit() {
     const id = this.Route.snapshot.paramMap.get("id");
 
-    this.UserService.VerifyEmail(id).subscribe(res => {
+    this.InitEmail(id);
+  }
+
+  private async InitEmail(Id: string):Promise<void> {
+    const verifyReq = this.UserService.VerifyEmail(Id);
+
+    await this.UserService.Error.HandleResult(verifyReq, (email) => {
       this.Loading = false;
     }, err => {
-      this.UserService.Error.HandleError(err);
-    })
+      console.error(err);
+    });
   }
 
 }

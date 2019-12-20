@@ -10,7 +10,13 @@
           <input type="number" placeholder="to" formControlName="To" required />
       </div>
       <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
-      <app-Select [Group]="Group" class="flex"></app-Select>
+      <app-Select (OnChange)="OnChange($event)" [Group]="Group" class="flex"></app-Select>
+      <div *ngIf="Cities.length > 0" class="flex">
+        <select value="{{Group.value.City}}" formControlName="City">
+          <option value="">None</option>
+          <option *ngFor="let city of Cities" value="{{city}}">{{city}}</option>
+        </select>
+      </div>
       <button>Find all</button>
     </form>
     <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="!IsBuying ? 'sellSelected' : 'none'">  
@@ -20,7 +26,13 @@
           <input type="number" placeholder="to" formControlName="To" required />
       </div>
       <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
-      <app-Select [Group]="Group" class="flex"></app-Select>
+      <app-Select [Group]="Group" (OnChange)="OnChange($event)" class="flex"></app-Select>
+      <div *ngIf="Cities.length > 0" class="flex">
+        <select value="{{Group.value.City}}" formControlName="City">
+          <option value="">None</option>
+          <option *ngFor="let city of Cities" value="{{city}}">{{city}}</option>
+        </select>
+      </div>
       <button>Find all</button>
     </form>
 </div>

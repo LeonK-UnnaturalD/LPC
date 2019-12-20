@@ -15,25 +15,25 @@ export class AuthService {
 
   constructor(private http: HttpClient, public Error: ErrorService, private Route: ActivatedRoute, private User: UserService) { }
 
-  public CreateAccount(data: any):Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.url + "register", data);
+  public CreateAccount(data: any):Promise<AuthResponse> {
+    return this.http.post<AuthResponse>(this.url + "register", data).toPromise();
   }
 
-  public Login(data: any):Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.url + "login", data);
+  public Login(data: any):Promise<AuthResponse> {
+    return this.http.post<AuthResponse>(this.url + "login", data).toPromise();
   }
 
-  public ResetPasswordRequest(data: any):Observable<void> {
-    return this.http.post<void>(this.url + "reset_password", data);
+  public ResetPasswordRequest(data: any):Promise<void> {
+    return this.http.post<void>(this.url + "reset_password", data).toPromise();
   }
 
-  public ResetPasswordResponse(data: any):Observable<void> {
-    return this.http.post<void>(this.url + "reset_password_final", data);
+  public ResetPasswordResponse(data: any):Promise<void> {
+    return this.http.post<void>(this.url + "reset_password_final", data).toPromise();
   }
 
-  public Check(Id: string):Observable<void> {
+  public Check(Id: string):Promise<void> {
     const data = { Id };
-    return this.http.post<void>(this.url + "reset_password_check", data);
+    return this.http.post<void>(this.url + "reset_password_check", data).toPromise();
   }
 
   public GetGoogleAuth():string {
