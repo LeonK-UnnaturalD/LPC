@@ -38,11 +38,11 @@ export class DashboardComponent implements OnInit {
     await this.UserService.Error.HandleResult(dashboard, (data) => {
       this.Dashboard = data;
       this.Loading = false;
+
+      setTimeout(() => feather.replace(), 100);
     }, (err) => { 
       console.log(err);
     });
-
-    setTimeout(() => feather.replace(), 100);
   }
 
   public Update(Id: string):void {

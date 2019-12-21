@@ -32,7 +32,7 @@ export class ErrorService {
         window.location.assign('/not_available');
       }
 
-      onError({ Error, Code });
+      onError({ Msg: Error, Code });
     });
   }
 

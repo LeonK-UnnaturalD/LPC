@@ -1,8 +1,8 @@
 <div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="heading">
-    <h2 *ngIf="Buy">Results of sellers ({{From}} - {{To}}) in {{Country}}</h2>
-    <h2 *ngIf="!Buy">Results of buyers ({{From}} - {{To}}) in {{Country}}</h2>
+    <h2 *ngIf="Buy">Results of sellers ({{From}} - {{To}}) in {{Country}} <h2 *ngIf="City !== ''">in {{City}}</h2></h2>
+    <h2 *ngIf="!Buy">Results of buyers ({{From}} - {{To}}) in {{Country}} <h2 *ngIf="City !== ''">in {{City}}</h2></h2>
   </div>
   <div>
     <div class="table">

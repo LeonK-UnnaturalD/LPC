@@ -16,8 +16,6 @@ export class GetCitiesService {
 
       const queryCities:Array<string> = new Array();
 
-      console.log(lines[0].slice(1, 45));
-
       while(currentLine < lines.length)
       {
         var line = lines[currentLine].slice(1, 45);

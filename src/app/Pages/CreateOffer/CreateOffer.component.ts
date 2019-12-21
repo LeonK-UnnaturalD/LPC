@@ -21,7 +21,7 @@ export class CreateOfferComponent implements OnInit {
     this.Group = this.Form.group({
       Limit: "",
       Price: "",
-      Deposit: "Deposit",
+      Deposit: "Cash deposit",
       Currency: "USD",
       Country: "GB",
       City: "",
@@ -39,7 +39,13 @@ export class CreateOfferComponent implements OnInit {
   public async CreateOffer(data: any):Promise<void> {
     data["IsBuying"] = this.Buying;
 
-    const res = await this.User.CreateOffer(data);
+    const createReq = this.User.CreateOffer(data);
+
+    this.User.Error.HandleResult(createReq, (offer) => {
+      console.log(offer);
+    }, (err) => {
+      this.Error = err;
+    })
 
     this.Success = true;
     this.Group.reset();

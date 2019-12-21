@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       };
 
       this.Storage.SetCustomer(auth);
-      window.location.assign('/');
+      window.location.assign("/");
     }, (err) => {
       this.ErrorLogin = err;
     });

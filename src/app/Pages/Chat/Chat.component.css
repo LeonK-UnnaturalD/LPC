@@ -27,8 +27,8 @@
     align-items: center;
 }
 
-.scroll {
-    overflow: auto;
+#scroll {
+    overflow: scroll;
     width: 100%;
     height: 65vh;
 }

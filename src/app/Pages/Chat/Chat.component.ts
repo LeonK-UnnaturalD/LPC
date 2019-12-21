@@ -47,11 +47,21 @@ export class ChatComponent implements OnInit {
       this.Chat.Messages.push(message);
   
       this.CreateSvg();
+
+      this.ScrollToBottom();
     }, (err) => {
 
     });
 
     this.ChatService.JoinChat(id);
+
+    this.ScrollToBottom();
+  }
+
+  private ScrollToBottom():void {
+    setTimeout(() => {
+    document.getElementById('scroll').scrollTop = 999999999;
+    }, 1000);
   }
 
   private async InitChat(Id: string):Promise<void> {

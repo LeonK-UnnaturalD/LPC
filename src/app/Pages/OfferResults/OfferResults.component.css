@@ -2,6 +2,10 @@ h2 {
     text-align: center;
 }
 
+h2 > h2 {
+    font-size: 25px;
+}
+
 .buyer {
     display: grid;
     grid-template-areas: "Name Payment Payment Price Button";
