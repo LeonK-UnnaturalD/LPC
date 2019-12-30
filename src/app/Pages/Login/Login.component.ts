@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     const isAuth = this.Auth.GetThirdPartyUser();
 
     if(isAuth)
-      this.UsedThirdPartyAuth(isAuth.Id);
+      this.UsedThirdPartyAuth(isAuth);
   }
 
   private async UsedThirdPartyAuth(Auth: { Id: string, Token: string }):Promise<void> {

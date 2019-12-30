@@ -70,12 +70,16 @@ export class AuthService {
     const id: string = this.Route.snapshot.queryParamMap.get('user');
 
     if(!token || !id)
+    {
       return null;
-    else 
+    }
+    else
+    {
       return { 
         Id: id,
         Token: token
       }
+    }
   }
 
 }
