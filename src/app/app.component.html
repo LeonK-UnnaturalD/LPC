@@ -1,3 +1,47 @@
-<app-Header></app-Header>
-<router-outlet></router-outlet>
+<app-Header (OnToggleNav)="OnToggle()"></app-Header>
+<mat-drawer-container hasBackdrop="true" class="drawer-container">
+    <mat-drawer class="drawer" mode="push" autoFocus="false" opened="{{IsOpen}}">
+        <div>
+            <mat-nav-list class="navigation">
+                <mat-list-item><mat-icon>home</mat-icon>
+                    <a mat-list-item href="/">Home</a>
+                </mat-list-item>
+                <mat-list-item><mat-icon>add_shopping_cart</mat-icon>
+                    <a mat-list-item href="/buy">Buy Pi</a>
+                </mat-list-item>
+                <mat-list-item><mat-icon>add_shopping_cart</mat-icon>
+                    <a mat-list-item href="/sell">Sell Pi</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="SignedIn"><mat-icon>post_add</mat-icon>
+                    <a mat-list-item href="/create_offer">Create offer</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="SignedIn"><mat-icon>account_box</mat-icon>
+                    <a mat-list-item href="/profile">Profile</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="SignedIn"><mat-icon>dashboard</mat-icon>
+                    <a mat-list-item href="/dashboard">Dashboard</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="SignedIn"><mat-icon>chat</mat-icon>
+                    <a mat-list-item href="/chats">Chats</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="SignedIn"><mat-icon>business</mat-icon>
+                    <a mat-list-item href="/buisness">Buisnesses</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="SignedIn"><mat-icon>account_balance_wallet</mat-icon>
+                    <a mat-list-item>Wallet</a>
+                </mat-list-item>
+                <mat-list-item (click)="Logout()" *ngIf="SignedIn"><mat-icon>meeting_room</mat-icon>
+                    <a mat-list-item>Sign out</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="!SignedIn"><mat-icon>assignment_ind</mat-icon>
+                    <a mat-list-item href="/login">Sign in</a>
+                </mat-list-item>
+                <mat-list-item *ngIf="!SignedIn"><mat-icon>assignment_ind</mat-icon>
+                    <a mat-list-item href="/register">Sign up</a>
+                </mat-list-item>
+            </mat-nav-list>
+        </div>
+    </mat-drawer>
+    <router-outlet></router-outlet>
+</mat-drawer-container>
 <app-Footer></app-Footer>

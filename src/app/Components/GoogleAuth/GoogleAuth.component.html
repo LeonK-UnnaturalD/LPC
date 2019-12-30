@@ -1,3 +1,1 @@
-<div *ngIf="Url !== ''" class="oauth2">
-  <a href="{{Url}}">Login with <b>Google</b></a>
-</div>
+<button mat-raised-button class="google" (click)="Google()" *ngIf="Url !== ''">Login with Google</button>

@@ -1,6 +1,10 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import feather from 'feather-icons';
-import { EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+export interface Error {
+  ErrorCode: number,
+  ErrorMessage: string
+}
 
 @Component({
   selector: 'app-Error',
@@ -8,21 +12,14 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./Error.component.css']
 })
 export class ErrorComponent implements OnInit {
-  @Input() ErrorMessage: string;
-  @Input() ErrorCode: number;
-  @Output() CloseError = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<ErrorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Error
+    ) { }
 
   ngOnInit() {
-    feather.replace();
-  }
-
-  public Close():void {
-    this.ErrorMessage = null;
-    this.ErrorCode = null;
-
-    this.CloseError.emit(null);
+    
   }
 
 }

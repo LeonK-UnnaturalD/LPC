@@ -2,65 +2,9 @@
   <div>
     <span class="title"><img src="../../assets/Logo.png" alt="Logo" /><h2><a href="/">The Pi Family</a></h2></span>
   </div>
-  <div class="NavButton" (click)="OpenMenu()">
-    <i data-feather="menu"></i>
-  </div>
-  <div class="pc_nav">
-    <div class="NavContainer">
-      <span><a href="buy">Buy Pi coins</a></span>
-    </div>
-    <div class="NavContainer">
-      <span><a href="sell">Sell Pi coins</a></span>
-    </div>
-    <div *ngIf="SignedIn" class="NavContainer">
-      <span><a href="create_offer">Post an offer</a></span>
-    </div>
-    <div *ngIf="!SignedIn" class="NavContainer">
-      <span><a href="register">Sign up</a></span>
-    </div>
-    <div *ngIf="!SignedIn" class="NavContainer">
-      <span><a href="login">Sign in</a></span>
-    </div>
-    <div *ngIf="SignedIn" class="NavContainer">
-        <span><i data-feather="tool"></i>&nbsp;<a href="dashboard">Dashboard</a></span>
-    </div>
-    <div *ngIf="SignedIn" class="NavContainer">
-        <span><i data-feather="message-circle"></i>&nbsp;<a href="chats">Chats</a></span>
-    </div>
-    <div *ngIf="SignedIn" class="NavContainer">
-        <span><i data-feather="user"></i>&nbsp;<a href="profile">Profile</a></span>
-    </div>
-    <div *ngIf="SignedIn" class="NavContainer" (click)="Logout()">
-        <span><i data-feather="log-out"></i>&nbsp;<a href="/">Logout</a></span>
-    </div>
-  </div>
-</div>
-<div [ngClass]="IsClicked ? 'nav navAnim' : 'nav'">
-  <div class="NavContainer">
-    <span><a href="buy">Buy Pi coins</a></span>
-  </div>
-  <div class="NavContainer">
-    <span><a href="sell">Sell Pi coins</a></span>
-  </div>
-  <div *ngIf="SignedIn" class="NavContainer">
-    <span><a href="create_offer">Post an offer</a></span>
-  </div>
-  <div *ngIf="!SignedIn" class="NavContainer">
-    <span><a href="register">Sign up</a></span>
-  </div>
-  <div *ngIf="!SignedIn" class="NavContainer">
-    <span><a href="login">Sign in</a></span>
-  </div>
-  <div *ngIf="SignedIn" class="NavContainer">
-      <span><i data-feather="tool"></i>&nbsp;<a href="dashboard">Dashboard</a></span>
-  </div>
-  <div *ngIf="SignedIn" class="NavContainer">
-      <span><i data-feather="message-circle"></i>&nbsp;<a href="chats">Chats</a></span>
-  </div>
-  <div *ngIf="SignedIn" class="NavContainer">
-      <span><i data-feather="user"></i>&nbsp;<a href="profile">Profile</a></span>
-  </div>
-  <div *ngIf="SignedIn" class="NavContainer" (click)="Logout()">
-      <span><i data-feather="log-out"></i>&nbsp;<a href="/">Logout</a></span>
-  </div>
+  <button mat-button>
+    <mat-icon (click)="OpenMenu()">
+      menu
+    </mat-icon>
+  </button>
 </div>

@@ -14,4 +14,8 @@ export class IntroductionComponent implements OnInit {
   ngOnInit() {
   }
 
+  public SignUp():void {
+    window.location.assign('/register');
+  }
+
 }

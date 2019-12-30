@@ -7,6 +7,11 @@
     align-items: center;
 }
 
+.stepper {
+    background-color: rgba(0, 0, 0, 0);
+    width: 80%;
+}
+
 select {
     width: 80%;
 }

@@ -3,114 +3,166 @@
   <div class="grid fullsite">
     <h1>{{User.Username}}</h1>
 
-    <form [formGroup]="Group" (ngSubmit)="OnChange(Group.value)">
-      <div class="username">
-        <h3>Change username</h3>
-        <input type="text" placeholder="{{User.Username}}" formControlName="Username" />
-      </div>
-      <div class="password">
-        <h3>Change password</h3>
-        <input type="password" placeholder="Enter new password..." formControlName="Password" />
-        <input type="password" placeholder="Enter new password again..." formControlName="RepeatPassword" />
-      </div>
-      <div class="email">
-        <h3>Change Email</h3>
-        <input type="text" placeholder="{{User.Email}}" formControlName="Email" />
-      </div>
-      <div class="languages">
-        <div class="selectedlangs">
-          <div *ngFor="let lang of User.Languages">
-            <span>{{lang}}</span>
-            <span (click)="RemoveLanguage(lang)"><i data-feather="x"></i></span>
+    <mat-vertical-stepper class="stepper" [linear]="false" #stepper>
+      <mat-step [stepControl]="Name">
+        <form [formGroup]="Group">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Last name" formControlName="LastName">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="First name" formControlName="FirstName">
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
           </div>
-        </div>
-        <h3>Edit languages</h3>
-        <select (change)="AddLanguage($event)">
-            <option value="Afrikanns">Afrikanns</option>
-            <option value="Albanian">Albanian</option>
-            <option value="Arabic">Arabic</option>
-            <option value="Armenian">Armenian</option>
-            <option value="Basque">Basque</option>
-            <option value="Bengali">Bengali</option>
-            <option value="Bulgarian">Bulgarian</option>
-            <option value="Catalan">Catalan</option>
-            <option value="Cambodian">Cambodian</option>
-            <option value="Chinese (Mandarin)">Chinese (Mandarin)</option>
-            <option value="Croation">Croation</option>
-            <option value="Czech">Czech</option>
-            <option value="Danish">Danish</option>
-            <option value="Dutch">Dutch</option>
-            <option value="English">English</option>
-            <option value="Estonian">Estonian</option>
-            <option value="Fiji">Fiji</option>
-            <option value="Finnish">Finnish</option>
-            <option value="French">French</option>
-            <option value="Georgian">Georgian</option>
-            <option value="German">German</option>
-            <option value="Greek">Greek</option>
-            <option value="Gujarati">Gujarati</option>
-            <option value="Hebrew">Hebrew</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Hungarian">Hungarian</option>
-            <option value="Icelandic">Icelandic</option>
-            <option value="Indonesian">Indonesian</option>
-            <option value="Irish">Irish</option>
-            <option value="Italian">Italian</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Javanese">Javanese</option>
-            <option value="Korean">Korean</option>
-            <option value="Latin">Latin</option>
-            <option value="Latvian">Latvian</option>
-            <option value="Lithuanian">Lithuanian</option>
-            <option value="Macedonian">Macedonian</option>
-            <option value="Malay">Malay</option>
-            <option value="Malayalam">Malayalam</option>
-            <option value="Maltese">Maltese</option>
-            <option value="Maori">Maori</option>
-            <option value="Marathi">Marathi</option>
-            <option value="Mongolian">Mongolian</option>
-            <option value="Nepali">Nepali</option>
-            <option value="Norwegian">Norwegian</option>
-            <option value="Persian">Persian</option>
-            <option value="Polish">Polish</option>
-            <option value="Portuguese">Portuguese</option>
-            <option value="Punjabi">Punjabi</option>
-            <option value="Quechua">Quechua</option>
-            <option value="Romanian">Romanian</option>
-            <option value="Russian">Russian</option>
-            <option value="Samoan">Samoan</option>
-            <option value="Serbian">Serbian</option>
-            <option value="Slovak">Slovak</option>
-            <option value="Slovenian">Slovenian</option>
-            <option value="Spanish">Spanish</option>
-            <option value="Swahili">Swahili</option>
-            <option value="Swedish ">Swedish </option>
-            <option value="Tamil">Tamil</option>
-            <option value="Tatar">Tatar</option>
-            <option value="Telugu">Telugu</option>
-            <option value="Thai">Thai</option>
-            <option value="Tibetan">Tibetan</option>
-            <option value="Tonga">Tonga</option>
-            <option value="Turkish">Turkish</option>
-            <option value="Ukranian">Ukranian</option>
-            <option value="Urdu">Urdu</option>
-            <option value="Uzbek">Uzbek</option>
-            <option value="Vietnamese">Vietnamese</option>
-            <option value="Welsh">Welsh</option>
-            <option value="Xhosa">Xhosa</option>
-        </select>
-      </div>
-      <div class="oldpassword">
-        <input type="password" placeholder="Enter your old password to save changes" formControlName="OldPassword" />
-      </div>
-      <div class="buttons">
-        <button class="submit">Change details</button>
-        <button (click)="DeleteAccount()" class="delete">Delete Account</button>
-      </div>
-
-      <app-Error *ngIf="Error" class="Error" (CloseError)="Close()" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg"></app-Error>
-
-    </form>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="Details">
+        <form [formGroup]="Group">
+          <ng-template matStepLabel>Fill out your profile details</ng-template>
+          <mat-form-field>
+            <textarea matInput placeholder="Description" formControlName="Description"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput placeholder="Terms" formControlName="Terms"></textarea>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="Account">
+        <form [formGroup]="Group">
+          <ng-template matStepLabel>Change Account</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Username" formControlName="Username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email" formControlName="Email">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Languages</mat-label>
+            <mat-select formControlName="Languages" multiple>
+              <mat-option value="Afrikanns">Afrikanns</mat-option>
+              <mat-option value="Albanian">Albanian</mat-option>
+              <mat-option value="Arabic">Arabic</mat-option>
+              <mat-option value="Armenian">Armenian</mat-option>
+              <mat-option value="Basque">Basque</mat-option>
+              <mat-option value="Bengali">Bengali</mat-option>
+              <mat-option value="Bulgarian">Bulgarian</mat-option>
+              <mat-option value="Catalan">Catalan</mat-option>
+              <mat-option value="Cambodian">Cambodian</mat-option>
+              <mat-option value="Chinese (Mandarin)">Chinese (Mandarin)</mat-option>
+              <mat-option value="Croation">Croation</mat-option>
+              <mat-option value="Czech">Czech</mat-option>
+              <mat-option value="Danish">Danish</mat-option>
+              <mat-option value="Dutch">Dutch</mat-option>
+              <mat-option value="English">English</mat-option>
+              <mat-option value="Estonian">Estonian</mat-option>
+              <mat-option value="Fiji">Fiji</mat-option>
+              <mat-option value="Finnish">Finnish</mat-option>
+              <mat-option value="French">French</mat-option>
+              <mat-option value="Georgian">Georgian</mat-option>
+              <mat-option value="German">German</mat-option>
+              <mat-option value="Greek">Greek</mat-option>
+              <mat-option value="Gujarati">Gujarati</mat-option>
+              <mat-option value="Hebrew">Hebrew</mat-option>
+              <mat-option value="Hindi">Hindi</mat-option>
+              <mat-option value="Hungarian">Hungarian</mat-option>
+              <mat-option value="Icelandic">Icelandic</mat-option>
+              <mat-option value="Indonesian">Indonesian</mat-option>
+              <mat-option value="Irish">Irish</mat-option>
+              <mat-option value="Italian">Italian</mat-option>
+              <mat-option value="Japanese">Japanese</mat-option>
+              <mat-option value="Javanese">Javanese</mat-option>
+              <mat-option value="Korean">Korean</mat-option>
+              <mat-option value="Latin">Latin</mat-option>
+              <mat-option value="Latvian">Latvian</mat-option>
+              <mat-option value="Lithuanian">Lithuanian</mat-option>
+              <mat-option value="Macedonian">Macedonian</mat-option>
+              <mat-option value="Malay">Malay</mat-option>
+              <mat-option value="Malayalam">Malayalam</mat-option>
+              <mat-option value="Maltese">Maltese</mat-option>
+              <mat-option value="Maori">Maori</mat-option>
+              <mat-option value="Marathi">Marathi</mat-option>
+              <mat-option value="Mongolian">Mongolian</mat-option>
+              <mat-option value="Nepali">Nepali</mat-option>
+              <mat-option value="Norwegian">Norwegian</mat-option>
+              <mat-option value="Persian">Persian</mat-option>
+              <mat-option value="Polish">Polish</mat-option>
+              <mat-option value="Portuguese">Portuguese</mat-option>
+              <mat-option value="Punjabi">Punjabi</mat-option>
+              <mat-option value="Quechua">Quechua</mat-option>
+              <mat-option value="Romanian">Romanian</mat-option>
+              <mat-option value="Russian">Russian</mat-option>
+              <mat-option value="Samoan">Samoan</mat-option>
+              <mat-option value="Serbian">Serbian</mat-option>
+              <mat-option value="Slovak">Slovak</mat-option>
+              <mat-option value="Slovenian">Slovenian</mat-option>
+              <mat-option value="Spanish">Spanish</mat-option>
+              <mat-option value="Swahili">Swahili</mat-option>
+              <mat-option value="Swedish ">Swedish </mat-option>
+              <mat-option value="Tamil">Tamil</mat-option>
+              <mat-option value="Tatar">Tatar</mat-option>
+              <mat-option value="Telugu">Telugu</mat-option>
+              <mat-option value="Thai">Thai</mat-option>
+              <mat-option value="Tibetan">Tibetan</mat-option>
+              <mat-option value="Tonga">Tonga</mat-option>
+              <mat-option value="Turkish">Turkish</mat-option>
+              <mat-option value="Ukranian">Ukranian</mat-option>
+              <mat-option value="Urdu">Urdu</mat-option>
+              <mat-option value="Uzbek">Uzbek</mat-option>
+              <mat-option value="Vietnamese">Vietnamese</mat-option>
+              <mat-option value="Welsh">Welsh</mat-option>
+              <mat-option value="Xhosa">Xhosa</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" placeholder="New password" formControlName="NPassword">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" placeholder="Repeat password" formControlName="RPassword">
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="Location">
+        <form [formGroup]="Group">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Country" formControlName="Country">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="City" formControlName="City">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="ZIP" formControlName="ZIP">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Street, Address" formControlName="Street">
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="Change">
+        <form [formGroup]="Group" (ngSubmit)="(Group.value)">
+          <ng-template matStepLabel>Save changes</ng-template>
+          <div>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Old password" formControlName="OldPassword" required>
+            </mat-form-field>
+            <button mat-button matStepperPrevious (click)="OnChange(Group.value)">Change</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-vertical-stepper>
 
   </div>
   <app-Empty></app-Empty>

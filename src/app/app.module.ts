@@ -1,12 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 const config: SocketIoConfig = { url: 'https://findpinearyou.herokuapp.com', options: {} };
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './Components/Header/Header.component';
 import { SearchComponent } from './Components/Search/Search.component';
 import { EmptyComponent } from './Components/Empty/Empty.component';
@@ -44,6 +60,14 @@ import { GoogleAuthComponent } from './Components/GoogleAuth/GoogleAuth.componen
 import { FacebookAuthComponent } from './Components/FacebookAuth/FacebookAuth.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { EditOfferDialogComponent } from './Components/EditOfferDialog/EditOfferDialog.component';
+import { BuisnessComponent } from './Pages/Buisness/Buisness.component';
+import { CreateBuisnessComponent } from './Pages/CreateBuisness/CreateBuisness.component';
+import { GetBuisnessComponent } from './Pages/GetBuisness/GetBuisness.component';
+import { BuisnessBottomSheetComponent } from './Components/BuisnessBottomSheet/BuisnessBottomSheet.component';
+import { ContactMeDialogComponent } from './Components/ContactMeDialog/ContactMeDialog.component';
+import { CreateReviewDialogComponent } from './Components/CreateReviewDialog/CreateReviewDialog.component';
+import { ReportDialogComponent } from './Components/ReportDialog/ReportDialog.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +104,15 @@ import { environment } from '../environments/environment';
     WarningComponent,
     ResetPasswordComponent,
     GoogleAuthComponent,
-    FacebookAuthComponent
+    FacebookAuthComponent,
+    EditOfferDialogComponent,
+    BuisnessComponent,
+    CreateBuisnessComponent,
+    GetBuisnessComponent,
+    BuisnessBottomSheetComponent,
+    ContactMeDialogComponent,
+    CreateReviewDialogComponent,
+    ReportDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -90,9 +122,36 @@ import { environment } from '../environments/environment';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    MatInputModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatBadgeModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatBottomSheetModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    EditOfferDialogComponent,
+    ErrorComponent,
+    BuisnessBottomSheetComponent,
+    ContactMeDialogComponent,
+    CreateReviewDialogComponent,
+    ReportDialogComponent
+  ]
 })
 export class AppModule { }

@@ -48,3 +48,9 @@
     width: 100%;
     color: white;
 }
+
+@media (min-width: 800px) {
+    .msg {
+        width: 25%;
+    }
+}

@@ -3,26 +3,37 @@
   <div class="grid fullsite">
     <div *ngIf="Chat.OffererId !== Owner" class="customer">
       <h1>Chat</h1>
-      <span class="block"><i data-feather="slash"></i></span>
-      <span class="report"><i data-feather="alert-octagon"></i></span>
-      <span class="close"><i data-feather="x-square"></i></span>
-      <span class="star"><i data-feather="star"></i></span>
+      <div *ngIf="!Chat.Blocked" class="actions">
+        <mat-icon (click)="Block(Chat.OffererId)">block</mat-icon>
+        <mat-icon (click)="Report(Chat.OffererId)">report</mat-icon>
+        <mat-icon>cancel</mat-icon>
+        <mat-icon (click)="OnTrust(Chat.OffererId)">star</mat-icon>
+      </div>
     </div>
     <div *ngIf="Chat.OffererId === Owner" class="offerer">
       <h1>Chat</h1>
-      <span class="block"><i data-feather="slash"></i></span>
-      <span class="report"><i data-feather="alert-octagon"></i></span>
-      <span class="accept"><i data-feather="user-check"></i></span>
+      <div *ngIf="!Chat.Blocked" class="actions">
+        <mat-icon (click)="Block(Chat.CustomerId)">block</mat-icon>
+        <mat-icon (click)="Report(Chat.CustomerId)">report</mat-icon>
+        <mat-icon>done_all</mat-icon>
+      </div>
     </div>
     <div class="grid" id="scroll">
       <app-Messages class="full" *ngFor="let msg of Chat.Messages" Username="{{msg.Username}}" Date="{{msg.Date}}" Content="{{msg.Content}}" Owner="{{msg.Owner}}" MyId="{{Owner}}" IsEmbed="{{msg.IsEmbed.toString()}}"></app-Messages>
       <app-Empty></app-Empty>
     </div>
-    <div class="Send">
+    <div *ngIf="!Chat.Blocked" class="Send">
       <form [formGroup]="Group" (ngSubmit)="OnSubmit(Group.value)">  
-        <input type="text" placeholder="Enter message" id="message" formControlName="message" required/>
-        <button type="submit"><i data-feather="send"></i></button>
+        <mat-form-field id="message">
+          <input matInput type="text" placeholder="Enter message" formControlName="message" required/>
+        </mat-form-field>
+        <button mat-raised-button type="submit"><mat-icon>send</mat-icon></button>
       </form>
+    </div>
+    <div *ngIf="Chat.Blocked" class="center">
+      <div>
+        You can't send any messages, because this user has blocked you/ is blocked by you
+      </div>
     </div>
   </div>
   <app-Empty></app-Empty>

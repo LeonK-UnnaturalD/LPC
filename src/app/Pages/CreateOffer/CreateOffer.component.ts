@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/Services/User.service';
 import { GetCitiesService } from 'src/app/Services/GetCities.service';
+import User from 'src/app/Classes/User';
+import { StorageService } from 'src/app/Services/Storage.service';
 
 @Component({
   selector: 'app-CreateOffer',
@@ -14,8 +16,14 @@ export class CreateOfferComponent implements OnInit {
   public Error: { Code: number, Msg: string } = null;
   public Success: boolean = false;
   public Cities: Array<string> = new Array<string>();
+  public Yourself: User;
+  public Loading: boolean = true;
 
-  constructor(private CityService: GetCitiesService, private Form: FormBuilder, private User: UserService) { }
+  constructor(
+    private CityService: GetCitiesService, 
+    private Form: FormBuilder, 
+    private User: UserService,
+    private Storage: StorageService) { }
 
   ngOnInit() {
     this.Group = this.Form.group({
@@ -25,6 +33,19 @@ export class CreateOfferComponent implements OnInit {
       Currency: "USD",
       Country: "GB",
       City: "",
+    });
+
+    this.InitUser();
+  }
+
+  private async InitUser():Promise<void> {
+    const userReq = this.User.GetUser(this.Storage.GetCustomer().User.Id);
+
+    await this.User.Error.HandleResult(userReq, (user) => {
+      this.Yourself = user;
+      this.Loading = false;
+    }, (err) => {
+      console.log(err);
     });
   }
 

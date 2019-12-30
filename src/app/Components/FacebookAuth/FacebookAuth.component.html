@@ -1,3 +1,1 @@
-<div *ngIf="Url !== ''" class="oauth2">
-  <a href="{{Url}}">Login with <b>FaceBook</b></a>
-</div>
+<button (click)="Facebook()" mat-raised-button color="primary" *ngIf="Url !== ''">Login with Facebook</button>

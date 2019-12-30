@@ -62,16 +62,16 @@ svg {
     font-size: 16px;
 }
 
-button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 40%;
-    background-color: darkorange;
-    color: white;
-    align-self: center;
-}
-
 a {
     text-decoration: none;
     color: blue;
+}
+
+.sidecard {
+    min-width: 40%;
+    margin: 20px 0 20px 0;
+}
+
+.contact {
+    align-self: center;
 }

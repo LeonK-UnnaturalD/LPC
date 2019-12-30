@@ -1,0 +1,15 @@
+<div>
+  <h2 mat-dialog-title>Report user</h2>
+  <div mat-dialog-content>
+    <form>
+      <mat-form-field>
+        <mat-label>Reason</mat-label>
+        <textarea matInput placeholder="Enter reason..." [formControl]="Report"></textarea>
+      </mat-form-field>
+      <div mat-dialog-actions>
+        <button mat-button (click)="ReportUser()">Report</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Close</button>
+      </div>
+    </form>
+  </div>
+</div>

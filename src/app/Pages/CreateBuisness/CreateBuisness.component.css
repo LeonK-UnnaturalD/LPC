@@ -1,0 +1,15 @@
+.stepper {
+    background-color: rgba(0, 0, 0, 0);
+    width: 80%;
+    margin: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.member {
+    margin-top: 15px;
+}

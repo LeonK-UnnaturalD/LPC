@@ -7,5 +7,7 @@ export default class Offer {
     public UserId: string;
     public Type: { Sell: boolean, Buy: boolean }
     public Currency: string;
+    public City: string;
     public Country: string;
+    public Terms?: string;
 }

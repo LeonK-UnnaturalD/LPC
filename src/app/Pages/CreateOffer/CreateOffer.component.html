@@ -1,45 +1,54 @@
-<app-Empty></app-Empty>
-<div class="fullsite">
-  <h1>Create an offer</h1>
+<div *ngIf="!Loading" class="fullsite">
+  <app-Empty></app-Empty>
   <div>
-    <p>If you create an offer, be it selling or buying Pi, your offer will be posted on our home site, so people can get in toch with you</p>
-  </div>
-  <app-Success class="Error" *ngIf="Success"></app-Success>
-  <div class="buttons">
-    <button [ngClass]="!Buying ? 'selected' : ''" (click)="Sell()">Sell</button>
-    <button [ngClass]="Buying ? 'selected' : ''" (click)="Buy()">Buy</button>
-  </div>
-  <form [formGroup]="Group" (ngSubmit)="CreateOffer(Group.value)">
-    <label for="limit">Limit amount of Pi</label>
-    <input type="number" step="any" min="0.5" max="1000" placeholder="1" id="limit" formControlName="Limit" required />
+    <app-Warning *ngIf="!Yourself.Terms" Content="Setup your terms, otherwise you can't post an offer"></app-Warning>
+    <mat-card>
+      <mat-card-title>Create an offer</mat-card-title>
+      <mat-card-content>
+        If you create an offer, be it selling or buying Pi, your offer will be posted on our home site, so people can get in toch with you
+      </mat-card-content>
+    </mat-card>
 
-    <label for="payment">Cost of each Pi</label>
-    <input type="number" step="any" min="0.5" max="1000" placeholder="10" id="payment" formControlName="Price" required />
-
-    <label for="currency">Currency</label>
-    <app-SelectCurrency [Group]="Group" class="flex" id="currency"></app-SelectCurrency>
-
-    <label for="state">State</label>
-    <app-Select (OnChange)="OnChange($event)" [Group]="Group" class="flex" id="state"></app-Select>
-
-    <div *ngIf="Cities.length > 0" class="flex">
-      <label for="cities">Cities</label>
-      <select value="{{Group.value.City}}" id="cities" formControlName="City">
-        <option *ngFor="let city of Cities" value="{{city}}">{{city}}</option>
-      </select>
+    <div class="buttons">
+      <button mat-raised-button [ngClass]="!Buying ? 'selected' : ''" (click)="Sell()">Sell</button>
+      <button mat-raised-button [ngClass]="Buying ? 'selected' : ''" (click)="Buy()">Buy</button>
     </div>
+    <form [formGroup]="Group" (ngSubmit)="CreateOffer(Group.value)">
+      <mat-form-field>
+        <input matInput type="number" step="any" min="0.5" max="1000" placeholder="Limit" formControlName="Limit" required />
+      </mat-form-field>
 
-    <label for="deposit">Deposit</label>
-    <select id="deposit" formControlName="Deposit">
-      <option selected>Cash deposit</option>
-    </select>
+      <mat-form-field>
+        <input matInput type="number" step="any" min="0.5" max="1000" placeholder="Cost of each Pi" formControlName="Price" required />
+      </mat-form-field>
 
-    <button type="submit">Create Offer</button>
+      <label for="currency">Currency</label>
+      <app-SelectCurrency [Group]="Group" class="flex" id="currency"></app-SelectCurrency>
 
-    <app-Error *ngIf="Error" class="Error" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg" (CloseError)="Close($event)"></app-Error>
-  </form>
-  <div>
-    <p>*If you want to change any values, checkout your <a href="dashboard">dashboard</a></p>
+      <label for="state">State</label>
+      <app-Select (OnChange)="OnChange($event)" [Group]="Group" class="flex" id="state"></app-Select>
+
+      <mat-form-field *ngIf="Cities.length > 0" class="flex">
+        <mat-label>Cities</mat-label>
+        <mat-select value="{{Group.value.City}}" id="cities" formControlName="City">
+          <mat-option *ngFor="let city of Cities" value="{{city}}">{{city}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Deposit</mat-label>
+        <mat-select id="deposit" formControlName="Deposit">
+          <mat-option value="Cash deposit" selected>Cash deposit</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button *ngIf="Yourself.Terms" mat-raised-button type="submit">Create Offer</button>
+    </form>
+    <app-Empty></app-Empty>
+    <div class="hint">
+      <p>*If you want to change any values, checkout your <a href="dashboard">dashboard</a></p>
+    </div>
   </div>
+  <app-Empty></app-Empty>
 </div>
-<app-Empty></app-Empty>
+<app-Loading *ngIf="Loading"></app-Loading>

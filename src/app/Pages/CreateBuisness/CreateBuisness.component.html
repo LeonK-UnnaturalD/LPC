@@ -1,0 +1,82 @@
+<div class="fullsite">
+  <app-Empty></app-Empty>
+  <mat-vertical-stepper class="stepper" [linear]="false" #stepper>
+    <mat-step [stepControl]="Details">
+      <form [formGroup]="Group">
+        <ng-template matStepLabel>Details of buisness</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="Name" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="Email" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="Location">
+      <form [formGroup]="Group">
+        <ng-template matStepLabel>Location of buisness</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Country" formControlName="Country" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="City" formControlName="City" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="ZIP" formControlName="ZIP" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Street address" formControlName="Street" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="Members">
+      <form [formGroup]="Group">
+        <ng-template matStepLabel>Members of buisness</ng-template>
+        <mat-form-field>
+          <input matInput (change)="FindMember($event)" placeholder="Name or Id of member" required>
+        </mat-form-field>
+        <mat-form-field *ngIf="MembersFound.length > 0">
+          <mat-label>Members</mat-label>
+          <mat-select (selectionChange)="ChangeList($event)" multiple>
+            <mat-option *ngFor="let member of MembersFound" value={{member.Id}}>{{member.Username}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="member" *ngFor="let select of SelectedMembers">
+          <mat-card>
+            <mat-card-content class="content">
+              <h3>{{select.Username}}</h3>
+              <mat-icon (click)="Remove(select.Id)">close</mat-icon>
+            </mat-card-content>
+          </mat-card>
+          <mat-card>
+            <mat-card-content class="content">
+              <mat-form-field>
+                <mat-label>Select role for {{select.Username}}</mat-label>
+                <mat-select (selectionChange)="SetRole($event, select.Id)">
+                  <mat-option value="0">Employee</mat-option>
+                  <mat-option value="1">Administrator</mat-option>
+                  <mat-option value="2">CEO</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="Submit">
+      <form [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
+        <ng-template matStepLabel>Submit buisness</ng-template>
+        <button mat-raised-button type="submit">Submit</button>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

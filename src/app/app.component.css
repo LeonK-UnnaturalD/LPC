@@ -1,0 +1,15 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.drawer {
+    min-width: 33%;
+    background: linear-gradient(180deg, white 0%, rgb(253, 225, 192) 100%) no-repeat center center fixed;
+}
+
+.drawer-container {
+    background-color: rgba(0, 0, 0, 0);
+}

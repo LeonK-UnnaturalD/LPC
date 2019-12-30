@@ -2,8 +2,10 @@ import Comment from './Comment';
 
 export default class User {
     public Username: string;
+    public RealName: { FirstName: string, LastName: string };
     public Email?: string;
     public Id: string;
+    public Location: { Street: string, ZIP: string, Country: string, City: string };
     public Description: string;
     public Comments: Array<Comment>;
     public CreatedAt: string;

@@ -1,0 +1,17 @@
+<div>
+  <h2 mat-dialog-title>Contact {{Data.Username}}</h2>
+  <div mat-dialog-content>
+    <form>
+      <mat-form-field>
+        <input type="number" value="{{Amount.value}}" matInput placeholder="Amount" [formControl]="Amount">
+      </mat-form-field>
+      <div>
+        {{Data.Terms}}
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="CreateContact()">Create contact</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Close</button>
+      </div>
+    </form>
+  </div>
+</div>

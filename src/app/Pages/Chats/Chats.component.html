@@ -1,18 +1,29 @@
 <div *ngIf="!Loading">
   <app-Empty></app-Empty>
-  <h1>Chats</h1>
+  <mat-card class="heading">
+    <mat-card-title>Chats</mat-card-title>
+    <mat-card-content>
+      Lists all your chats with your customers. You can report, block, trust them and confirm trades after both of you received the promised amount of each other.
+    </mat-card-content>
+  </mat-card>
   <div class="flex fullsite">
-    <div class="chat noChats" *ngIf="Chats.length <= 0">
+    <mat-card class="chat noChats" *ngIf="Chats.length <= 0">
         <span><i data-feather="user"></i>&nbsp;No chats found</span>
         <p><a class="link" href="/">Find users to chat with by trading</a></p>
-    </div>  
-    <a *ngFor="let chat of Chats" href="chats/{{chat.Id}}" class="chat">
-      <div>
+    </mat-card>  
+    <mat-card matBadge="{{GetBadgeCount(chat.Id)}}" matBadgeColor="warn" *ngFor="let chat of Chats" class="chat">
+      <mat-card-content *ngIf="!chat.Blocked" class="content" (click)="OpenChat(chat.Id)">
         <span><i data-feather="user"></i>&nbsp;{{chat.Username}}</span>
         <p><a class="link" href="user/{{chat.UserId}}">See profile</a></p>
         <div [ngClass]="chat.IsAvailable ? 'circle online' : 'circle offline'"></div>
-      </div>
-    </a>
+      </mat-card-content>
+      <mat-card-content *ngIf="chat.Blocked" class="contentblock">
+        <span>{{chat.Username}}</span>
+        <p><a class="link" href="user/{{chat.UserId}}">See profile</a></p>
+        <div>blocked</div>
+        <button *ngIf="chat.BlockedBy === GetCustomerId()" mat-raised-button (click)="Unblock(chat.Id)">Unblock</button>
+      </mat-card-content>
+    </mat-card>
   </div>
   <app-Empty></app-Empty>
 </div>

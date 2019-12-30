@@ -14,7 +14,10 @@ export class ChatsComponent implements OnInit {
   public Loading: boolean = true;
   public Error: { Code: number, Msg: string } = null;
 
-  constructor(private ChatService: ChatService, private Storage: StorageService) {
+  constructor(
+    private ChatService: ChatService, 
+    private Storage: StorageService
+    ) {
     
   }
 
@@ -29,7 +32,7 @@ export class ChatsComponent implements OnInit {
 
     await this.ChatService.Error.HandleResult(chatsReq, (chats) => {
       this.Chats = chats.map(c => {
-        c.IsAvailable = onlineMembers.includes(c.Id);
+        c.IsAvailable = onlineMembers.includes(c.CustomerId) || onlineMembers.includes(c.OffererId);
         return c;
       })
       this.Loading = false;
@@ -37,6 +40,30 @@ export class ChatsComponent implements OnInit {
       setTimeout(() => feather.replace(), 100);
     }, (err) => {
       this.Error = err;
+    });
+  }
+
+  public OpenChat(Id: string):void {
+    this.Storage.RemoveUnreadMessages(Id);
+
+    window.location.assign(`/chats/${Id}`);
+  }
+
+  public GetBadgeCount(Id: string):number {
+    return this.Storage.GetUnreadMessageCount(Id);
+  }
+
+  public GetCustomerId():string {
+    return this.Storage.GetCustomer().User.Id;
+  }
+
+  public async Unblock(Id: string):Promise<void> {
+    const blockReq = this.ChatService.Block(Id);
+
+    this.ChatService.Error.HandleResult(blockReq, () => {
+      window.location.assign('/chats');
+    }, (err) => {
+
     });
   }
 

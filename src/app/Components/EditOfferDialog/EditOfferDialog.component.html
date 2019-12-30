@@ -1,0 +1,27 @@
+<div>
+  <h2 mat-dialog-title>Edit offer</h2>
+  <div mat-dialog-content>
+    <form [formGroup]="Group" (ngSubmit)="SubmitEdit(Group.value)">
+      <mat-form-field>
+        <input type="number" value="{{Group.value.Limit}}" matInput placeholder="Limit" formControlName="Limit">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Deposit</mat-label>
+        <mat-select formControlName="Deposit" value="{{Group.value.Deposit}}">
+          <mat-option value="Cash deposit">
+            Cash deposit
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" value="{{Group.value.Price}}" placeholder="Price" formControlName="Price">
+      </mat-form-field>
+      <app-Select [Group]="Group"></app-Select>
+      <app-SelectCurrency [Group]="Group"></app-SelectCurrency>
+      <div mat-dialog-actions>
+        <button mat-button type="submit">Update</button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Close</button>
+      </div>
+    </form>
+  </div>
+</div>

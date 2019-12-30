@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/Services/Chat.service';
 import { ActivatedRoute } from '@angular/router';
-import feather from 'feather-icons';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AuthResponse from 'src/app/Classes/AuthResponse';
 import Chat from 'src/app/Classes/Chats';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportDialogComponent } from 'src/app/Components/ReportDialog/ReportDialog.component';
 
 @Component({
   selector: 'app-Chat',
@@ -19,18 +21,28 @@ export class ChatComponent implements OnInit {
   public Loading: boolean = true;
   public Error: { Code: number, Msg: string } = null;
 
-  constructor(private ChatService: ChatService, private Route: ActivatedRoute, private Form: FormBuilder, private Storage: StorageService) {
+  constructor(
+    private ChatService: ChatService, 
+    private Route: ActivatedRoute, 
+    private Form: FormBuilder, 
+    private Storage: StorageService,
+    private SnackBar: MatSnackBar,
+    private Dialog: MatDialog) {
   }
 
   public OnSubmit(data: any):void {
-    this.ChatService.SendMessage(data.message);
+    if(this.Group.invalid) return;
 
+    this.ChatService.SendMessage(data.message);
     this.Group.reset();
   }
 
   ngOnInit() {
     this.Group = this.Form.group({
       message: ""
+    },
+    {
+      validators: Validators.required
     });
 
     this.Owner = this.Storage.GetCustomer().User.Id;
@@ -45,8 +57,6 @@ export class ChatComponent implements OnInit {
       if(Id !== id) return;
   
       this.Chat.Messages.push(message);
-  
-      this.CreateSvg();
 
       this.ScrollToBottom();
     }, (err) => {
@@ -70,15 +80,41 @@ export class ChatComponent implements OnInit {
     await this.ChatService.Error.HandleResult(chatReq, (chat) => {
       this.Chat = chat;
       this.Loading = false;
-
-      this.CreateSvg();
     }, (err) => {
       this.Error = err;
     });
   }
 
-  private CreateSvg():void {
-    setTimeout(() => feather.replace(), 100);
+  public async OnTrust(Id: string):Promise<void> {
+    const trustReq = this.ChatService.Trust(Id);
+
+    this.ChatService.Error.HandleResult(trustReq, (msg) => {
+      this.SnackBar.open(msg, null, {
+        duration: 2000
+      });
+    }, (err) => {
+      
+    });
+  }
+
+  public Report(Id: string):void {
+    this.Dialog.open(ReportDialogComponent, {
+      data: {
+        "ChatId": this.Chat.Id,
+        "ReportedUserId": Id
+      }
+    });
+  }
+
+  public async Block(Id: string):Promise<void> {
+    const blockReq = this.ChatService.Block(this.Chat.Id);
+
+    this.ChatService.Error.HandleResult(blockReq, () => {
+      this.ChatService.SendBlock(Id);
+      window.location.assign('/chats');
+    }, (err) => {
+
+    });
   }
 
 }

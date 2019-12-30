@@ -1,0 +1,42 @@
+.container {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+    max-height: 20vh;
+    overflow: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.log {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.log > .emitter {
+    grid-area: emitter;
+}
+
+.log > .action_name {
+    grid-area: action;
+}
+
+.log > .details {
+    grid-area: details;
+}
+
+.good {
+    background-color: rgb(199, 255, 199);
+}
+
+.bad {
+    background-color: rgb(255, 164, 164);
+}

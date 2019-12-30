@@ -23,8 +23,8 @@ export class ChatService {
       this.Res = profile;
   }
 
-  public ReceivedMessage():Observable<{ message: Message, Id: string }> {
-      return this.Socket.fromEvent<{ message: Message, Id: string }>("OnReceivedMessage");
+  public ReceivedMessage():Observable<{ message: Message, Id: string, Receivers: string[] }> {
+      return this.Socket.fromEvent<{ message: Message, Id: string, Receivers: string[] }>("OnReceivedMessage");
   }
 
   public ReceivedOnlineList():Observable<Array<string>> {
@@ -37,6 +37,10 @@ export class ChatService {
 
   public AddMember():Observable<string> {
     return this.Socket.fromEvent<string>("OnUserJoinedApp");
+  }
+
+  public ReceivedBlock():Observable<string> {
+    return this.Socket.fromEvent<string>("OnReceivedBlock");
   }
 
   public async GetChats():Promise<Array<Chat>> {
@@ -67,6 +71,22 @@ export class ChatService {
 
     if(profile)
       this.Socket.emit("joinApp", profile.User.Id);
+  }
+
+  public SendBlock(Id: string):void {
+    this.Socket.emit("block", Id);
+  }
+
+  public Trust(Id: string):Promise<string> {
+    return this.http.post<string>(this.url + "trust", { Id }, { headers: new HttpHeaders().append("Authorization", `Bearer ${this.Res.Token}`) }).toPromise();
+  }
+
+  public async Report(data: any):Promise<void> {
+    return this.http.post<void>(this.url + "report", data, { headers: new HttpHeaders().append("Authorization", `Bearer ${this.Res.Token}`) }).toPromise();
+  }
+  
+  public async Block(Id: string):Promise<void> {
+    return this.http.post<void>(this.url + "block", { Id }, { headers: new HttpHeaders().append("Authorization", `Bearer ${this.Res.Token}`) }).toPromise();
   }
 
 }

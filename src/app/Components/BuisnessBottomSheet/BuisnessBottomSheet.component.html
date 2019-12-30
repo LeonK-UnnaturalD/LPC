@@ -1,0 +1,19 @@
+<div>
+  <form [formGroup]="Group">
+    <mat-card class="heading">
+      <mat-card-title>{{data.Username}}</mat-card-title>
+    </mat-card>
+    <mat-form-field *ngIf="data.Permission > data.RoleId">
+      <mat-label>Role selection</mat-label>
+      <mat-select value="{{Group.value.RoleId}}" formControlName="RoleId">
+        <mat-option value="0">Employee</mat-option>
+        <mat-option value="1">Administrator</mat-option>
+        <mat-option value="2">CEO</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button *ngIf="data.Permission > data.RoleId" mat-raised-button (click)="OnSubmit(Group.value)">Update</button>
+      <button *ngIf="data.Permission > data.RoleId" mat-raised-button (click)="KickMember()">Kick</button>
+    </div>
+  </form>
+</div>

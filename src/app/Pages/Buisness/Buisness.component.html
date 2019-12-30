@@ -1,0 +1,30 @@
+<div *ngIf="!Loading" class="fullsite">
+  <app-Empty></app-Empty>
+  <div>
+    <mat-card class="heading">
+      <mat-card-title>Buisness</mat-card-title>
+      <mat-card-content>
+        Lists all your buisnesses you are in. You can be in max. 3 buisnesses (1 self created, 2 invited ones), to prevent too many buisnesses, which aren't active.
+      </mat-card-content>
+    </mat-card>
+    <div *ngIf="Buisnesses.length > 0">
+      <mat-card (click)="GetBuisness(buisness.Id)" class="heading" *ngFor="let buisness of Buisnesses">
+        <mat-card-content class="buisness-content">
+          <p class="info"><mat-icon>account_circle</mat-icon>{{buisness.Members.length}} User</p>
+          <p>{{buisness.Name}}</p>
+          <p>{{buisness.Email}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="Buisnesses.length <= 0">
+      <mat-card class="heading">
+        <mat-card-title>No buisnesses found</mat-card-title>
+        <mat-card-content>
+          Seems like you didn't own or got invited to any buisnesses <br />
+          <a href="/create_buisness">Might be the solution</a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<app-Loading *ngIf="Loading"></app-Loading>

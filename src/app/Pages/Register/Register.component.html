@@ -7,27 +7,42 @@
     </p>
   </div>
   <br />
-  <form [formGroup]="Register" (ngSubmit)="OnRegister(Register.value)">
-    <div class="property">
-        <label for="Username">Username</label>
-        <input type="text" placeholder="Username" id="Username" formControlName="Username" />
-    </div>
-    <div class="property">
-        <label for="Email">Email</label>
-        <input type="email" placeholder="Email" id="Email" formControlName="Email" />
-    </div>
-    <div class="property">
-        <label for="Password">Password</label>
-        <input type="password" placeholder="Password" id="Password" formControlName="Password" />
-    </div>
-    <div class="property">
-        <label for="RPassword">Repeat password</label>
-        <input type="password" placeholder="Password" id="RPassword" formControlName="Repeat" />
-    </div>
+  <form (ngSubmit)="OnRegister(GetData())">
+    <mat-form-field class="mat-input">
+      <input matInput type="text" placeholder="Username" [formControl]="Username">
+      <mat-error *ngIf="Username.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="Username.hasError('minlength')">
+        Username needs more than <strong>3</strong> letters
+      </mat-error>
+      <mat-error *ngIf="Username.hasError('maxlength')">
+        Username needs less than <strong>21</strong> letters
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="mat-input">
+      <input matInput type="email" placeholder="Email" [formControl]="Email">
+      <mat-error *ngIf="Email.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="Email.hasError('email')">
+        Email is in <strong>wrong</strong> format
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="mat-input">
+      <input matInput type="password" placeholder="Password" [formControl]="Password">
+      <mat-error *ngIf="Password.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="mat-input">
+      <input matInput type="password" placeholder="Repeat password" [formControl]="RPassword">
+      <mat-error *ngIf="RPassword.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-    <app-Error *ngIf="Error" class="Error" (CloseError)="Close($event)" [ErrorCode]="Error.Code" [ErrorMessage]="Error.Msg"></app-Error>
-
-    <button type="submit">Sign up</button>
+    <button type="submit" mat-stroked-button>Sign up</button>
   </form>
 
   <app-GoogleAuth></app-GoogleAuth>

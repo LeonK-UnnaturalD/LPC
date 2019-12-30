@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import AuthResponse from 'src/app/Classes/AuthResponse';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateReviewDialogComponent } from 'src/app/Components/CreateReviewDialog/CreateReviewDialog.component';
 
 @Component({
   selector: 'app-User',
@@ -21,7 +23,7 @@ export class UserComponent implements OnInit {
   public Group: FormGroup;
   public Profile: { Id: string, Username: string };
 
-  constructor(private Route: ActivatedRoute, private Storage: StorageService, private UserService: UserService, private Form: FormBuilder) {
+  constructor(private Route: ActivatedRoute, private Storage: StorageService, private UserService: UserService, private Form: FormBuilder, private Dialog: MatDialog) {
     
   }
 
@@ -54,18 +56,11 @@ export class UserComponent implements OnInit {
     });
   }
 
-  public async Submit(data: any):Promise<void> {
-    data["UserId"] = this.User.Id;
-
-    const reviewReq = this.UserService.CreateReview(data);
-
-    await this.UserService.Error.HandleResult(reviewReq, (review) => {
-      window.location.reload(true);
-    }, err => {
-      this.Error = err;
+  public CreateReview():void {
+    this.Dialog.open(CreateReviewDialogComponent, {
+      minWidth: "250px",
+      data: this.User
     });
-
-    this.Group.reset();
   }
 
 }

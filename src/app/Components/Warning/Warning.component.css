@@ -1,7 +1,5 @@
 .warning {
     background-color: rgb(212, 137, 25);
-    border-radius: 12px;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;

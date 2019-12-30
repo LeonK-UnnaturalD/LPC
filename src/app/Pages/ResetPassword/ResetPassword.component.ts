@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/Auth.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,6 +21,9 @@ export class ResetPasswordComponent implements OnInit {
       Password: "",
       VerifyPassword: "",
       Id: id
+    },
+    {
+      validators: Validators.required
     });
 
     this.Check(id);
@@ -37,6 +40,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public OnSubmit(data: any):void {
+    if(this.Group.invalid) return;
+    
     const resetReq = this.Auth.ResetPasswordResponse(data);
 
     this.Auth.Error.HandleResult(resetReq, (reset) => {

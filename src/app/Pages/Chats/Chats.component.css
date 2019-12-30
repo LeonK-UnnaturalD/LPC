@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 90%;
+    width: 80%;
     margin: auto;
 }
 
@@ -30,9 +30,6 @@ a {
 
 .chat {
     width: 100%;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
-    box-shadow: 5px 5px whitesmoke;
     margin-bottom: 15px;
 }
 
@@ -40,12 +37,22 @@ p {
     margin: 0 0 0 0;
 }
 
-.chat > div {
+.chat > .content {
     height: 35px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
+    margin: 0;
+}
+
+.chat > .contentblock {
+    height: 35px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    margin: 0;
 }
 
 svg {

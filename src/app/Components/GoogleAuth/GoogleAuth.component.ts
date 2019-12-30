@@ -15,4 +15,8 @@ export class GoogleAuthComponent implements OnInit {
     this.Url = this.Auth.GetGoogleAuth();
   }
 
+  public Google():void {
+    window.location.assign(this.Url);
+  }
+
 }

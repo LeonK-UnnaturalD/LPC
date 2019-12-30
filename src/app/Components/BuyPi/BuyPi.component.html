@@ -1,19 +1,43 @@
 <app-Empty></app-Empty>
-<div class="heading">
-  <h2>Buy Pi coins in {{State}}</h2>
-</div>
-<div>
-  <div class="table">
-    <span class="Name">Seller</span>
-    <span class="Payment">Payment method</span>
-    <span class="Price">Price</span>
-  </div>
-</div>
-<div class="container">
-    <div class="buyer" *ngFor="let buyer of Buyers">
-      <span class="Name">{{buyer.Username}}</span>
-      <span class="Payment">{{buyer.Deposit}}</span>
-      <span class="Price">{{buyer.Price}}{{buyer.Currency}}</span>
-      <a href="buy/{{buyer.Id}}"><button>Buy</button></a>
-    </div>
+<mat-card class="heading">
+  <mat-card-title>Buy Pi</mat-card-title>
+  <mat-card-content>
+    Buy Pi from different sellers or buisnesses 
+  </mat-card-content>
+</mat-card>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="Buyers" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="buy">
+      <th mat-header-cell *matHeaderCellDef> Select </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-button (click)="Open(row.Id)">Buy</button>
+      </td>
+    </ng-container>
+
+    <!-- Username Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <td mat-cell *matCellDef="let row"> {{row.Username}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="deposit">
+      <th mat-header-cell *matHeaderCellDef> Deposit </th>
+      <td mat-cell *matCellDef="let row"> {{row.Deposit}} </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let row"> {{row.Price}}{{row.Currency}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

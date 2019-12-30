@@ -9,6 +9,8 @@ import User from 'src/app/Classes/User';
 import AuthResponse from 'src/app/Classes/AuthResponse';
 import { Observable, of } from 'rxjs';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ContactMeDialogComponent } from 'src/app/Components/ContactMeDialog/ContactMeDialog.component';
 
 @Component({
   selector: 'app-BuyOffer',
@@ -25,7 +27,7 @@ export class BuyOfferComponent implements OnInit {
   public Loading: boolean = true;
   public Profile: { Id: string, Username: string };
 
-  constructor(private OfferService: BuyersService, private Storage: StorageService, private Site: ActivatedRoute, private Form: FormBuilder) { }
+  constructor(private OfferService: BuyersService, private Storage: StorageService, private Site: ActivatedRoute, private Form: FormBuilder, private Dialog: MatDialog) { }
 
   ngOnInit() {
     this.Group = this.Form.group({
@@ -47,7 +49,6 @@ export class BuyOfferComponent implements OnInit {
     const offerReq = this.OfferService.GetOffer(this.Id);
 
     await this.OfferService.Error.HandleResult(offerReq, (offer) => {
-      console.log(offer);
       this.Offer = offer;
       this.Loading = false;
     }, err => {
@@ -55,45 +56,14 @@ export class BuyOfferComponent implements OnInit {
     });
   }
 
-  public OpenForm():void {
-    this.Opened = !this.Opened;
-  }
-
-  public MoneyToPi(data: any):void {
-    this.AmountOfPi = parseFloat(data.target.value);
-    this.Group.value.Amount = this.AmountOfPi;
-  }
-
-  public Close():void {
-    this.Opened = false;
-  }
-
-  public CreateContact(data: any):void {
-    const offerReq = this.OfferService.GetOffer(this.Id);
-
-    this.OfferService.Error.HandleResult(offerReq, (offer) => {
-      const option = { 
-        UserId: offer.UserId, 
-        Messages: [
-          new Message(
-            this.Profile.Id,
-            this.Profile.Username,
-            `${this.Profile.Username} is requesting ${data.Amount} Pi from you`,
-            new Date().toISOString(),
-            true
-          )
-        ]
-      };
-
-      const reqContact = this.OfferService.CreateContact(option);
-        
-      this.OfferService.Error.HandleResult(reqContact, (contact) => {
-        window.location.assign(`/chats/${contact.Id}`);
-      }, (err) => {
-        this.Error = err;
-      })
-    }, (err) => {
-      this.Error = err;
+  public OpenDialog():void {
+    this.Dialog.open(ContactMeDialogComponent, {
+      minWidth: "250px",
+      data: this.Offer
     });
+  }
+
+  public OpenUser(Id: string):void {
+    window.location.assign(`/user/${Id}`);
   }
 }

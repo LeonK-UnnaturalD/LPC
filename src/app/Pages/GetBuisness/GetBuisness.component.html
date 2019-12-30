@@ -1,0 +1,52 @@
+<div class="fullsite">
+  <app-Empty></app-Empty>
+
+  <mat-card class="heading">
+    <mat-card-title>{{Buisness.Name}}</mat-card-title>
+    <mat-card-content class="content">
+      <button mat-button *ngIf="GetMyRolePermissions() === 3"><mat-icon>delete</mat-icon></button>
+      <button mat-button *ngIf="GetMyRolePermissions() === 3 || GetMyRolePermissions() === 2"><mat-icon>person_add</mat-icon></button>
+      <button mat-button *ngIf="GetMyRolePermissions() !== 3"><mat-icon>meeting_room</mat-icon></button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="heading">
+    <mat-card-title>Users</mat-card-title>
+    <mat-card-content>
+      Displays all members and each role
+    </mat-card-content>
+  </mat-card>
+
+  <div class="container">
+    <mat-action-list>
+      <mat-list-item (click)="EditMember(member.Id)" *ngFor="let member of Buisness.Members">
+        <div matLine>
+          <h3>{{member.Username}}</h3>
+          <p>{{GetRoleName(member.RoleId)}}</p>
+        </div>
+      </mat-list-item>
+    </mat-action-list>
+  </div>
+
+  <mat-card class="heading">
+    <mat-card-title>Logs</mat-card-title>
+    <mat-card-content>
+      Displays all transactions and updates of certain roles, to keep track of your buisness
+    </mat-card-content>
+  </mat-card>
+
+  <div class="container">
+    <mat-card *ngFor="let log of Buisness.Logs" [ngClass]="log.Action.Punish ? 'log bad' : 'log good'">
+      <div class="action_name">
+        <p><b>{{log.Action.Name}}</b></p>
+      </div>
+      <div class="emitter">
+        <p>{{log.EmitterName}}</p>
+      </div>
+      <div class="details">
+        <p *ngIf="log.Action.Receiver">{{log.Action.Receiver}}</p>
+        <p>{{log.Date}}</p>
+      </div>
+    </mat-card>
+  </div>
+</div>

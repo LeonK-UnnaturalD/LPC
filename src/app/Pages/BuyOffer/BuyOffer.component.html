@@ -1,52 +1,41 @@
 <div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="container fullsite">
-    <h1 *ngIf="Offer.Type.Buy">
-      Buy Pi with {{Offer.Deposit}}
-    </h1>
-    <h1 *ngIf="Offer.Type.Sell">
-        Sell Pi with {{Offer.Deposit}}
-      </h1>
-    <p *ngIf="Offer.Type.Buy" class="intro">
-      LocalPicoins.com user {{Offer.Username}} wishes to sell Pi to you.
-    </p>
-    <p *ngIf="Offer.Type.Sell" class="intro">
-        LocalPicoins.com user {{Offer.Username}} wishes to buy Pi from you.
-      </p>
-    <div class="Price">
-      <p>Price:
-      <br />
-      <span>{{Offer.Price}}{{Offer.Currency}} / Pi</span></p>
-      <br />
-      <p>Payment:
-      <br />
-      {{Offer.Deposit}}</p>
-    </div>
-    <div class="User">
-      <p>User:
-      <br />
-      <i data-feather="user"></i><span><a href="user/{{Offer.UserId}}">{{Offer.Username}}</a></span>
-      </p>
-      <br />
-    </div>
-    <button *ngIf="Profile && Offer.UserId !== Profile.Id" (click)="OpenForm()">Contact me</button>
-  </div>
-  <div [ngClass]="Opened ? 'infobox infoAnim' : 'none'">
-    <div class="top">
-      <span (click)="Close()"><i data-feather="x-circle"></i></span>
-    </div>
-    <h2>Send request</h2>
-    <h5>User set his limit to {{Offer.Limit}} Pi</h5>
-    <div class="form">
-        <div class="amount">
-            <input type="number" value="1" step="any" min="0.001" max="{{Offer.Limit}}" placeholder="1" (change)="MoneyToPi($event)" required />
-            &nbsp;
-            <input type="text" value="{{AmountOfPi}} Pi" step="any" readonly />
-        </div>
-    </div>
-    <form [formGroup]="Group" (ngSubmit)="CreateContact(Group.value)">
-      <button type="submit">Create chat</button>
-    </form>
+    <mat-card *ngIf="Offer.Type.Buy">
+      <mat-card-title>Buy Pi with {{Offer.Deposit}}</mat-card-title>
+      <mat-card-content>
+        FindPiNearYou.tk user {{Offer.Username}} wishes to sell Pi to you.
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="Offer.Type.Sell">
+      <mat-card-title>Sell Pi with {{Offer.Deposit}}</mat-card-title>
+      <mat-card-content>
+        FindPiNearYou.tk user {{Offer.Username}} wishes to buy Pi from you.
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="sidecard">
+      <mat-card-title>Price</mat-card-title>
+      <mat-card-content>
+        <p>
+          {{Offer.Price}}{{Offer.Currency}} / Pi
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="sidecard">
+      <mat-card-title>Limit</mat-card-title>
+      <mat-card-content>
+        <p>
+          {{Offer.Limit}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card (click)="OpenUser(Offer.UserId)" class="sidecard">
+      <mat-card-title>User</mat-card-title>
+      <mat-card-content>
+        <p><mat-icon>account_circle</mat-icon>{{Offer.Username}}</p>
+      </mat-card-content>
+    </mat-card>
+    <button class="contact" mat-raised-button *ngIf="Profile && Offer.UserId !== Profile.Id" (click)="OpenDialog()">Contact me</button>
   </div>
   <app-Empty></app-Empty>
 </div>

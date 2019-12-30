@@ -28,12 +28,17 @@ export class UserService {
     this.user = User;
   }
 
-  public async GetProfile():Promise<User> {
+  public GetProfile():Promise<User> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.get<User>(this.url + `profile/${this.user.Id}`, { headers: headers }).toPromise();
   }
 
-  public async CreateOffer(data: any):Promise<Offer> {
+  public FindMembers(searchString: string):Promise<{ Id: string, Username: string }[]> {
+    const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
+    return this.http.post<{ Id: string, Username: string }[]>(this.url + `get_users`, { search: searchString }, { headers: headers }).toPromise();
+  }
+
+  public CreateOffer(data: any):Promise<Offer> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<Offer>(this.url + `offer`, data, { headers: headers }).toPromise();
   }
@@ -46,7 +51,7 @@ export class UserService {
     return this.http.get<Array<Offer>>(this.url + `offers/?buy=${buy}&from=${from}&to=${to}&country=${country}&currency=${currency}&city=${city}`).toPromise();
   }
 
-  public async ChangeProfile(data: any):Promise<User> {
+  public ChangeProfile(data: any):Promise<User> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<User>(this.url + "profile", data, { headers: headers }).toPromise();
   }
@@ -55,32 +60,32 @@ export class UserService {
     return this.http.get<string>(this.url + "verify_email/" + Id).toPromise();
   }
 
-  public async GetDashboard():Promise<DashboardResult> {
+  public GetDashboard():Promise<DashboardResult> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.get<DashboardResult>(this.url + "dashboard", { headers: headers }).toPromise();
   }
 
-  public async EditOffer(data: any):Promise<Offer> {
+  public EditOffer(data: any):Promise<Offer> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<Offer>(this.url + "edit_offer", data, { headers: headers }).toPromise();
   }
 
-  public async DeleteOffer(data: any):Promise<void> {
+  public DeleteOffer(data: any):Promise<void> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<void>(this.url + "delete_offer", data, { headers: headers }).toPromise();
   }
 
-  public async Accept(data: any):Promise<void> {
+  public Accept(data: any):Promise<void> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<void>(this.url + "accept_review", data, { headers: headers }).toPromise();
   }
 
-  public async Deny(data: any):Promise<void> {
+  public Deny(data: any):Promise<void> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<void>(this.url + "deny_review", data, { headers: headers }).toPromise();
   }
 
-  public async CreateReview(data: any):Promise<Comment> {
+  public CreateReview(data: any):Promise<Comment> {
     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.token}`);
     return this.http.post<Comment>(this.url + "create_review", data, { headers: headers }).toPromise();
   }

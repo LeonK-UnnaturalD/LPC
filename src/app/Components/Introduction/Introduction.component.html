@@ -1,14 +1,14 @@
-<div class="flex">
-  <div class="Ad">
-    <h1 class="heading">Buy and sell Pi near you.</h1>
-    <br />
+<mat-card class="Ad">
+  <mat-card-title>Buy and sell Pi near you.</mat-card-title>
+  <br />
+  <mat-card-content>
     <h1 class="Desc">Private. Secure. Fast.</h1>
     <p>
       Trade Pi with {{CustomerCount}} customers from {{CountryCount}} different countries
     </p>
     <br />
-    <a href="register" class="button">
-      <p>Sign up</p>
-    </a>
-  </div>
-</div>
+    <button mat-raised-button (click)="SignUp()">
+      Sign up
+    </button>
+  </mat-card-content>
+</mat-card>

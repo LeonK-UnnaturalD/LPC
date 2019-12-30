@@ -11,21 +11,29 @@ import feather from 'feather-icons';
 })
 export class ProfileComponent implements OnInit {
   public User: User;
-  public Group: FormGroup;
   public Loading: boolean = true;
   public Error: { Code: number, Msg: string } = null;
+  public Group: FormGroup;
 
   constructor(private UserService: UserService, private Form: FormBuilder) {
   }
 
   ngOnInit() {
     this.Group = this.Form.group({
+      FirstName: "",
+      LastName: "",
       Username: "",
-      Password: "",
-      RepeatPassword: "",
+      NPassword: "",
+      RPassword: "",
       Email: "",
-      Language: "",
-      OldPassword: ""
+      Languages: "",
+      Country: "",
+      City: "",
+      ZIP: "",
+      Street: "",
+      OldPassword: "",
+      Terms: "",
+      Description: ""
     });
 
     this.InitProfile();
@@ -35,10 +43,26 @@ export class ProfileComponent implements OnInit {
     const profileReq = this.UserService.GetProfile();
 
     await this.UserService.Error.HandleResult(profileReq, (profile) => {
-      this.User = <User>profile;
-      this.Loading = false;
+      this.User = profile;
 
-      console.log(profile);
+      this.Group.setValue({
+        FirstName: profile.RealName.FirstName,
+        LastName: profile.RealName.LastName,
+        Username: profile.Username,
+        NPassword: "",
+        RPassword: "",
+        Email: profile.Email,
+        Languages: profile.Languages,
+        Country: profile.Location.Country,
+        City: profile.Location.City,
+        ZIP: profile.Location.ZIP,
+        Street: profile.Location.Street,
+        OldPassword: "",
+        Terms: profile.Terms,
+        Description: profile.Description
+      });
+
+      this.Loading = false;
 
       setTimeout(() => feather.replace(), 200);
     }, (err) => {
@@ -51,8 +75,6 @@ export class ProfileComponent implements OnInit {
   }
 
   public async OnChange(data: any):Promise<void> {
-    data["Languages"] = this.User.Languages;
-
     const changeReq = this.UserService.ChangeProfile(data);
 
     await this.UserService.Error.HandleResult(changeReq, (change) => {
@@ -61,8 +83,6 @@ export class ProfileComponent implements OnInit {
     }, err => {
       this.Error = err;
     });
-
-    this.Group.reset();
   }
 
   public Close():void {

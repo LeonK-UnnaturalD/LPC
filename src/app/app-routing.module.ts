@@ -17,6 +17,9 @@ import { UnavailableComponent } from './Pages/Unavailable/Unavailable.component'
 import { DashboardComponent } from './Pages/Dashboard/Dashboard.component';
 import { VerifiedEmailComponent } from './Pages/VerifiedEmail/VerifiedEmail.component';
 import { ResetPasswordComponent } from './Pages/ResetPassword/ResetPassword.component';
+import { BuisnessComponent } from './Pages/Buisness/Buisness.component';
+import { CreateBuisnessComponent } from './Pages/CreateBuisness/CreateBuisness.component';
+import { GetBuisnessComponent } from './Pages/GetBuisness/GetBuisness.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -37,6 +40,9 @@ const routes: Routes = [
   { path: "dashboard", component: DashboardComponent },
   { path: "verify_email/:id", component: VerifiedEmailComponent },
   { path: "reset_password/:id", component: ResetPasswordComponent },
+  { path: "buisness", component: BuisnessComponent },
+  { path: "create_buisness", component: CreateBuisnessComponent },
+  { path: "get_buisness", component: GetBuisnessComponent }
 ];
 
 @NgModule({

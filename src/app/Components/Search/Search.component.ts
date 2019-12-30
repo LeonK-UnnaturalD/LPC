@@ -23,6 +23,9 @@ export class SearchComponent implements OnInit {
       Currency: "USD",
       Country: "GB",
       City: ""
+    }, 
+    {
+      "validators": [ Validators.required ]
     });
   }
 
@@ -31,6 +34,8 @@ export class SearchComponent implements OnInit {
   }
 
   public Find(data: any):void {
+    if(this.Group.invalid) return;
+
     this.Router.navigate(["/offer_results"], { queryParams: { isbuying: this.IsBuying, from: data.From, to: data.To, country: data.Country, currency: data.Currency, city: data.City } });
   }
 

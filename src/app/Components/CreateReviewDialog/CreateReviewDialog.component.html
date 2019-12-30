@@ -1,0 +1,19 @@
+<div>
+  <h2 mat-dialog-title>Create Review for {{Data.Username}}</h2>
+  <form mat-dialog-content [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
+    <mat-form-field>
+      <mat-label>Rating</mat-label>
+      <mat-select value="positiv" formControlName="Rating">
+        <mat-option value="positiv">positiv</mat-option>
+        <mat-option value="negative">negative</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Comment</mat-label>
+      <textarea matInput placeholder="Enter review" formControlName="Text"></textarea>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-raised-button type="submit">Create review</button>
+    </div>
+  </form>
+</div>

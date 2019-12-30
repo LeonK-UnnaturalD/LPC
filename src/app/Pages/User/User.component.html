@@ -1,52 +1,71 @@
-<div style="width: 100%;" *ngIf="!Loading">
+<div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="container fullsite">
-    <h1>{{User.Username}}</h1>
-    <div class="confirmed">
-      <h3>Number of confirmed purchases</h3>
-      <p>{{User.ConfirmedTrades.length}}</p>
-    </div>
-    <div class="feedbackscore">
-      <h3>Feedback score</h3>
-      <p>{{User.FeedbackScore}}%</p>
-    </div>
-    <div class="created">
-      <h3>Account created</h3>
-      <p>{{User.CreatedAt}}</p>
-    </div>
-    <div class="languages">
-      <h3>Languages</h3>
-      <p>{{User.Languages.join(', ')}}</p>
-    </div>
-    <div class="trusted">
-      <h3>Trustworthy</h3>
-      <p>Trusted by {{User.Trust.length}} people</p>
-    </div>
-    <div class="verified">
-      <h3>Verified</h3>
-      <i data-feather="x" *ngIf="!User.VerifiedEmail"></i>
-      <i data-feather="check" *ngIf="User.VerifiedEmail"></i>
-    </div>
-    <div *ngIf="User.Comments.length > 0" class="feedback">
-      <h3>Feedback</h3>
-      <div class="comment" *ngFor="let c of User.Comments">
-        <a href="user/{{c.UserId}}"><h4>{{c.Username}}</h4></a>
-        <div class="text">
-          <p>{{c.Text}}</p>
+    <mat-card class="card">{{User.Username}}</mat-card>
+    <mat-card class="card" *ngIf="User.Description">
+      <mat-card-title>Description</mat-card-title>
+      <mat-card-content>
+        {{User.Description}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Confirmed purchases</mat-card-title>
+      <mat-card-content>
+        {{User.ConfirmedTrades.length}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Feedback score</mat-card-title>
+      <mat-card-content>
+        {{User.FeedbackScore}}%
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Account created</mat-card-title>
+      <mat-card-content>
+        {{User.CreatedAt}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Languages</mat-card-title>
+      <mat-card-content>
+        {{User.Languages.join(', ')}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Trustworthy</mat-card-title>
+      <mat-card-content>
+        Trusted by {{User.Trust.length}} people
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Verified</mat-card-title>
+      <mat-card-content>
+        <mat-icon *ngIf="!User.VerifiedEmail">clear</mat-icon>
+        <mat-icon *ngIf="User.VerifiedEmail">verified_user</mat-icon>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-title>Feedback</mat-card-title>
+      <mat-card-content *ngIf="User.Comments.length <= 0">
+        There are no reviews yet, why shouldn't you be the first one reviewing {{User.Username}}
+      </mat-card-content>
+      <mat-card-content style="width: 85%;" *ngIf="User.Comments.length > 0">
+        <div class="scroll">
+          <mat-card class="comment" *ngFor="let c of User.Comments">
+            <mat-card-title class="name">{{c.Username}}</mat-card-title>
+            <mat-card-content class="text">
+              <div>
+                <p>{{c.Text}}</p>
+              </div>
+            </mat-card-content>
+            <mat-icon class="rating" *ngIf="c.Rating === 'positiv'">thumb_up</mat-icon>
+            <mat-icon class="rating" *ngIf="c.Rating !== 'positiv'">thumb_down</mat-icon>
+          </mat-card>
         </div>
-        <span *ngIf="c.Rating === 'good'"><i data-feather="thumbs-up"></i></span>
-        <span *ngIf="c.Rating !== 'good'"><i data-feather="thumbs-down"></i></span>
-      </div>
-    </div>
-    <form *ngIf="Profile && Profile.Id !== User.Id" class="form" [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
-      <h3>Create review</h3>
-      <select value="positiv" formControlName="Rating">
-        <option value="positiv">positiv</option>
-        <option value="negative">negative</option>
-      </select>
-      <input type="text" placeholder="Enter text..." formControlName="Text" />
-      <button type="submit">Create review</button>
-    </form>
+      </mat-card-content>
+      <button *ngIf="Profile && User.Id !== Profile.Id" mat-raised-button (click)="CreateReview()">Create Review</button>
+    </mat-card>
   </div>
   <app-Empty></app-Empty>
 </div>

@@ -1,22 +1,23 @@
-.Ad {
-    width: 90%;
-    background-color: whitesmoke;
+.Ad > mat-card-content, .Ad {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #e5e5e5;
-    border-radius: 12px;
 }
 
-.Ad > .heading {
+.Ad {
+    margin: auto;
+    width: 80%;
+}
+
+.Ad .heading {
     margin-top: 20px;
     margin-left: 15px;
     margin-right: 15px;
     text-align: center;
 }
 
-.Ad > .Desc {
+.Ad .Desc {
     margin-top: 20px;
     color: darkorange;
     font-size: 38px;
@@ -50,11 +51,6 @@
     background-color: rgb(50,205,50);
     border-radius: 10px;
     border: 1px solid #e5e5e5;
-}
-
-.button p {
-    margin: 0 0 0 0;
-    text-align: center;
 }
 
 @media (min-width: 920px) {

@@ -9,11 +9,23 @@ h3 {
     text-align: center;
 }
 
+.overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 15px;
+}
+
 .offers {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.table-3r th, .table-3r td {
+    width: 33%;
+    overflow: hidden;
 }
 
 .offers > .offer {

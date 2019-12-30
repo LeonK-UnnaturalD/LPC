@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Offer from 'src/app/Classes/Offer';
 import { UserService } from 'src/app/Services/User.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-OfferResults',
@@ -10,12 +12,22 @@ import { UserService } from 'src/app/Services/User.service';
 })
 export class OfferResultsComponent implements OnInit {
   public Buy: boolean = true;
-  public Offers: Array<Offer>;
+  
   public From: string;
   public To: string;
   public Country: string;
   public City: string;
   public Loading: boolean = true;
+
+  public Results: MatTableDataSource<Offer> = new MatTableDataSource<Offer>();
+  public displayedColumns: string[] = [
+    "username",
+    "deposit",
+    "price",
+    "select"
+  ]
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private Route: ActivatedRoute, private UserService: UserService) { }
 
@@ -34,11 +46,23 @@ export class OfferResultsComponent implements OnInit {
     const offersReq = this.UserService.FindOffers(this.Buy, this.From, this.To, this.Country, this.City, currency);
 
     await this.UserService.Error.HandleResult(offersReq, (offers) => {
-      this.Offers = <Offer[]>offers;
+      this.Results = new MatTableDataSource<Offer>(offers);
+      this.Results.paginator = this.paginator;
       this.Loading = false;
     }, (err) => {
       console.error(err);
     });
+  }
+
+  public Open(Id: string):void {
+    if(this.Buy)
+    {
+      window.location.assign(`/sell/${Id}`);
+    }
+    else
+    {
+      window.location.assign(`/buy/${Id}`);
+    }
   }
 
 }

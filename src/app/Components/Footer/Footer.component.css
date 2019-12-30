@@ -35,9 +35,6 @@ h3 {
 }
 
 .origin {
-    border-top: 1px solid #e5e5e5;
-    list-style: none;
-    background-color: whitesmoke;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,4 +66,8 @@ a {
     height: 18px;
     width: 18px;
     margin-right: 10px;
+}
+
+.table {
+    min-width: 90%;
 }

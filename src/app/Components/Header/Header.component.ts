@@ -4,7 +4,9 @@ import { StorageService } from 'src/app/Services/Storage.service';
 import User from 'src/app/Classes/User';
 import { ChatService } from 'src/app/Services/Chat.service';
 import Message from 'src/app/Classes/Messages';
-import { SwPush } from '@angular/service-worker';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorComponent } from '../Error/Error.component';
 
 @Component({
   selector: 'app-Header',
@@ -12,24 +14,15 @@ import { SwPush } from '@angular/service-worker';
   styleUrls: ['./Header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public IsClicked: boolean = false;
+  @Output() OnToggleNav = new EventEmitter<any>();
   public SignedIn: boolean = false;
 
-  readonly Key: string = "BIxs1J3mnbbJBkifCQ9PYjSyelpsI62ekaIlM3D0cO896C2nGtp-ADAbE4acdCnp5T1nHwHf40HXqKBznJkgPc4";
-
-  @Output() OnReceivedMessage = new EventEmitter<Message>();
-
-  constructor(private Storage: StorageService, private ChatService: ChatService) {
+  constructor(private Snackbar: MatSnackBar, private Storage: StorageService, private ChatService: ChatService, private Dialog: MatDialog) {
 
   }
 
   public OpenMenu():void {
-    this.IsClicked = !this.IsClicked;
-  }
-
-  public Logout():void {
-    this.Storage.Reset();
-    window.location.assign("/");
+    this.OnToggleNav.emit();
   }
 
   private IsLoggedIn():void {
@@ -51,6 +44,7 @@ export class HeaderComponent implements OnInit {
 
     this.ChatService.AddMember().subscribe(member => {
       this.Storage.AddOnlineMember(member);
+      console.log(member);
     }, (err) => {
 
     });
@@ -60,12 +54,59 @@ export class HeaderComponent implements OnInit {
     }, (err) => {
 
     });
+
+    this.ChatService.ReceivedBlock().subscribe(id => {
+      if(id === this.Storage.GetCustomer().User.Id)
+        return window.location.assign('/chats');
+    });
+  }
+
+  private CheckToken():void {
+    const expire = parseInt(sessionStorage.getItem("expire"));
+    const current = new Date().setHours(new Date().getHours());
+          
+    if(expire - current <= 0)
+    {
+      this.Dialog.open(ErrorComponent, {
+        minWidth: "250",
+        data: {
+          ErrorCode: "402",
+          ErrorMessage: "Token expired"
+        }
+      });
+
+      setTimeout(() => {
+        this.Storage.Reset();
+        window.location.assign('/');
+      }, 5000)
+    }
   }
 
   ngOnInit() {
-    this.IsLoggedIn();
+    this.CheckToken();
 
+    setInterval(() => {
+      const customer = this.Storage.GetCustomer();
+      if(customer)
+      {
+          this.CheckToken();
+      }
+    }, 60000);
+
+    this.IsLoggedIn();
     this.InitListeners();
+
+    this.ChatService.ReceivedMessage().subscribe((data) => {
+      var url = window.location.href;
+
+      if(!data.Receivers.includes(this.Storage.GetCustomer().User.Id)) return;
+      if(url.split('/')[url.split('/').length - 1] === data.Id) return;
+
+      this.Snackbar.open(`You received a new message from ${data.message.Username}` + "\n" + `"${data.message.Content}"`, null, { duration: 2500 });
+      this.Storage.AddUnreadMessage(data.Id);
+    }, (err) => {
+      console.log(err);
+    })
 
     setTimeout(() => feather.replace(), 200);
   }

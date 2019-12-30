@@ -1,13 +1,37 @@
-<div class="Searchblock">
+<mat-card class="Searchblock">
   <div class="buttons">
-    <button class="BuyPi" [ngClass]="IsBuying ? 'selected' : ''" (click)="SetToBuy()">Buy Pi</button>
-    <button class="SellPi" [ngClass]="!IsBuying ? 'selected' : ''" (click)="SetToSell()">Sell Pi</button>
+    <button mat-raised-button [ngClass]="IsBuying ? 'selected' : ''" (click)="SetToBuy()">Buy Pi</button>
+    <button mat-raised-button [ngClass]="!IsBuying ? 'selected' : ''" (click)="SetToSell()">Sell Pi</button>
   </div>
-    <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="IsBuying ? 'buySelected' : 'none'">  
+    <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="IsBuying ? 'used' : 'none'">  
       <div class="amount">
-          <input type="number" placeholder="from" formControlName="From" required />
+          <mat-form-field>
+            <input matInput type="number" placeholder="from" formControlName="From" required />
+          </mat-form-field>
           <span>-</span>
-          <input type="number" placeholder="to" formControlName="To" required />
+          <mat-form-field>
+            <input matInput type="number" placeholder="to" formControlName="To" required />
+          </mat-form-field>
+      </div>
+      <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
+      <app-Select (OnChange)="OnChange($event)" [Group]="Group" class="flex"></app-Select>
+      <mat-form-field *ngIf="Cities.length > 0">
+        <mat-select value="{{Group.value.City}}" formControlName="City">
+          <mat-option value="">None</mat-option>
+          <mat-option *ngFor="let city of Cities" value="{{city}}">{{city}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button>Find all</button>
+    </form>
+    <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="!IsBuying ? 'used' : 'none'">  
+      <div class="amount">
+          <mat-form-field>
+            <input matInput type="number" placeholder="from" formControlName="From" required />
+          </mat-form-field>
+          <span>-</span>
+          <mat-form-field>
+            <input matInput type="number" placeholder="to" formControlName="To" required />
+          </mat-form-field>
       </div>
       <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
       <app-Select (OnChange)="OnChange($event)" [Group]="Group" class="flex"></app-Select>
@@ -17,22 +41,6 @@
           <option *ngFor="let city of Cities" value="{{city}}">{{city}}</option>
         </select>
       </div>
-      <button>Find all</button>
+      <button mat-raised-button>Find all</button>
     </form>
-    <form [formGroup]="Group" (ngSubmit)="Find(Group.value)" [ngClass]="!IsBuying ? 'sellSelected' : 'none'">  
-      <div class="amount">
-          <input type="number" placeholder="from" formControlName="From" required />
-          <span>-</span>
-          <input type="number" placeholder="to" formControlName="To" required />
-      </div>
-      <app-SelectCurrency [Group]="Group" class="flex"></app-SelectCurrency>
-      <app-Select [Group]="Group" (OnChange)="OnChange($event)" class="flex"></app-Select>
-      <div *ngIf="Cities.length > 0" class="flex">
-        <select value="{{Group.value.City}}" formControlName="City">
-          <option value="">None</option>
-          <option *ngFor="let city of Cities" value="{{city}}">{{city}}</option>
-        </select>
-      </div>
-      <button>Find all</button>
-    </form>
-</div>
+  </mat-card>
