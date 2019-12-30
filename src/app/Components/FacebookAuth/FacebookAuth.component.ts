@@ -15,4 +15,8 @@ export class FacebookAuthComponent implements OnInit {
     this.Url = this.Auth.GetFacebookAuth();
   }
 
+  public Facebook():void {
+    window.location.assign(this.Url);
+  }
+
 }

@@ -17,7 +17,7 @@ export class ReportDialogComponent implements OnInit {
   public Report: FormControl = new FormControl('', { validators: Validators.required });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private Data: ReportData,
+    @Inject(MAT_DIALOG_DATA) public Data: ReportData,
     private ChatService: ChatService
   ) { }
 

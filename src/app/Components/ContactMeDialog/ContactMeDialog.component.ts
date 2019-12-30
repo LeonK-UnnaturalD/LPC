@@ -18,7 +18,7 @@ export class ContactMeDialogComponent implements OnInit {
 
   constructor(
     private DialogRef: MatDialogRef<ContactMeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private Data: Offer,
+    @Inject(MAT_DIALOG_DATA) public Data: Offer,
     private OfferService: BuyersService,
     private Storage: StorageService,
   ) { }

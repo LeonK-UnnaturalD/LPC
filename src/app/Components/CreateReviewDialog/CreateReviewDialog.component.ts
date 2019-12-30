@@ -13,7 +13,7 @@ export class CreateReviewDialogComponent implements OnInit {
   public Group: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private Data: User,
+    @Inject(MAT_DIALOG_DATA) public Data: User,
     private Form: FormBuilder,
     private UserService: UserService
   ) { }

@@ -1,7 +1,7 @@
 <div class="fullsite">
   <app-Empty></app-Empty>
   <mat-vertical-stepper class="stepper" [linear]="false" #stepper>
-    <mat-step [stepControl]="Details">
+    <mat-step>
       <form [formGroup]="Group">
         <ng-template matStepLabel>Details of buisness</ng-template>
         <mat-form-field>
@@ -15,7 +15,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="Location">
+    <mat-step>
       <form [formGroup]="Group">
         <ng-template matStepLabel>Location of buisness</ng-template>
         <mat-form-field>
@@ -35,7 +35,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="Members">
+    <mat-step>
       <form [formGroup]="Group">
         <ng-template matStepLabel>Members of buisness</ng-template>
         <mat-form-field>
@@ -72,7 +72,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="Submit">
+    <mat-step>
       <form [formGroup]="Group" (ngSubmit)="Submit(Group.value)">
         <ng-template matStepLabel>Submit buisness</ng-template>
         <button mat-raised-button type="submit">Submit</button>

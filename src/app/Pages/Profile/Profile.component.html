@@ -4,7 +4,7 @@
     <h1>{{User.Username}}</h1>
 
     <mat-vertical-stepper class="stepper" [linear]="false" #stepper>
-      <mat-step [stepControl]="Name">
+      <mat-step>
         <form [formGroup]="Group">
           <ng-template matStepLabel>Fill out your name</ng-template>
           <mat-form-field>
@@ -18,7 +18,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="Details">
+      <mat-step>
         <form [formGroup]="Group">
           <ng-template matStepLabel>Fill out your profile details</ng-template>
           <mat-form-field>
@@ -32,7 +32,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="Account">
+      <mat-step>
         <form [formGroup]="Group">
           <ng-template matStepLabel>Change Account</ng-template>
           <mat-form-field>
@@ -130,7 +130,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="Location">
+      <mat-step>
         <form [formGroup]="Group">
           <ng-template matStepLabel>Fill out your address</ng-template>
           <mat-form-field>
@@ -151,7 +151,7 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="Change">
+      <mat-step>
         <form [formGroup]="Group" (ngSubmit)="(Group.value)">
           <ng-template matStepLabel>Save changes</ng-template>
           <div>

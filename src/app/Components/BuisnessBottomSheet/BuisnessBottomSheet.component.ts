@@ -19,7 +19,7 @@ export class BuisnessBottomSheetComponent implements OnInit {
 
   constructor(
     private BottomSheetRef: MatBottomSheetRef<BuisnessBottomSheetComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) private data: Member,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: Member,
     private Form: FormBuilder
     ) { }
 
@@ -31,7 +31,11 @@ export class BuisnessBottomSheetComponent implements OnInit {
   }
 
   public OnSubmit(data: any):void {
-    console.log(data);
+    
+  }
+
+  public KickMember():void {
+
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/Services/User.service';
 
 export interface DialogData {
   Limit: number;
@@ -21,7 +22,8 @@ export class EditOfferDialogComponent implements OnInit {
   constructor(
     private Form: FormBuilder,
     public dialogRef: MatDialogRef<EditOfferDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private User: UserService
   ) { }
 
   ngOnInit() {
@@ -34,8 +36,16 @@ export class EditOfferDialogComponent implements OnInit {
     });
   }
 
-  public SubmitEdit():void {
-    console.log(this.Group.value);
+  public async SubmitEdit(data: any):Promise<void> {
+    if(this.Group.invalid) return;
+
+    const editReq = this.User.EditOffer(data);
+
+    await this.User.Error.HandleResult(editReq, (offer) => {
+      
+    }, (err) => {
+
+    });
   }
 
 }
