@@ -45,8 +45,6 @@ export class ProfileComponent implements OnInit {
     await this.UserService.Error.HandleResult(profileReq, (profile) => {
       this.User = profile;
 
-      console.log(profile);
-
       this.Group.setValue({
         FirstName: profile.RealName ? profile.RealName.FirstName : "",
         LastName: profile.RealName ? profile.RealName.LastName : "",
