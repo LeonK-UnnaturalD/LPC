@@ -45,21 +45,23 @@ export class ProfileComponent implements OnInit {
     await this.UserService.Error.HandleResult(profileReq, (profile) => {
       this.User = profile;
 
+      console.log(profile);
+
       this.Group.setValue({
-        FirstName: profile.RealName.FirstName,
-        LastName: profile.RealName.LastName,
+        FirstName: profile.RealName ? profile.RealName.FirstName : "",
+        LastName: profile.RealName ? profile.RealName.LastName : "",
         Username: profile.Username,
         NPassword: "",
         RPassword: "",
         Email: profile.Email,
-        Languages: profile.Languages,
-        Country: profile.Location.Country,
-        City: profile.Location.City,
-        ZIP: profile.Location.ZIP,
-        Street: profile.Location.Street,
+        Languages: profile.Languages ? profile.Languages : [""],
+        Country: profile.Location ? profile.Location.Country : "",
+        City: profile.Location ? profile.Location.City : "",
+        ZIP: profile.Location ? profile.Location.ZIP : "",
+        Street: profile.Location ? profile.Location.Street : "",
         OldPassword: "",
-        Terms: profile.Terms,
-        Description: profile.Description
+        Terms: profile.Terms ? profile.Terms : "",
+        Description: profile.Description ? profile.Description : ""
       });
 
       this.Loading = false;
