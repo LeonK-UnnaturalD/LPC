@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/Services/Storage.service';
 
 @Component({
   selector: 'app-Introduction',
@@ -9,13 +10,17 @@ export class IntroductionComponent implements OnInit {
   public CustomerCount: number = 1000;
   public CountryCount: number = 274;
 
-  constructor() { }
+  constructor(private Storage: StorageService) { }
 
   ngOnInit() {
   }
 
   public SignUp():void {
     window.location.assign('/register');
+  }
+
+  public SignedIn():boolean {
+    return this.Storage.GetCustomer() !== null;
   }
 
 }

@@ -40,11 +40,15 @@ svg {
 
 .mat-elevation-z8 {
     margin: auto;
-    width: 85%;
 }
 
 .heading {
     width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.headingcard {
     margin: auto;
     margin-bottom: 20px;
 }
@@ -170,5 +174,11 @@ table {
 @media (min-width: 1320px) {
     body {
         font-size: 18px;
+    }
+}
+
+@media (min-width: 950px) {
+    .notDisplayPC {
+        display: none;
     }
 }

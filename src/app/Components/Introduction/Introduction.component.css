@@ -7,7 +7,6 @@
 
 .Ad {
     margin: auto;
-    width: 80%;
 }
 
 .Ad .heading {
@@ -51,10 +50,4 @@
     background-color: rgb(50,205,50);
     border-radius: 10px;
     border: 1px solid #e5e5e5;
-}
-
-@media (min-width: 920px) {
-    .Ad {
-        width: 40%;
-    }
 }

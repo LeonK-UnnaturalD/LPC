@@ -68,6 +68,7 @@ import { BuisnessBottomSheetComponent } from './Components/BuisnessBottomSheet/B
 import { ContactMeDialogComponent } from './Components/ContactMeDialog/ContactMeDialog.component';
 import { CreateReviewDialogComponent } from './Components/CreateReviewDialog/CreateReviewDialog.component';
 import { ReportDialogComponent } from './Components/ReportDialog/ReportDialog.component';
+import { NewsComponent } from './Components/News/News.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { ReportDialogComponent } from './Components/ReportDialog/ReportDialog.co
     BuisnessBottomSheetComponent,
     ContactMeDialogComponent,
     CreateReviewDialogComponent,
-    ReportDialogComponent
+    ReportDialogComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,

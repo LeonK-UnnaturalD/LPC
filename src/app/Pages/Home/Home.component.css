@@ -1,0 +1,56 @@
+.fullsite {
+    width: 90%;
+    margin: auto;
+}
+
+@media (min-width: 950px) {
+    .fullsite {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-areas:
+        "space1 space1"
+        "topbar topbar" 
+        "topleft topright"
+        "bottomleft bottomright"
+        "space2 space2";
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .topbar {
+        grid-area: topbar;
+        margin: auto;
+        width: 95%;
+    }
+
+    .topleft {
+        grid-area: topleft;
+        width: 90%;
+        margin: auto;
+    }
+
+    .topright {
+        grid-area: topright;
+        width: 90%;
+        margin: auto;
+    }
+
+    .bottomleft {
+        grid-area: bottomleft;
+        width: 90%;
+        margin: auto;
+    }
+
+    .bottomright {
+        grid-area: bottomright;
+        width: 90%;
+        margin: auto;
+    }
+
+    .takespace1 {
+        grid-area: space1;
+    }
+
+    .takespace2 {
+        grid-area: space2;
+    }
+}

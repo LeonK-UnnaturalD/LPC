@@ -9,7 +9,6 @@
     align-items: center;
     margin: auto;
     min-height: 250px;
-    width: 80%;
 }
 
 .buttons {
@@ -34,7 +33,7 @@
     max-width: 80%;
 }
 
-mat-form-field {
+.mat-form-field {
     max-width: 35%;
 }
 
@@ -44,10 +43,4 @@ form {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-@media (min-width: 920px) {
-    .Searchblock {
-        width: 50%;
-    }
 }

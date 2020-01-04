@@ -1,0 +1,27 @@
+.news {
+    margin-bottom: 20px;
+}
+
+.mat-card-title {
+    color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.mat-card-subtitle {
+    color: whitesmoke;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+@media (min-width: 950px) {
+    .news {
+        margin: 0;
+    }
+}

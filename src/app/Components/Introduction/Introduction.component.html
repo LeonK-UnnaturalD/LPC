@@ -7,7 +7,7 @@
       Trade Pi with {{CustomerCount}} customers from {{CountryCount}} different countries
     </p>
     <br />
-    <button mat-raised-button (click)="SignUp()">
+    <button *ngIf="!SignedIn()" mat-raised-button (click)="SignUp()">
       Sign up
     </button>
   </mat-card-content>
