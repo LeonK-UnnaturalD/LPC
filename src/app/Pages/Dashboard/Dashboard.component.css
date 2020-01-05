@@ -9,6 +9,11 @@ h3 {
     text-align: center;
 }
 
+.dashboardheading {
+    margin: auto;
+    margin-bottom: 20px;
+}
+
 .overview {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -16,106 +21,13 @@ h3 {
     grid-gap: 15px;
 }
 
-.offers {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .table-3r th, .table-3r td {
     width: 33%;
     overflow: hidden;
 }
 
-.offers > .offer {
-    display: grid;
-    grid-template-areas: "id deposit type options";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-items: center;
-    align-items: center;
-    grid-gap: 5px;
-    width: 100%;
-    border-bottom: 1px solid black;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.offer > .offerId {
-    grid-area: id;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-.offer > .Deposit {
-    grid-area: deposit;
-}
-
-.offer > .Type {
-    grid-area: type;
-}
-
-.offer > .settings {
-    grid-area: options;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.offerHeader {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    width: 100%;
-    justify-items: center;
-    align-items: center;
-    background-color: whitesmoke;
-    border-bottom: 1px solid black;
-}
-
-.feedbackHeader {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 100%;
-    justify-items: center;
-    align-items: center;
-    background-color: whitesmoke;
-    border-bottom: 1px solid black;
-}
-
-.feedbacks {
-    margin-top: 25px;
-}
-
-.feedback {
-    display: grid;
-    grid-template-areas: "reviewId from settings";
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    justify-items: center;
-    grid-gap: 5px;
-    width: 100%;
-    border-bottom: 1px solid black;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.feedback .reviewId {
-    grid-area: reviewId;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-.feedback .reviewUser {
-    grid-area: from;
-}
-
-.feedback .settings {
-    grid-area: settings;
-}
-
-.fullsite {
-    width: 95%;
-    margin: auto;
+.mat-elevation-z8 {
+    margin-bottom: 20px;
 }
 
 a {
@@ -123,8 +35,10 @@ a {
     color: black;
 }
 
-input, select {
-    width: 75%;
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }
 
 .noneElements {
@@ -135,4 +49,33 @@ input, select {
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+@media (min-width: 950px) {
+    .dashboardgrid {
+        display: grid;
+        grid-template-areas: 
+        "offers feedbacks"
+        "transactions unavailable";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        align-items: center;
+        grid-gap: 20px;
+    }
+
+    .dashboardgrid > .offers {
+        grid-area: offers;
+    }
+
+    .dashboardgrid > .feedbacks {
+        grid-area: feedbacks;
+    }
+
+    .dashboardgrid > .transactions {
+        grid-area: transactions;
+    }
+
+    .dashboardgrid > .unavailable {
+        grid-area: unavailable;
+    }
 }

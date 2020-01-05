@@ -19,4 +19,5 @@ export default class User {
     public VerifiedEmail: boolean;
     public VerifiedPhone: boolean;
     public IsThirdParty: boolean;
+    public NotAvailable: number;
 }

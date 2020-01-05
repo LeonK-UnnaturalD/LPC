@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Buisness } from 'src/app/Classes/Buisness';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BuisnessBottomSheetComponent } from 'src/app/Components/BuisnessBottomSheet/BuisnessBottomSheet.component';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-GetBuisness',
@@ -18,7 +19,8 @@ export class GetBuisnessComponent implements OnInit {
     private Storage: StorageService, 
     private BuisnessService: BuisnessService, 
     private Route: ActivatedRoute,
-    private MatBottomSheet: MatBottomSheet
+    private MatBottomSheet: MatBottomSheet,
+    private Meta: MetaService
     ) { }
 
   ngOnInit() {
@@ -29,6 +31,9 @@ export class GetBuisnessComponent implements OnInit {
       log.Date = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getMinutes()}:${date.getHours()}`;
       return log;
     });
+
+    this.Meta.UpdateTitle(`LocalPicoins | ${this.Buisness.Name}`);
+    this.Meta.UpdateTag("description", "See all your members and transactions of the company. You can manage them here too as well as creating offers.");
 
     if(!this.Buisness)
       window.location.assign('/not_available');

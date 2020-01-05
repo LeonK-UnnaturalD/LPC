@@ -8,6 +8,7 @@ import { StorageService } from 'src/app/Services/Storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportDialogComponent } from 'src/app/Components/ReportDialog/ReportDialog.component';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Chat',
@@ -27,7 +28,9 @@ export class ChatComponent implements OnInit {
     private Form: FormBuilder, 
     private Storage: StorageService,
     private SnackBar: MatSnackBar,
-    private Dialog: MatDialog) {
+    private Dialog: MatDialog,
+    private Meta: MetaService
+    ) {
   }
 
   public OnSubmit(data: any):void {
@@ -80,6 +83,9 @@ export class ChatComponent implements OnInit {
     await this.ChatService.Error.HandleResult(chatReq, (chat) => {
       this.Chat = chat;
       this.Loading = false;
+
+      this.Meta.UpdateTitle(`LocalPicoins | Chat`);
+      this.Meta.UpdateTag("description", "Chat with your customer, to receive or send money/pi");
     }, (err) => {
       this.Error = err;
     });

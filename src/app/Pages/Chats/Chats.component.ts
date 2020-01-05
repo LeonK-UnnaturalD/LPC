@@ -3,6 +3,7 @@ import { ChatService } from 'src/app/Services/Chat.service';
 import Chat from 'src/app/Classes/Chats';
 import feather from 'feather-icons';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Chats',
@@ -16,7 +17,8 @@ export class ChatsComponent implements OnInit {
 
   constructor(
     private ChatService: ChatService, 
-    private Storage: StorageService
+    private Storage: StorageService,
+    private Meta: MetaService
     ) {
     
   }
@@ -36,7 +38,9 @@ export class ChatsComponent implements OnInit {
         return c;
       })
       this.Loading = false;
-
+        
+      this.Meta.UpdateTitle(`LocalPicoins | Chats`);
+      this.Meta.UpdateTag("description", "Lists all your chats to interact with them.");
       setTimeout(() => feather.replace(), 100);
     }, (err) => {
       this.Error = err;

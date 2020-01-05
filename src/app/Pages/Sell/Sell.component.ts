@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Sell',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellComponent implements OnInit {
 
-  constructor() { }
+  constructor(private Meta: MetaService) { }
 
   ngOnInit() {
+    this.Meta.UpdateTitle(`LocalPicoins | Sell Pi`);
+    this.Meta.UpdateTag("description", "Check all offers, so you can decide to which one you could sell some Pi to.");
   }
 
 }

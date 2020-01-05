@@ -2,9 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     font-size: 20px;
-    width: 90%;
     margin: auto;
 }
 
@@ -15,8 +13,6 @@
 }
 
 .card {
-    width: 90%;
-    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,4 +53,17 @@
 
 .comment .rating {
     grid-area: rating;
+}
+
+@media (min-width: 950px) {
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        grid-gap: 20px;
+    }
+
+    .card {
+        margin: 0;
+    }
 }

@@ -1,15 +1,15 @@
-<div *ngIf="!Loading">
+<div *ngIf="!Loading" class="fullsite">
   <app-Empty></app-Empty>
-  <mat-card class="heading">
+  <mat-card class="card-margin">
     <mat-card-title>Chats</mat-card-title>
     <mat-card-content>
       Lists all your chats with your customers. You can report, block, trust them and confirm trades after both of you received the promised amount of each other.
     </mat-card-content>
   </mat-card>
-  <div class="flex fullsite">
+  <div class="chatsgrid">
     <mat-card class="chat noChats" *ngIf="Chats.length <= 0">
-        <span><i data-feather="user"></i>&nbsp;No chats found</span>
-        <p><a class="link" href="/">Find users to chat with by trading</a></p>
+      <span><i data-feather="user"></i>&nbsp;No chats found</span>
+      <p><a class="link" href="/">Find users to chat with by trading</a></p>
     </mat-card>  
     <mat-card matBadge="{{GetBadgeCount(chat.Id)}}" matBadgeColor="warn" *ngFor="let chat of Chats" class="chat">
       <mat-card-content *ngIf="!chat.Blocked" class="content" (click)="OpenChat(chat.Id)">

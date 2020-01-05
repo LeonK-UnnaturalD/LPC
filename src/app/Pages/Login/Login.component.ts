@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/Services/Auth.service';
 import { UserService } from 'src/app/Services/User.service';
 import AuthResponse from 'src/app/Classes/AuthResponse';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Login',
@@ -20,11 +21,19 @@ export class LoginComponent implements OnInit {
   public Password: FormControl = new FormControl('', Validators.required);
   public Email: FormControl = new FormControl('', [ Validators.required, Validators.email ]);
 
-  constructor(private Auth: AuthService, private User: UserService, private Storage: StorageService) {
+  constructor(
+    private Auth: AuthService, 
+    private User: UserService, 
+    private Storage: StorageService,
+    private Meta: MetaService
+    ) {
 
   }
 
   ngOnInit() {
+    this.Meta.UpdateTitle(`LocalPicoins | Sign in`);
+    this.Meta.UpdateTag("description", "Login to your account, so you can continue talking with your clients or create new ones.");
+
     const isAuth = this.Auth.GetThirdPartyUser();
 
     if(isAuth)
@@ -87,7 +96,7 @@ export class LoginComponent implements OnInit {
   public async OnReset(data: any):Promise<void> {
     const resetReq = this.Auth.ResetPasswordRequest(data);
 
-    await this.Auth.Error.HandleResult(resetReq, (reset) => {
+    await this.Auth.Error.HandleResult(resetReq, () => {
       this.Success = true;
       this.Email.reset();
     }, (err) => {

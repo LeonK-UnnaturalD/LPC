@@ -36,6 +36,8 @@ svg {
 
 .fullsite {
     min-height: 90vh;
+    width: 90%;
+    margin: auto;
 }
 
 .mat-elevation-z8 {
@@ -167,6 +169,11 @@ table {
     -ms-overflow-style: none;
 }
 
+.formHolder {
+    margin: auto 0 auto 0;
+    width: 100%;
+}
+
 .mat-input {
     width: 75%;
 }
@@ -180,5 +187,15 @@ table {
 @media (min-width: 950px) {
     .notDisplayPC {
         display: none;
+    }
+
+    .formHolder {
+        margin: auto 0 auto 0;
+        width: 50%;
+    }
+
+    .fixSearchBlock {
+        max-width: 40%;
+        margin: auto;
     }
 }

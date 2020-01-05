@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import feather from 'feather-icons';
 import { StorageService } from 'src/app/Services/Storage.service';
 import User from 'src/app/Classes/User';
@@ -15,6 +15,7 @@ import { ErrorComponent } from '../Error/Error.component';
 })
 export class HeaderComponent implements OnInit {
   @Output() OnToggleNav = new EventEmitter<any>();
+  
   public SignedIn: boolean = false;
 
   constructor(private Snackbar: MatSnackBar, private Storage: StorageService, private ChatService: ChatService, private Dialog: MatDialog) {

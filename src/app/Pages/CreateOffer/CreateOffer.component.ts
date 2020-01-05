@@ -4,6 +4,7 @@ import { UserService } from 'src/app/Services/User.service';
 import { GetCitiesService } from 'src/app/Services/GetCities.service';
 import User from 'src/app/Classes/User';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-CreateOffer',
@@ -23,7 +24,9 @@ export class CreateOfferComponent implements OnInit {
     private CityService: GetCitiesService, 
     private Form: FormBuilder, 
     private User: UserService,
-    private Storage: StorageService) { }
+    private Storage: StorageService,
+    private Meta: MetaService
+    ) { }
 
   ngOnInit() {
     this.Group = this.Form.group({
@@ -63,7 +66,8 @@ export class CreateOfferComponent implements OnInit {
     const createReq = this.User.CreateOffer(data);
 
     this.User.Error.HandleResult(createReq, (offer) => {
-      console.log(offer);
+      this.Meta.UpdateTitle(`LocalPicoins | Post offer`);
+      this.Meta.UpdateTag("description", "Create an offer, so other clients can buy Pi from you or sell Pi to you");
     }, (err) => {
       this.Error = err;
     })

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SellersService } from 'src/app/Services/Sellers.service';
 import Seller from '../../Classes/Seller';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,6 +20,7 @@ export class SellersComponent implements OnInit {
   ]
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @Input() public HasOptions: boolean = false;
 
   constructor(private SellerService: SellersService) {
     
@@ -34,7 +35,8 @@ export class SellersComponent implements OnInit {
 
     await this.SellerService.Error.HandleResult(sellersReq, (sellers) => {
       this.Sellers = new MatTableDataSource<Offer>(sellers);
-      this.Sellers.paginator = this.paginator;
+      if(this.HasOptions)
+        this.Sellers.paginator = this.paginator;
     }, (err) => {
       console.log(err);
     });

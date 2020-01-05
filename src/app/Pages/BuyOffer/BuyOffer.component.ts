@@ -11,6 +11,7 @@ import { Observable, of } from 'rxjs';
 import { StorageService } from 'src/app/Services/Storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactMeDialogComponent } from 'src/app/Components/ContactMeDialog/ContactMeDialog.component';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-BuyOffer',
@@ -27,7 +28,7 @@ export class BuyOfferComponent implements OnInit {
   public Loading: boolean = true;
   public Profile: { Id: string, Username: string };
 
-  constructor(private OfferService: BuyersService, private Storage: StorageService, private Site: ActivatedRoute, private Form: FormBuilder, private Dialog: MatDialog) { }
+  constructor(private OfferService: BuyersService, private Storage: StorageService, private Site: ActivatedRoute, private Form: FormBuilder, private Dialog: MatDialog, private Meta: MetaService) { }
 
   ngOnInit() {
     this.Group = this.Form.group({
@@ -51,6 +52,9 @@ export class BuyOfferComponent implements OnInit {
     await this.OfferService.Error.HandleResult(offerReq, (offer) => {
       this.Offer = offer;
       this.Loading = false;
+
+      this.Meta.UpdateTitle(`LocalPicoins | Offer by ${offer.Username}`);
+      this.Meta.UpdateTag("description", "Get certain information about an offer, you could buy it");
     }, err => {
       this.Error = err;
     });

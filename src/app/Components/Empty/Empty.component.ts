@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-Empty',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./Empty.component.css']
 })
 export class EmptyComponent implements OnInit {
+  @Input() DisablePC: boolean = false;
 
   constructor() { }
 

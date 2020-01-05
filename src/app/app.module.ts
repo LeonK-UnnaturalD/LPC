@@ -17,6 +17,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const config: SocketIoConfig = { url: 'https://findpinearyou.herokuapp.com', options: {} };
 
@@ -69,6 +71,7 @@ import { ContactMeDialogComponent } from './Components/ContactMeDialog/ContactMe
 import { CreateReviewDialogComponent } from './Components/CreateReviewDialog/CreateReviewDialog.component';
 import { ReportDialogComponent } from './Components/ReportDialog/ReportDialog.component';
 import { NewsComponent } from './Components/News/News.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -141,7 +144,10 @@ import { NewsComponent } from './Components/News/News.component';
     MatSnackBarModule,
     MatSidenavModule,
     MatListModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { BuyersService } from 'src/app/Services/Buyers.service';
 import Buyer from 'src/app/Classes/Buyer';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./BuyPi.component.css']
 })
 export class BuyPiComponent implements OnInit {
-  public Buyers: MatTableDataSource<Buyer[]> = new MatTableDataSource<Buyer[]>();
+  public Buyers: MatTableDataSource<Buyer> = new MatTableDataSource<Buyer>();
   public displayedColumns = [
     "username",
     "deposit",
@@ -21,6 +21,7 @@ export class BuyPiComponent implements OnInit {
   ]
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @Input() public HasOptions:boolean = false;
 
   constructor(private BuyService: BuyersService, private Route: ActivatedRoute) {
     
@@ -34,9 +35,7 @@ export class BuyPiComponent implements OnInit {
     const res = this.BuyService.GetBuyers();
     
     this.BuyService.Error.HandleResult(res, (data) => {
-      this.Buyers = new MatTableDataSource<Buyer[]>(data);
-
-      this.Buyers.paginator = this.paginator;
+      this.Buyers = new MatTableDataSource<Buyer>(data);
     }, (err) => console.log(err));
   }
 

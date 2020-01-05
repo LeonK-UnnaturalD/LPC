@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Unavailable',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnavailableComponent implements OnInit {
 
-  constructor() { }
+  constructor(private Meta: MetaService) { }
 
   ngOnInit() {
+    this.Meta.UpdateTitle(`LocalPicoins | Unavailable`);
+    this.Meta.UpdateTag("description", "Doesn't exist");
   }
 
 }

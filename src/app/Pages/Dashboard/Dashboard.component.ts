@@ -2,11 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/User.service';
 import DashboardResult from 'src/app/Classes/DashboardResponse';
 import Offer from 'src/app/Classes/Offer';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { EditOfferDialogComponent } from 'src/app/Components/EditOfferDialog/EditOfferDialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import Comment from 'src/app/Classes/Comment';
+import User from 'src/app/Classes/User';
+import { MetaService } from 'src/app/Services/Meta.service';
+
+interface Transaction {
+  UserId: string;
+  Username?: string;
+  Date: string;
+  Amount: number;
+}
 
 @Component({
   selector: 'app-Dashboard',
@@ -20,6 +29,10 @@ export class DashboardComponent implements OnInit {
   public Opened: boolean = false;
   public Group: FormGroup;
   public Error: { Code: number, Msg: string } = null;
+  public User: User = null;
+  public Checked: boolean = false;
+
+  public ConfirmDate: FormControl = new FormControl('', { validators: Validators.required });
 
   public Offers: MatTableDataSource<Offer> = new MatTableDataSource<Offer>();
   public displayedColumns: string[] = [
@@ -35,7 +48,19 @@ export class DashboardComponent implements OnInit {
     "options"
   ];
 
-  constructor(public dialog: MatDialog, private UserService: UserService, private Form: FormBuilder) { }
+  public Transactions: MatTableDataSource<Transaction> = new MatTableDataSource<Transaction>();
+  public transactionColums: string[] = [
+    "username",
+    "amount",
+    "date"
+  ];
+
+  constructor(
+    public dialog: MatDialog, 
+    private UserService: UserService, 
+    private Form: FormBuilder,
+    private Meta: MetaService
+    ) { }
 
   ngOnInit() {
     this.Group = this.Form.group({
@@ -49,6 +74,47 @@ export class DashboardComponent implements OnInit {
     this.InitDashboard();
   }
 
+  public GetStatus():boolean {
+    if(!this.User.NotAvailable) return false;
+
+    if(this.User.NotAvailable - Date.now() > 0)
+      return true;
+    else  
+      return false;
+  }
+
+  public async SetStatus():Promise<void> {
+    this.Checked = !this.Checked;
+
+    if(!this.Checked)
+    {
+      const statusReq = this.UserService.SetStatus(0);
+
+      await this.UserService.Error.HandleResult(statusReq, () => {
+        window.location.reload();
+      }, (err) => {
+  
+      });
+    }
+  }
+
+  public async SubmitStatus():Promise<void> {
+    if(this.ConfirmDate.invalid) return;
+
+    const date: string = this.ConfirmDate.value;
+    const numDate: number = new Date(date).setHours(new Date(date).getHours());
+
+    if(numDate - Date.now() <= 0) return;
+
+    const statusReq = this.UserService.SetStatus(numDate);
+
+    await this.UserService.Error.HandleResult(statusReq, () => {
+      window.location.reload();
+    }, (err) => {
+
+    });
+  }
+
   public async InitDashboard():Promise<void> {
     const dashboard = this.UserService.GetDashboard();
 
@@ -57,7 +123,17 @@ export class DashboardComponent implements OnInit {
 
       this.Offers = new MatTableDataSource<Offer>(data.Offers);
       this.Feedbacks = new MatTableDataSource<Comment>(data.Reviews);
+      this.User = data.User; 
+      this.Checked = this.GetStatus();
+      if(this.Checked)
+      {
+        this.ConfirmDate.setValue(new Date(this.User.NotAvailable));
+      }
+
       this.Loading = false;
+
+      this.Meta.UpdateTitle(`LocalPicoins | Your dashboard`);
+      this.Meta.UpdateTag("description", "Overview of all transactions, offers and chats you have created so far");
     }, (err) => { 
       console.log(err);
     });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/Auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-ResetPassword',
@@ -12,7 +13,12 @@ export class ResetPasswordComponent implements OnInit {
   public Group: FormGroup;
   public Error: { Msg: string, Code: number } = null;
 
-  constructor(private Form: FormBuilder, private Auth: AuthService, private Route: ActivatedRoute) { }
+  constructor(
+    private Form: FormBuilder, 
+    private Auth: AuthService, 
+    private Route: ActivatedRoute,
+    private Meta: MetaService
+    ) { }
 
   ngOnInit() {
     const id: string = this.Route.snapshot.paramMap.get('id');
@@ -33,7 +39,8 @@ export class ResetPasswordComponent implements OnInit {
     const authReq = this.Auth.Check(Id);
 
     await this.Auth.Error.HandleResult(authReq, (auth) => {
-      console.log('Excisting password reset request');
+      this.Meta.UpdateTitle(`LocalPicoins | Reset password`);
+      this.Meta.UpdateTag("description", "Reset your password for security reasons or because you forgot it.");
     }, (err) => {
       this.Error = err;
     });

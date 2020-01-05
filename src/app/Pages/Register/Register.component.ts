@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/Services/Auth.service';
 import { StorageService } from 'src/app/Services/Storage.service';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Register',
@@ -16,11 +17,16 @@ export class RegisterComponent implements OnInit {
   public Email: FormControl = new FormControl('', [ Validators.required, Validators.email ]);
   public Username: FormControl = new FormControl('', [ Validators.required, Validators.maxLength(20), Validators.minLength(4) ]);
 
-  constructor(private Auth: AuthService, private Storage: StorageService) {
+  constructor(
+    private Auth: AuthService, 
+    private Storage: StorageService,
+    private Meta: MetaService
+    ) {
   }
 
   ngOnInit() {
-    
+    this.Meta.UpdateTitle(`LocalPicoins | Sign up`);
+    this.Meta.UpdateTag("description", "Create an account in order to communicate with other customers via DM.");
   }
 
   public async OnRegister(data: any):Promise<void> {

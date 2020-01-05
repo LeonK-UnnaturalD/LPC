@@ -3,6 +3,7 @@ import { UserService } from 'src/app/Services/User.service';
 import User from 'src/app/Classes/User';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import feather from 'feather-icons';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-Profile',
@@ -15,7 +16,11 @@ export class ProfileComponent implements OnInit {
   public Error: { Code: number, Msg: string } = null;
   public Group: FormGroup;
 
-  constructor(private UserService: UserService, private Form: FormBuilder) {
+  constructor(
+    private UserService: UserService, 
+    private Form: FormBuilder,
+    private Meta: MetaService
+    ) {
   }
 
   ngOnInit() {
@@ -63,6 +68,9 @@ export class ProfileComponent implements OnInit {
       });
 
       this.Loading = false;
+
+      this.Meta.UpdateTitle(`LocalPicoins | Your profile`);
+      this.Meta.UpdateTag("description", "Edit your terms, your description, your location and others, so clients will trust you even more.");
 
       setTimeout(() => feather.replace(), 200);
     }, (err) => {

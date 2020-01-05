@@ -30,6 +30,15 @@ form {
     align-items: center;
 }
 
+.auth {
+    margin: 15px auto 0 auto;
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 h1, p {
     text-align: center;
 }

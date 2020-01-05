@@ -90,4 +90,8 @@ export class UserService {
     return this.http.post<Comment>(this.url + "create_review", data, { headers: headers }).toPromise();
   }
 
+  public SetStatus(date: number):Promise<void> {
+    return this.http.post<void>(this.url + "/set_status", { date }, { headers: new HttpHeaders().append("Authorization", `Bearer ${this.token}`) }).toPromise();
+  }
+
 }

@@ -39,5 +39,7 @@
     </tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator *ngIf="HasOptions" [length]="Sellers.data.length" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator *ngIf="!HasOptions" [length]="Sellers.data.length" [pageSize]="5"></mat-paginator>
+  
 </div>

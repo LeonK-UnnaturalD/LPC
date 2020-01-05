@@ -1,7 +1,13 @@
 <div *ngIf="!Loading">
   <app-Empty></app-Empty>
   <div class="container fullsite">
-    <mat-card class="card">{{User.Username}}</mat-card>
+    <app-Warning Content="Client isn't available until {{GetDate()}}"></app-Warning>
+    <mat-card class="card">
+      <mat-card-title>Username</mat-card-title>
+      <mat-card-content>
+        {{User.Username}}
+      </mat-card-content>
+    </mat-card>
     <mat-card class="card" *ngIf="User.Description">
       <mat-card-title>Description</mat-card-title>
       <mat-card-content>
@@ -64,7 +70,7 @@
           </mat-card>
         </div>
       </mat-card-content>
-      <button *ngIf="Profile && User.Id !== Profile.Id" mat-raised-button (click)="CreateReview()">Create Review</button>
+      <button *ngIf="Profile && !User.NotAvailable && User.Id !== Profile.Id" mat-raised-button (click)="CreateReview()">Create Review</button>
     </mat-card>
   </div>
   <app-Empty></app-Empty>

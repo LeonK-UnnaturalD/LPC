@@ -7,25 +7,30 @@
     </p>
   </div>
   <br />
-  <form (ngSubmit)="OnLogin(GetLoginData())">
-    <mat-form-field class="mat-input">
-      <input matInput type="text" placeholder="Username" [formControl]="Username">
-      <mat-error *ngIf="Username.hasError('required')">
-        Username is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="mat-input">
-      <input matInput type="password" placeholder="Password" [formControl]="Password">
-      <mat-error *ngIf="Password.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-
-    <button mat-stroked-button type="submit">Sign in</button>
-  </form>
-
-  <app-GoogleAuth></app-GoogleAuth>
-  <app-FacebookAuth></app-FacebookAuth>
+  <div class="formHolder">
+    <form (ngSubmit)="OnLogin(GetLoginData())">
+      <mat-form-field class="mat-input">
+        <input matInput type="text" placeholder="Username" [formControl]="Username">
+        <mat-error *ngIf="Username.hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mat-input">
+        <input matInput type="password" placeholder="Password" [formControl]="Password">
+        <mat-error *ngIf="Password.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+  
+      <button mat-stroked-button type="submit">Sign in</button>
+    </form>
+  
+    <div class="auth">
+      <app-GoogleAuth></app-GoogleAuth>
+      <app-Empty></app-Empty>
+      <app-FacebookAuth></app-FacebookAuth>
+    </div>
+  </div>
 
   <div class="switch">
     <span>No account yet? <a href="register">Sign up</a></span>

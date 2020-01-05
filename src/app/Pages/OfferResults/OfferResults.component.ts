@@ -4,6 +4,7 @@ import Offer from 'src/app/Classes/Offer';
 import { UserService } from 'src/app/Services/User.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MetaService } from 'src/app/Services/Meta.service';
 
 @Component({
   selector: 'app-OfferResults',
@@ -29,7 +30,11 @@ export class OfferResultsComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private Route: ActivatedRoute, private UserService: UserService) { }
+  constructor(
+    private Route: ActivatedRoute, 
+    private UserService: UserService,
+    private Meta: MetaService
+    ) { }
 
   ngOnInit() {
     this.Buy = this.Route.snapshot.queryParamMap.get('isbuying') === "true" ? true : false;
@@ -38,6 +43,9 @@ export class OfferResultsComponent implements OnInit {
     this.Country = this.Route.snapshot.queryParamMap.get('country');
     this.City = this.Route.snapshot.queryParamMap.get('city');
     const currency = this.Route.snapshot.queryParamMap.get('currency');
+
+    this.Meta.UpdateTitle(`LocalPicoins | Offers search result`);
+    this.Meta.UpdateTag("description", "Lists the offers, which fits your search tags");
 
     this.InitOffer(currency);
   }
