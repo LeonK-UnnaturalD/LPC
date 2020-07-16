@@ -15,4 +15,4 @@ This project was created for The Pi Familiy, it was meant for selling and purcha
 
 ## Example website
 
-The source code can be tested on [this](https://localpicoins.tk) website, its hosted with Netlify.
+The source code can be tested on [this](https://findpinearyou.tk) website, its hosted with Netlify.
