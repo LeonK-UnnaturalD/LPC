@@ -12,3 +12,7 @@ This project was created for The Pi Familiy, it was meant for selling and purcha
 * Create companies, where you can set a revenue share and sell a fixed amount (WIP)
 * Block or report clients
 * News banner about Pi
+
+## Example website
+
+The source code can be tested on [this](https://localpicoins.tk) website, its hosted with Netlify.
